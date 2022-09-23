@@ -73,7 +73,7 @@ header .active {
   left: -6px;
   bottom: 0;
   content: '';
-  background: url(../../assets/images/bamboo.svg);
+  background: url(../../assets/icons/bamboo.svg);
   background-origin: content-box;
   background-size: contain;
   background-repeat: no-repeat;
@@ -93,7 +93,7 @@ header .active {
   content: '';
   width: 100%;
   height: calc(100% + 80px);
-  background-image: url(../../assets/images/Giant_Panda.jpg);
+  background-image: url(../../assets/images/Giant_Panda.png);
   background-repeat: no-repeat;
   background-size: cover;
   top: -80px;
@@ -155,6 +155,7 @@ header .active {
 }
 .backStage {
   margin-top: 140px;
+  margin-bottom: 177px;
   color: #333b41;
 }
 
@@ -185,4 +186,88 @@ header .active {
 .backStage p {
   font-size: 16px;
   line-height: 135%;
+}
+
+.pets {
+  text-align: center;
+}
+.pets .container {
+}
+.rowPets {
+  display: flex;
+  justify-content: space-between;
+}
+.pet {
+}
+.pet figure {
+}
+.pet figcaption {
+  display: flex;
+  justify-content: flex-end;
+}
+.petName {
+  flex: 1;
+  padding: 10px 14px 16px;
+}
+.petName h4 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: -1px;
+}
+.pet p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 85%;
+}
+.petIcon {
+  margin: auto 10px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+}
+.banana_bamboo {
+  width: 33px;
+  height: 37px;
+  background-image: url(../../assets/icons/banana-bamboo_icon.svg);
+}
+.meat_fish {
+  width: 48px;
+  height: 38px;
+  background-image: url(../../assets/icons/meet-fish_icon.svg);
+}
+.petsControl {
+  height: 20px;
+  position: relative;
+}
+.petsControl button {
+  border: none;
+  position: absolute;
+  width: 62px;
+  height: 62px;
+  border-radius: 31px;
+  background-size: 30% auto;
+  top: -22px;
+}
+
+.btnPrev {
+  left: -82px;
+  background: url(../../assets/icons/btn-prev.svg) 50% no-repeat,
+    linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
+}
+.btnNext {
+  right: -82px;
+  background: url(../../assets/icons/btn-next.svg) 50% no-repeat,
+    linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
+}
+.btnPrev:active {
+  background: url(../../assets/icons/btn-prev.svg) 50% no-repeat, #4b9200;
+  background-size: 50%;
+}
+.btnNext:active {
+  background: url(../../assets/icons/btn-next.svg) 50% no-repeat, #4b9200;
+  background-size: 50%;
+}
+.pets .btn {
+  margin-top: 80px;
 }
