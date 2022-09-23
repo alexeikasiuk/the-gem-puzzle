@@ -1,6 +1,16 @@
 @import url(../../assets/styles/reset.css);
 body {
   font: 16px Roboto, Arial, sans-serif;
+  width: 100%;
+  overflow-x: hidden;
+}
+#screenSize {
+  position: fixed;
+  left: 0;
+  top: 0;
+  font-size: 2rem;
+  color: yellow;
+  font-weight: 700;
 }
 .container {
   max-width: 1160px;
@@ -30,6 +40,7 @@ header nav a {
   line-height: 140%;
 }
 header .active {
+  background-clip: text;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent;
   background: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
@@ -134,4 +145,44 @@ header .active {
   border-radius: 25px;
   border: none;
   letter-spacing: -1px;
+}
+.btn:hover {
+  background-color: #e47209;
+  background-image: none;
+}
+.btn:active {
+  background-color: #4b9200;
+}
+.backStage {
+  margin-top: 140px;
+  color: #333b41;
+}
+
+.backStage .container {
+  display: flex;
+  position: relative;
+}
+
+.backStage .container:before {
+  content: url(../../assets/images/flower_foto1.png);
+  position: absolute;
+  left: calc(100% + 16px);
+  top: calc(-332px + 50%);
+}
+.backStage figure {
+  margin-right: 87px;
+}
+.backStage h2 {
+  font-size: 48px;
+  line-height: 120%;
+  margin-bottom: 22px;
+}
+.backStage h3 {
+  margin: 54px auto 34px;
+  font-size: 24px;
+  line-height: 120%;
+}
+.backStage p {
+  font-size: 16px;
+  line-height: 135%;
 }
