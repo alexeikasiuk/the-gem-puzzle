@@ -1,14 +1,11 @@
 @import url(../../assets/styles/reset.css);
-
 body {
   font: 16px Roboto, Arial, sans-serif;
 }
-
 .container {
   max-width: 1160px;
   margin: 0 auto;
 }
-
 header {
   background-color: #283035;
 }
@@ -16,9 +13,6 @@ header .container {
   min-height: 80px;
   color: #fff;
   line-height: 80px;
-  /* background-image: url(../../assets/images/Giant_Panda.jpg); */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
 }
 header .container > * {
   display: inline-block;
@@ -31,7 +25,6 @@ header nav a {
   color: #fff;
   text-decoration: none;
   text-align: center;
-  /* border: 1px solid yellow; */
   display: inline;
   font-weight: 500;
   line-height: 140%;
@@ -80,40 +73,50 @@ header .active {
 .design {
   float: right;
 }
-
-/* header > .container { */
-/* border: 10px solid green;
+.watchWrapper {
+  min-height: 700px;
+  position: relative;
+}
+.watchWrapper:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: calc(100% + 80px);
+  background-image: url(../../assets/images/Giant_Panda.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: -80px;
+  left: 0;
+  z-index: -1;
+}
+.watchWrapper > .container {
   display: flex;
   justify-content: flex-end;
-} */
-/* .watch {
-  /* border: 5px solid red; */
-/* text-align: center;
+}
+.watch {
+  text-align: center;
   margin-top: 86px;
   position: relative;
 }
 
 .watch p {
-  /* border: 5px solid #fff; */
-/* color: #fff;
+  color: #fff;
   font-weight: 700;
   line-height: 80px;
   width: 500px;
   text-align: center;
-  font-size: 104px; */
-/* text-transform: uppercase; */
-/* margin-bottom: 60px;
+  font-size: 104px;
+  margin-bottom: 60px;
   position: relative;
-  z-index: 5; */
-/* letter-spacing: 0px; */
-/* } */
-/* .watch:before {
+  z-index: 5;
+  letter-spacing: 0px;
+}
+.watch:before {
   left: -70px;
   top: -75px;
   content: '';
   position: absolute;
-  border: 5px solid pink; */
-/* width: 465px;
+  width: 465px;
   height: 465px;
   border-radius: calc(465px / 2);
   background: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
@@ -130,5 +133,5 @@ header .active {
   background: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
   border-radius: 25px;
   border: none;
-  letter-spacing: -1px; */
-/* } */
+  letter-spacing: -1px;
+}
