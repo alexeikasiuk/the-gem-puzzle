@@ -354,3 +354,138 @@ header .active {
 .petCards .btn {
   margin: 80px auto 0;
 }
+.friend {
+  background: linear-gradient(
+      315.75deg,
+      rgba(254, 210, 144, 0.7) 30.06%,
+      #febdab 100.95%,
+      rgba(254, 210, 144, 0.7) 106.36%
+    ),
+    linear-gradient(
+      315.75deg,
+      rgba(254, 189, 171, 0.74) 30.06%,
+      rgba(243, 169, 248, 0.66) 50.74%,
+      #e0d8f0 80.49%,
+      #eaf7fe 127.9%,
+      #eaf7fe 149.54%
+    ),
+    linear-gradient(
+      315.75deg,
+      rgba(254, 189, 171, 0.74) 30.06%,
+      rgba(243, 169, 248, 0.66) 50.74%,
+      #e0d8f0 80.49%,
+      #eaf7fe 127.9%,
+      #eaf7fe 149.54%
+    );
+  opacity: 0.9;
+  padding-top: 69px;
+  padding-bottom: 100px;
+  margin-top: 100px;
+}
+.friend .container {
+  border-radius: 20px;
+  background: rgba(253, 253, 255, 0.52);
+  padding-top: 41px;
+  padding-bottom: 59px;
+  text-align: center;
+}
+.friend h2 {
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 120%;
+  color: #fe9013;
+  margin-bottom: 30px;
+}
+.friend h3 {
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 130%;
+  color: #333b41;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.friend p {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 120%;
+  color: #333b41;
+  text-align: left;
+  padding-left: 100px;
+  /* padding-right: 100px; */
+}
+.friend p:nth-of-type(2) {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 130%;
+  margin-top: 40px;
+}
+.friend p:nth-of-type(3) {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
+  margin-top: 10px;
+  padding-right: 198px;
+}
+.friend p a {
+  position: relative;
+  white-space: nowrap;
+}
+.friend p a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #fe9013;
+  bottom: -5px;
+  left: 0;
+}
+.feed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 60px;
+  width: 764px;
+}
+.step {
+  /* border: 1px solid #f9804b; */
+  border-radius: 5px;
+  overflow: hidden;
+  /* border-image-source: linear-gradient(
+    113.96deg,
+    #f9804b 1.49%,
+    #fe9013 101.44%
+  ); */
+}
+.step {
+  width: 167px;
+  height: 244px;
+}
+.stepImg {
+  width: 167px;
+  border: 1px solid #f9804b;
+  border-radius: 5px;
+  height: 167px;
+}
+.step p {
+  margin-top: 31px;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+  /* border: 1px solid red; */
+}
+.pay {
+  background: url(../../assets/icons/pay.svg) 50% no-repeat, #fff;
+}
+.zoo {
+  background: url(../../assets/icons/zoo.svg) 50% no-repeat, #fff;
+}
+.monkey {
+  background: url(../../assets/icons/monkey.svg) 50% no-repeat, #fff;
+}
+.nextStep {
+  position: relative;
+  top: -40px;
+  width: 70px;
+  height: 50px;
+  background: url(../../assets/icons/nextStep.svg) 50% no-repeat;
+}
