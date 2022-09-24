@@ -187,27 +187,107 @@ header .active {
   font-size: 16px;
   line-height: 135%;
 }
-
-.pets {
+.petCards {
   text-align: center;
 }
-.pets .container {
-}
-.rowPets {
+.rowPetCards {
   display: flex;
   justify-content: space-between;
 }
-.pet {
+.petCard {
+  border: 1px solid #fa6f32;
+  width: 366px;
+  /* border-image: linear-gradient(113.96deg, #fa6f32 1.49%, #fe9013 101.44%); */
+  /* border-image-slice: fill; */
+  border-radius: 5px;
+  overflow: hidden;
+  /* box-shadow: 0 0 0 1px #fa6f32; */
 }
-.pet figure {
+.petImg {
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 2;
 }
-.pet figcaption {
+.petTooltip {
+  position: absolute;
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 159px;
+  height: 107px;
+  background-color: rgba(255, 255, 255, 0.96);
+  bottom: 0;
+  left: calc(50% - 79px);
+  text-align: left;
+  padding: 7px 10px;
+  z-index: -1;
+}
+.petTooltip * {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.petTooltip p {
+  margin-top: 5px;
+}
+.petTooltip button {
+  border: none;
+  border-radius: 5px;
+  color: #4b9200;
+  width: 136px;
+  height: 31px;
+  margin-top: 15px;
+}
+.tooltipMark {
+  position: absolute;
+  left: 50px;
+  top: -1px;
+  font-size: 60px;
+  display: inline-block;
+  width: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.99);
+}
+.tooltipMark::before,
+.tooltipMark::after {
+  content: '';
+  height: 10px;
+  position: absolute;
+  top: -10px;
+}
+.tooltipMark::before {
+  border-left: 1px solid #000;
+  transform: rotate(27deg);
+  transform-origin: 1px calc(100% - 2px);
+  left: 0;
+}
+.tooltipMark::after {
+  border-right: 1px solid #000;
+  transform: rotate(-27deg);
+  transform-origin: 0 calc(100% - 2px);
+  right: 0;
+}
+.petCard:hover {
+  overflow: visible;
+  z-index: 3;
+}
+.petCard:hover img {
+  transform: scale(calc(386 / 366));
+  transition: all 0.5s;
+}
+.petCard:hover .petTooltip {
+  transform: translateY(125px);
+  transition: 0.5s;
+}
+.petInfo {
   display: flex;
   justify-content: flex-end;
 }
 .petName {
   flex: 1;
-  padding: 10px 14px 16px;
+  padding: 8px 14px 16px;
+}
+.petName * {
+  text-align: left;
 }
 .petName h4 {
   font-size: 16px;
@@ -215,7 +295,7 @@ header .active {
   line-height: 140%;
   letter-spacing: -1px;
 }
-.pet p {
+.petCard p {
   font-size: 15px;
   font-weight: 300;
   line-height: 85%;
@@ -232,15 +312,18 @@ header .active {
   background-image: url(../../assets/icons/banana-bamboo_icon.svg);
 }
 .meat_fish {
+  position: relative;
+  left: 2px;
+  bottom: 3px;
   width: 48px;
   height: 38px;
   background-image: url(../../assets/icons/meet-fish_icon.svg);
 }
-.petsControl {
+.petCardsControl {
   height: 20px;
   position: relative;
 }
-.petsControl button {
+.petCardsControl button {
   border: none;
   position: absolute;
   width: 62px;
@@ -268,6 +351,6 @@ header .active {
   background: url(../../assets/icons/btn-next.svg) 50% no-repeat, #4b9200;
   background-size: 50%;
 }
-.pets .btn {
-  margin-top: 80px;
+.petCards .btn {
+  margin: 80px auto 0;
 }
