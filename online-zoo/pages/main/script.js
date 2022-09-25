@@ -7,13 +7,23 @@ function showScreenSize() {
 window.onload = setInterval(showScreenSize, 100);
 window.resizeBy = showScreenSize;
 
-document.getElementById('activePage').onclick = (e) => {
+for (let elem of document.querySelectorAll('.activeMenu')) {
+  elem.onclick = (e) => {
+    e.preventDefault();
+  };
+}
+
+document.getElementById('subscribe').onclick = (e) => {
   e.preventDefault();
-  // console.log(window.width);
+  alert('Subscribe!');
 };
 
 document.addEventListener('resize', showScreenSize);
 
 document.getElementById('btnDonate').onclick = () => {
+  document.location.href = '../donate/index.html';
+};
+
+document.getElementById('btnDonate2').onclick = () => {
   document.location.href = '../donate/index.html';
 };
