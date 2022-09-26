@@ -8,7 +8,6 @@
     <title>PetStory</title>
   </head>
   <body>
-    <p id="screenSize"></p>
     <header>
       <div class="container">
         <div class="logo">
@@ -19,10 +18,10 @@
         <nav>
           <ul>
             <li><a href="" id="activePage" class="activeMenu">About</a></li>
-            <li><a href="">Map</a></li>
-            <li><a href="#">Zoos</a></li>
+            <li><a href="../map/index.html">Map</a></li>
+            <li><a href="">Zoos</a></li>
             <li><a href="../donate/index.html">Donate</a></li>
-            <li><a href="#">Contuct us</a></li>
+            <li><a href="">Contuct us</a></li>
           </ul>
         </nav>
         <div class="design">
@@ -74,7 +73,7 @@
                   <div class="tooltipMark"></div>
                   <h4>Giant panda</h4>
                   <p>Southwest China</p>
-                  <button>Watch online</button>
+                  <button class="butTooltip">Watch online</button>
                 </figcaption>
               </figure>
               <div class="petInfo">
@@ -93,7 +92,7 @@
                   <div class="tooltipMark"></div>
                   <h4>Eagle</h4>
                   <p>South America</p>
-                  <button>Watch online</button>
+                  <button class="butTooltip">Watch online</button>
                 </figcaption>
               </figure>
               <div class="petInfo">
@@ -112,7 +111,7 @@
                   <div class="tooltipMark"></div>
                   <h4>Gorilla</h4>
                   <p>Congo</p>
-                  <button>Watch online</button>
+                  <button class="butTooltip">Watch online</button>
                 </figcaption>
               </figure>
               <div class="petInfo">
@@ -138,7 +137,7 @@
                   <div class="tooltipMark"></div>
                   <h4>Two-Toed Sloth</h4>
                   <p>South America</p>
-                  <button>Watch online</button>
+                  <button class="butTooltip">Watch online</button>
                 </figcaption>
               </figure>
               <div class="petInfo">
@@ -156,7 +155,7 @@
                   <div class="tooltipMark"></div>
                   <h4>Cheetah</h4>
                   <p>Africa</p>
-                  <button>Watch online</button>
+                  <button class="butTooltip">Watch online</button>
                 </figcaption>
               </figure>
               <div class="petInfo">
@@ -175,7 +174,7 @@
                   <div class="tooltipMark"></div>
                   <h4>Penguin</h4>
                   <p>Antarctica</p>
-                  <button>Watch online</button>
+                  <button class="butTooltip">Watch online</button>
                 </figcaption>
               </figure>
               <div class="petInfo">
@@ -187,7 +186,7 @@
               </div>
             </div>
           </div>
-          <button class="btn">CHOOSE YOUR FAVORITE</button>
+          <button class="btn" id="goToMap">CHOOSE YOUR FAVORITE</button>
         </div>
       </section>
       <section class="friend">
@@ -375,11 +374,12 @@
           <form>
             <h4>Subscribe to our news</h4>
             <input
-              class="mail mistake"
+              class="email"
+              required
               type="email"
               placeholder="Enter your email"
             />
-            <button id="subscribe" class="btnForm mistake">Submit</button>
+            <button id="subscribe" class="btnForm">Submit</button>
           </form>
         </div>
         <div>
@@ -399,9 +399,9 @@
           <nav>
             <ul>
               <li><a href="index.html" class="activeMenu">About</a></li>
-              <li><a href="#">Map</a></li>
-              <li><a href="#">Zoos</a></li>
-              <li><a href="#">Contuct Us</a></li>
+              <li><a href="../map/index.html">Map</a></li>
+              <li><a href="">Zoos</a></li>
+              <li><a href="">Contuct Us</a></li>
             </ul>
           </nav>
           <div class="copy">
