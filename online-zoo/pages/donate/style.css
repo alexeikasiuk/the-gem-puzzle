@@ -1,15 +1,5 @@
 @import url(../../assets/styles/reset.css);
 
-#screenSize {
-  position: fixed;
-  left: 0;
-  top: 0;
-  font-size: 2rem;
-  color: yellow;
-  font-weight: 700;
-}
-/* end temporary styles */
-
 /* common styles */
 body {
   font: 16px Roboto, Arial, sans-serif;
@@ -22,7 +12,6 @@ body {
 }
 
 /* by style_guide */
-
 /* form */
 .btnForm {
   box-sizing: border-box;
@@ -44,6 +33,7 @@ body {
   padding: 0;
   padding-left: 10px;
 }
+
 .active {
   border-color: #4b9200;
   color: #4b9200;
@@ -57,8 +47,7 @@ body {
   background: #767474;
   color: #fff;
 }
-
-/* buttons */
+/*buttons*/
 .btn {
   color: #fff;
   border: none;
@@ -70,6 +59,7 @@ body {
   font-size: 16px;
   font-weight: 500;
 }
+
 .btn:hover {
   background: #e47209;
 }
@@ -93,7 +83,7 @@ body {
 
 /* header */
 header {
-  background-color: #283035;
+  background-color: #000;
 }
 header .container {
   min-height: 80px;
@@ -114,6 +104,13 @@ header nav a {
   display: inline;
   font-weight: 500;
   line-height: 140%;
+}
+nav a:hover,
+.design a:hover {
+  background-clip: text;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
 }
 .logo {
   display: inline-block;
@@ -153,6 +150,8 @@ header nav a {
 .design {
   float: right;
 }
+
+/* watch section */
 .watchWrapper {
   min-height: 700px;
   position: relative;
@@ -161,11 +160,11 @@ header nav a {
   position: absolute;
   content: '';
   width: 100%;
-  height: calc(100% + 80px);
-  background-image: url(../../assets/images/Giant_Panda.png);
+  /* height: calc(100% + 80px); */
+  /* background-image: url(../../assets/images/Giant_Panda.png); */
   background-repeat: no-repeat;
   background-size: cover;
-  top: -80px;
+  top: 0;
   left: 0;
   z-index: -1;
 }
@@ -475,8 +474,6 @@ header nav a {
   top: 2px;
   margin-right: 2px;
 }
-
-/* footer */
 footer {
   background-color: #111115;
   color: #fff;
@@ -513,16 +510,45 @@ footer form h4 {
   line-height: 120%;
   margin-bottom: 12px;
 }
-footer .mail {
+.email {
+  box-sizing: border-box;
   background: transparent;
-  color: #bdbdbd;
   margin-right: 5px;
+  height: 42px;
+  color: #bdbdbd;
+  padding: 0 10px;
+  width: 228px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+  position: relative;
+  top: -1px;
+}
+.email:valid {
+  border: 1px solid #f9804b;
+}
+.email:invalid {
+  border: 1px solid #d31414;
+}
+.email:active {
+  border: 1px solid #4b9200;
+}
+.email:invalid:focus + button {
+  border: 1px solid #d31414;
+  color: #d31414;
+}
+.email + button:active {
+  border: 1px solid #4b9200;
+  color: #4b9200;
 }
 
 .social li {
   margin-top: 13px;
 }
-.social li::before {
+.social a:active {
+  color: #4b9200;
+}
+.social a:before {
   content: '';
   display: inline-block;
   width: 26px;
@@ -532,18 +558,31 @@ footer .mail {
     rgba(196, 196, 196, 0.5);
   margin: 0 12px -7px 0;
 }
-.social li:nth-of-type(2):before {
+.social li:nth-of-type(2) a:before {
   background: url(../../assets/icons/twitter.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
 
-.social li:nth-of-type(3):before {
+.social li:nth-of-type(3) a:before {
   background: url(../../assets/icons/instagram.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
-.social li:nth-of-type(4):before {
+.social li:nth-of-type(4) a:before {
   background: url(../../assets/icons/youtube.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
+}
+.social a:active:before {
+  background: url(../../assets/icons/facebook.svg) 50% no-repeat, #4b9200;
+}
+.social li:nth-of-type(2) a:active:before {
+  background: url(../../assets/icons/twitter.svg) 50% no-repeat, #4b9200;
+}
+
+.social li:nth-of-type(3) a:active:before {
+  background: url(../../assets/icons/instagram.svg) 50% no-repeat, #4b9200;
+}
+.social li:nth-of-type(4) a:active:before {
+  background: url(../../assets/icons/youtube.svg) 50% no-repeat, #4b9200;
 }
 .copy {
   font-weight: 100;
