@@ -19,7 +19,7 @@
         <nav>
           <ul>
             <li><a href="../main/index.html">About</a></li>
-            <li><a href="">Map</a></li>
+            <li><a href="../map/index.html">Map</a></li>
             <li><a href="#">Zoos</a></li>
             <li><a href="" class="activeMenu">Donate</a></li>
             <li><a href="#">Contuct us</a></li>
@@ -54,15 +54,18 @@
               – no matter what size – to help us sustain our mission.
             </p>
           </div>
-          <h3>Donation Information</h3>
-          <div class="peak">
+          <h3>Donation information</h3>
+          <div class="pick">
             <h2>Pick and feed a friend</h2>
             <p>
               We know the animals bring you joy, and in these extraordinary
               times, we’re glad.
             </p>
             <div class="petDiet">
-              <div><span>4</span><span>Panda diet for the day.</span></div>
+              <div>
+                <span>4</span>
+                <span>Panda diet for the day.</span>
+              </div>
               <div>
                 <img src="../../assets/images/panda_diet.svg" alt="panda" />
               </div>
@@ -71,50 +74,50 @@
               <p>Amount</p>
               <ul>
                 <li>
+                  <label>
+                    <input name="amount" value="25" type="radio" />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="amount" value="50" type="radio" />
+                  </label>
+                </li>
+                <li>
                   <label class="activeAmount">
-                    <input name="amount" value="25" type="radio"/>
+                    <input name="amount" value="100" type="radio" />
                   </label>
                 </li>
-                <li>
-                  <label>
-                  <input name="amount" value="50" type="radio" />
-                </label>
-                </li>
-                <li>
-                  <label>
-                  <input name="amount" value="100" type="radio" />
-                  </label>
-                  </li>
                 <li>
                   <label>
                     <input name="amount" value="250" type="radio" />
-                  </li>
                   </label>
-                    <li>
+                </li>
+                <li>
                   <label>
-                  <input name="amount" value="500" type="radio" />
+                    <input name="amount" value="500" type="radio" />
+                  </label>
                 </li>
-                </label>
-                  <li>
+                <li>
                   <label>
-                  <input name="amount" value="1000" type="radio" />
+                    <input name="amount" value="1000" type="radio" />
+                  </label>
                 </li>
-                </label>
-                  <li>
-                    <label>
-                  <input name="amount" value="2000" type="radio" />
+                <li>
+                  <label>
+                    <input name="amount" value="2000" type="radio" />
+                  </label>
                 </li>
-                </label>
-                  <li>
-                    <label>
-                  <input name="amount" value="5000" type="radio" />
+                <li>
+                  <label>
+                    <input name="amount" value="5000" type="radio" />
+                  </label>
                 </li>
-                </label>
-                </ul>
+              </ul>
               <ul class="price">
                 <li>5000</li>
                 <li>2000</li>
-                <li>1000</li>
+                <li class="activePrice">1000</li>
                 <li>500</li>
                 <li>250</li>
                 <li>100</li>
@@ -122,12 +125,26 @@
                 <li>25</li>
               </ul>
               <div>
-              <input type="text" placeholder="Another amount">
+                <input
+                  id="inputPrice"
+                  type="number"
+                  placeholder="Another amount"
+                  max="9999"
+                />
+                <label for="inputPrice"></label>
               </div>
               <div class="period">
-                <input type="radio" name="period" value="month">
-                <span>Mounthly</span>
-                <input type="radio" name="period" value="once">
+                <input id="month" type="radio" name="period" value="monthly" />
+                <label for="month"></label>
+                <span>Monthly</span>
+                <input
+                  type="radio"
+                  id="once"
+                  checked
+                  name="period"
+                  value="once"
+                />
+                <label for="once"></label>
                 <span>Once</span>
               </div>
               <button class="btn">FEED A FRIEND NOW</button>
@@ -148,11 +165,12 @@
           <form>
             <h4>Subscribe to our news</h4>
             <input
-              class="mail mistake"
+              class="email"
               type="email"
+              required
               placeholder="Enter your email"
             />
-            <button id="subscribe" class="btnForm mistake">Submit</button>
+            <button id="subscribe" class="btnForm">Submit</button>
           </form>
         </div>
         <div>
@@ -171,8 +189,8 @@
           </div>
           <nav>
             <ul>
-              <li><a href="index.html" class="activeMenu">About</a></li>
-              <li><a href="#">Map</a></li>
+              <li><a href="../main/index.html">About</a></li>
+              <li><a href="../map/index.html">Map</a></li>
               <li><a href="#">Zoos</a></li>
               <li><a href="#">Contuct Us</a></li>
             </ul>
