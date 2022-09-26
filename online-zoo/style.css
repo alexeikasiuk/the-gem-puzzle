@@ -1,4 +1,4 @@
-@import url(../../assets/styles/reset.css);
+@import url(assets/styles/reset.css);
 
 /* common styles */
 body {
@@ -139,7 +139,7 @@ nav a:hover,
   left: -6px;
   bottom: 0;
   content: '';
-  background: url(../../assets/icons/bamboo.svg);
+  background: url(assets/icons/bamboo.svg);
   background-origin: content-box;
   background-size: contain;
   background-repeat: no-repeat;
@@ -161,7 +161,7 @@ nav a:hover,
   content: '';
   width: 100%;
   height: calc(100% + 80px);
-  background-image: url(../../assets/images/Giant_Panda.png);
+  background-image: url(assets/images/Giant_Panda.png);
   background-repeat: no-repeat;
   background-size: cover;
   top: -80px;
@@ -236,7 +236,7 @@ nav a:hover,
 }
 
 .backStage:before {
-  content: url(../../assets/images/flower_foto.png);
+  content: url(assets/images/flower_foto.png);
   position: absolute;
   right: 0;
   top: calc(-332px + 50%);
@@ -265,7 +265,7 @@ nav a:hover,
   padding-bottom: 100px;
 }
 .petCards:before {
-  content: url(../../assets/images/palm_foto.png);
+  content: url(assets/images/palm_foto.png);
   position: absolute;
   left: 0;
   bottom: -4px;
@@ -273,7 +273,7 @@ nav a:hover,
 }
 
 .petCards:after {
-  content: url(../../assets/images/strelitzia.png);
+  content: url(assets/images/strelitzia.png);
   position: absolute;
   right: 0;
   bottom: -4px;
@@ -400,7 +400,7 @@ nav a:hover,
 .banana_bamboo {
   width: 33px;
   height: 37px;
-  background-image: url(../../assets/icons/banana-bamboo_icon.svg);
+  background-image: url(assets/icons/banana-bamboo_icon.svg);
 }
 .meat_fish {
   position: relative;
@@ -408,7 +408,7 @@ nav a:hover,
   bottom: 3px;
   width: 48px;
   height: 38px;
-  background-image: url(../../assets/icons/meet-fish_icon.svg);
+  background-image: url(assets/icons/meet-fish_icon.svg);
 }
 .petCardsControl {
   height: 20px;
@@ -426,20 +426,20 @@ nav a:hover,
 
 .btnPrev {
   left: -82px;
-  background: url(../../assets/icons/btn-prev.svg) 50% no-repeat,
+  background: url(assets/icons/btn-prev.svg) 50% no-repeat,
     linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
 }
 .btnNext {
   right: -82px;
-  background: url(../../assets/icons/btn-next.svg) 50% no-repeat,
+  background: url(assets/icons/btn-next.svg) 50% no-repeat,
     linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
 }
 .btnPrev:active {
-  background: url(../../assets/icons/btn-prev.svg) 50% no-repeat, #4b9200;
+  background: url(assets/icons/btn-prev.svg) 50% no-repeat, #4b9200;
   /* background-size: 50%; */
 }
 .btnNext:active {
-  background: url(../../assets/icons/btn-next.svg) 50% no-repeat, #4b9200;
+  background: url(assets/icons/btn-next.svg) 50% no-repeat, #4b9200;
   /* background-size: 50%; */
 }
 
@@ -570,20 +570,20 @@ nav a:hover,
   /* border: 1px solid red; */
 }
 .pay {
-  background: url(../../assets/icons/pay.svg) 50% no-repeat, #fff;
+  background: url(assets/icons/pay.svg) 50% no-repeat, #fff;
 }
 .zoo {
-  background: url(../../assets/icons/zoo.svg) 50% no-repeat, #fff;
+  background: url(assets/icons/zoo.svg) 50% no-repeat, #fff;
 }
 .monkey {
-  background: url(../../assets/icons/monkey.svg) 50% no-repeat, #fff;
+  background: url(assets/icons/monkey.svg) 50% no-repeat, #fff;
 }
 .nextStep {
   position: relative;
   top: -40px;
   width: 70px;
   height: 50px;
-  background: url(../../assets/icons/nextStep.svg) 50% no-repeat;
+  background: url(assets/icons/nextStep.svg) 50% no-repeat;
 }
 
 .stories {
@@ -607,7 +607,7 @@ nav a:hover,
   position: relative;
 }
 .testimonials::after {
-  content: url(../../assets/images/leav_foto.png);
+  content: url(assets/images/leav_foto.png);
   position: absolute;
   bottom: -137px;
   right: 0;
@@ -770,35 +770,35 @@ footer form h4 {
   width: 26px;
   height: 26px;
   border-radius: 13px;
-  background: url(../../assets/icons/facebook.svg) 50% no-repeat,
+  background: url(assets/icons/facebook.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
   margin: 0 12px -7px 0;
 }
 .social li:nth-of-type(2) a:before {
-  background: url(../../assets/icons/twitter.svg) 50% no-repeat,
+  background: url(assets/icons/twitter.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
 
 .social li:nth-of-type(3) a:before {
-  background: url(../../assets/icons/instagram.svg) 50% no-repeat,
+  background: url(assets/icons/instagram.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
 .social li:nth-of-type(4) a:before {
-  background: url(../../assets/icons/youtube.svg) 50% no-repeat,
+  background: url(assets/icons/youtube.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
 .social a:active:before {
-  background: url(../../assets/icons/facebook.svg) 50% no-repeat, #4b9200;
+  background: url(assets/icons/facebook.svg) 50% no-repeat, #4b9200;
 }
 .social li:nth-of-type(2) a:active:before {
-  background: url(../../assets/icons/twitter.svg) 50% no-repeat, #4b9200;
+  background: url(assets/icons/twitter.svg) 50% no-repeat, #4b9200;
 }
 
 .social li:nth-of-type(3) a:active:before {
-  background: url(../../assets/icons/instagram.svg) 50% no-repeat, #4b9200;
+  background: url(assets/icons/instagram.svg) 50% no-repeat, #4b9200;
 }
 .social li:nth-of-type(4) a:active:before {
-  background: url(../../assets/icons/youtube.svg) 50% no-repeat, #4b9200;
+  background: url(assets/icons/youtube.svg) 50% no-repeat, #4b9200;
 }
 .copy {
   font-weight: 100;

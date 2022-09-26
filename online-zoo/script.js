@@ -13,12 +13,12 @@ document.onsubmit = (e) => {
   );
 };
 document.getElementById('goToMap').onclick = () => {
-  document.location.href = '../map/index.html';
+  document.location.href = 'pages/map/index.html';
 };
 document.getElementById('btnDonate').onclick = () => {
-  document.location.href = '../donate/index.html';
+  document.location.href = 'pages/donate/index.html';
 };
 
 document.getElementById('btnDonate2').onclick = () => {
-  document.location.href = '../donate/index.html';
+  document.location.href = 'pages/donate/index.html';
 };

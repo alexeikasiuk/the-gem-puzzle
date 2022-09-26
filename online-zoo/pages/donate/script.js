@@ -13,5 +13,5 @@ document.onsubmit = (e) => {
 };
 
 document.getElementById('btnDonate2').onclick = () => {
-  document.location.href = '../donate/index.html';
+  document.location.href = 'index.html';
 };
