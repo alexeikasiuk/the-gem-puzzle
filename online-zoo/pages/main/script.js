@@ -40,14 +40,13 @@ document.querySelectorAll('[class="petCard"]').forEach((petCard) => {
 const screenSize = document.createElement('div');
 screenSize.setAttribute(
   'style',
-  'position: fixed; left: 0; bottom: 0; font-size: 2rem; color: red; z-index: 10'
+  'position: fixed; left: 0; bottom: 0; font-size: 1.2rem; color: red; z-index: 10'
 );
 document.querySelector('body').prepend(screenSize);
 
 function showScreenSize() {
   let width = document.documentElement.clientWidth;
-  let height = document.documentElement.clientHeight;
-  screenSize.innerHTML = `${width}:${height}`;
+  screenSize.innerHTML = `${width}px`;
 }
 
 window.onload = () => {

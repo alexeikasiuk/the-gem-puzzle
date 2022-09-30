@@ -808,10 +808,12 @@ footer nav {
 
 /* small screen desktop 1000px/940px */
 @media screen and (max-width: 1000px) {
-  /* header */
+  /* coomon styles */
   .container {
     max-width: 940px;
   }
+
+  /* header */
   .logo {
     margin-right: 36px;
   }

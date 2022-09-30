@@ -46,7 +46,6 @@ input[type='number'] {
   padding: 0;
   padding-left: 10px;
 }
-
 .active {
   border-color: #4b9200;
   color: #4b9200;
@@ -72,15 +71,12 @@ input[type='number'] {
   font-size: 16px;
   font-weight: 500;
 }
-
 .btn:hover {
   background: #e47209;
 }
-
 .btn:active {
   background: #4b9200;
 }
-
 .btn2 {
   border-radius: 5px;
 }
@@ -203,7 +199,6 @@ nav a:hover,
       #eaf7fe 127.9%,
       #eaf7fe 149.54%
     );
-  text-align: center;
   color: #333b41;
   padding-bottom: 180px;
   padding-top: 40px;
@@ -215,7 +210,7 @@ nav a:hover,
 }
 .donate h3 {
   font-size: 36px;
-  font-weight: 300;
+  font-weight: normal;
   line-height: 130%;
 }
 .donate h2,
@@ -227,7 +222,6 @@ nav a:hover,
   color: #fff;
 }
 .info p {
-  text-align: left;
   margin-top: 10px;
   margin-bottom: 47px;
   font-size: 16px;
@@ -235,7 +229,6 @@ nav a:hover,
   line-height: 140%;
 }
 .info + h3 {
-  text-align: left;
   margin-bottom: 60px;
 }
 .pick {
@@ -244,6 +237,7 @@ nav a:hover,
   padding: 39px 92px 63px;
   padding-top: 38px;
   padding-bottom: 45px;
+  text-align: center;
 }
 .pick h2 {
   margin-left: -10px;
@@ -304,10 +298,8 @@ nav a:hover,
   width: 50px;
   height: 50px;
   top: -10px;
-  /* left: 50%; */
   margin-left: -25px;
   border-radius: 25px;
-  /* border: 1px solid #ffee2e; */
 }
 .amount li label:after {
   content: '';
@@ -328,7 +320,6 @@ nav a:hover,
 .activeAmount {
   background: url(../../assets/icons/roller_icon.svg) 50% no-repeat;
 }
-
 .amount label:hover {
   cursor: pointer;
 }
@@ -341,7 +332,6 @@ nav a:hover,
 .amount .activeAmount:hover:after {
   background: #ffee2e;
 }
-
 .amount ul:first-of-type {
   border-radius: 2px;
   padding: 4px 26px;
@@ -393,7 +383,6 @@ nav a:hover,
   background: transparent;
   padding: 10px;
   padding-right: 25px;
-  /* position: relative; */
   margin-left: -7px;
 }
 #inputPrice + label {
@@ -406,7 +395,6 @@ nav a:hover,
   margin-bottom: -5px;
   margin-left: -25px;
 }
-
 .period {
   padding-top: 26px;
   padding-bottom: 32px;
@@ -414,8 +402,6 @@ nav a:hover,
 }
 .period input {
   display: none;
-  /* margin-right: 7px; */
-  /* border: 5px solid #fe9013; */
 }
 .period label {
   width: 16px;
@@ -454,7 +440,6 @@ footer .container {
   display: flex;
   flex-direction: column;
 }
-
 footer .container > div:nth-of-type(1),
 footer .container > div:nth-of-type(3) {
   display: flex;
@@ -513,7 +498,6 @@ footer form h4 {
   border: 1px solid #4b9200;
   color: #4b9200;
 }
-
 .social li {
   margin-top: 13px;
 }
@@ -534,7 +518,6 @@ footer form h4 {
   background: url(../../assets/icons/twitter.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
-
 .social li:nth-of-type(3) a:before {
   background: url(../../assets/icons/instagram.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
@@ -568,4 +551,72 @@ footer form h4 {
 footer nav {
   position: relative;
   left: 57px;
+}
+
+/* small screen desktop 1000px/940px */
+@media screen and (max-width: 1000px) {
+  /* common styles */
+  .container {
+    max-width: 940px;
+  }
+  .logo {
+    margin-right: 37px;
+  }
+
+  /* header section */
+  nav li {
+    margin: 0 22px;
+  }
+  /* watch section */
+  .watchWrapper {
+    height: 389px;
+  }
+  .watchWrapper:before {
+    background: url(../../assets/images/Giant_Panda_Small_Desktop_Donate.png)
+      50% no-repeat;
+  }
+
+  /* donate section */
+  .donate {
+    padding-bottom: 30px;
+  }
+  .info p {
+    margin-top: 30px;
+  }
+  .info + h3 {
+    margin-bottom: 38px;
+  }
+  .pick {
+    padding: 20px 43px 25px;
+  }
+  .pick h2 + p {
+    margin-top: 10px;
+  }
+  .petDiet > div:nth-of-type(2) {
+    margin-left: 92px;
+  }
+  .amount {
+    max-width: 810px;
+    margin: 0 auto;
+  }
+  .amount ul li:nth-of-type(1) {
+    display: none;
+  }
+  .amount ul:first-of-type {
+    padding: 4px 14px;
+  }
+  .amount ul:first-of-type::before {
+    width: calc(100% - 38px);
+    left: 19px;
+  }
+  .price {
+    padding: 0;
+    margin-top: 17px;
+  }
+  .period {
+    padding-top: 27px;
+  }
+  footer form {
+    margin-right: 32px;
+  }
 }
