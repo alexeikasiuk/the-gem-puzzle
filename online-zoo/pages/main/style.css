@@ -390,7 +390,6 @@ nav a:hover,
 .petCard:hover .petTooltip {
   transform: translateY(125px);
   transition: 0.5s;
-  z-index: 5;
 }
 .petInfo {
   display: flex;
@@ -677,6 +676,7 @@ nav a:hover,
   font-size: 15px;
   font-weight: 300;
   line-height: 120%;
+  color: #767474;
 }
 .slide {
   width: 600px;
@@ -825,6 +825,10 @@ footer form h4 {
 }
 .copy {
   font-weight: 100;
+}
+.copy:active p {
+  color: #4b9200;
+  text-decoration: underline;
 }
 .copy p {
   color: rgba(255, 255, 255, 0.4);

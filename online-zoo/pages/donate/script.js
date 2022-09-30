@@ -4,12 +4,18 @@ for (let elem of document.querySelectorAll('.activeMenu')) {
     console.log('activeMenu click');
   };
 }
-
-document.onsubmit = (e) => {
+const feedForm = document.getElementById('feedPeriod');
+feedForm.onsubmit = (e) => {
   e.preventDefault();
-  let amount = document.querySelector('[type="number"]').value || 0,
-    period = document.querySelector(':checked').value || 0;
+  const amount = document.getElementById('inputPrice').value || 0;
+  const period = feedForm.querySelector(':checked').value;
   alert(`Donate: ${amount}$ !!!\nPeriod: ${period} !`);
+};
+const subscribeAddress = document.getElementById('subscribe');
+subscribeAddress.onsubmit = (e) => {
+  e.preventDefault();
+  const email = subscribeAddress.querySelector('[type="email"]').value;
+  alert(`Subscribe address: ${email} !`);
 };
 
 document.getElementById('btnDonate2').onclick = () => {

@@ -556,8 +556,9 @@ footer form h4 {
 .social li:nth-of-type(4) a:active:before {
   background: url(../../assets/icons/youtube.svg) 50% no-repeat, #4b9200;
 }
-.copy {
-  font-weight: 100;
+.copy:active p {
+  color: #4b9200;
+  text-decoration: underline;
 }
 .copy p {
   color: rgba(255, 255, 255, 0.4);
