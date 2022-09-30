@@ -35,3 +35,22 @@ document.querySelectorAll('[class="petCard"]').forEach((petCard) => {
     const shaddowWrapper = petCard.previousElementSibling.remove();
   };
 });
+
+// show screen size, tmp code
+const screenSize = document.createElement('div');
+screenSize.setAttribute(
+  'style',
+  'position: fixed; left: 0; bottom: 0; font-size: 2rem; color: red; z-index: 10'
+);
+document.querySelector('body').prepend(screenSize);
+
+function showScreenSize() {
+  let width = document.documentElement.clientWidth;
+  let height = document.documentElement.clientHeight;
+  screenSize.innerHTML = `${width}:${height}`;
+}
+
+window.onload = () => {
+  setInterval(showScreenSize, 100);
+};
+// end tmp code

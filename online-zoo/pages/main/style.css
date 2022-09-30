@@ -33,7 +33,6 @@ body {
   padding: 0;
   padding-left: 10px;
 }
-
 .active {
   border-color: #4b9200;
   color: #4b9200;
@@ -59,15 +58,12 @@ body {
   font-size: 16px;
   font-weight: 500;
 }
-
 .btn:hover {
   background: #e47209;
 }
-
 .btn:active {
   background: #4b9200;
 }
-
 .btn2 {
   border-radius: 5px;
 }
@@ -177,7 +173,6 @@ nav a:hover,
   margin-top: 86px;
   position: relative;
 }
-
 .watch p {
   color: #fff;
   font-weight: 700;
@@ -205,22 +200,6 @@ nav a:hover,
   color: #ffee2e;
   letter-spacing: -3px;
 }
-.btnTooltip {
-  color: #fff;
-  width: 298px;
-  height: 54px;
-  background: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
-  border-radius: 25px;
-  border: none;
-  letter-spacing: -1px;
-}
-.btnTooltip:hover {
-  background-color: #e47209;
-  background-image: none;
-}
-.btnTooltip:active {
-  background-color: #4b9200;
-}
 
 /* backstage section */
 .backStage {
@@ -234,7 +213,6 @@ nav a:hover,
   display: flex;
   background: #fff;
 }
-
 .backStage:before {
   content: url(../../assets/images/flower_foto.png);
   position: absolute;
@@ -242,7 +220,11 @@ nav a:hover,
   top: calc(-332px + 50%);
   z-index: -5;
 }
-.backStage figure {
+.backStage .imageContainer {
+  background: url(../../assets/images/bamboo-cap.png) no-repeat;
+  min-width: 609px;
+  height: 403px;
+  display: block;
   margin-right: 87px;
 }
 .backStage h2 {
@@ -259,6 +241,8 @@ nav a:hover,
   font-size: 16px;
   line-height: 135%;
 }
+
+/* petCards section */
 .petCards {
   text-align: center;
   position: relative;
@@ -271,7 +255,6 @@ nav a:hover,
   bottom: -4px;
   z-index: -5;
 }
-
 .petCards:after {
   content: url(../../assets/images/strelitzia.png);
   position: absolute;
@@ -287,11 +270,8 @@ nav a:hover,
   border: 1px solid #fa6f32;
   width: 366px;
   background: #fff;
-  /* border-image: linear-gradient(113.96deg, #fa6f32 1.49%, #fe9013 101.44%); */
-  /* border-image-slice: fill; */
   border-radius: 5px;
   overflow: hidden;
-  /* box-shadow: 0 0 0 1px #fa6f32; */
 }
 .petImg {
   box-sizing: border-box;
@@ -328,7 +308,6 @@ nav a:hover,
   height: 31px;
   margin-top: 15px;
 }
-
 .tooltipMark {
   position: absolute;
   left: 50px;
@@ -382,7 +361,6 @@ nav a:hover,
   left: 0;
   top: 0;
 }
-
 .petCard:hover img {
   transform: scale(calc(386 / 366));
   transition: all 0.5s;
@@ -407,6 +385,10 @@ nav a:hover,
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -1px;
+}
+.petName p {
+  height: 18px;
+  max-width: 294px;
 }
 .petCard p {
   font-size: 15px;
@@ -445,7 +427,6 @@ nav a:hover,
   background-size: 30% auto;
   top: -22px;
 }
-
 .btnPrev {
   left: -82px;
   background: url(../../assets/icons/btn-prev.svg) 50% no-repeat,
@@ -458,13 +439,10 @@ nav a:hover,
 }
 .btnPrev:active {
   background: url(../../assets/icons/btn-prev.svg) 50% no-repeat, #4b9200;
-  /* background-size: 50%; */
 }
 .btnNext:active {
   background: url(../../assets/icons/btn-next.svg) 50% no-repeat, #4b9200;
-  /* background-size: 50%; */
 }
-
 .petCards .btn {
   margin-top: 80px;
   font-size: 15px;
@@ -498,7 +476,6 @@ nav a:hover,
   opacity: 0.9;
   padding-top: 69px;
   padding-bottom: 100px;
-  /* margin-top: 100px; */
 }
 .friend .container {
   border-radius: 20px;
@@ -529,7 +506,6 @@ nav a:hover,
   color: #333b41;
   text-align: left;
   padding-left: 100px;
-  /* padding-right: 100px; */
 }
 .friend p:nth-of-type(2) {
   font-size: 16px;
@@ -564,14 +540,8 @@ nav a:hover,
   width: 764px;
 }
 .step {
-  /* border: 1px solid #f9804b; */
   border-radius: 5px;
   overflow: hidden;
-  /* border-image-source: linear-gradient(
-    113.96deg,
-    #f9804b 1.49%,
-    #fe9013 101.44%
-  ); */
 }
 .step {
   width: 167px;
@@ -589,7 +559,6 @@ nav a:hover,
   font-size: 16px;
   font-weight: 400;
   line-height: 140%;
-  /* border: 1px solid red; */
 }
 .pay {
   background: url(../../assets/icons/pay.svg) 50% no-repeat, #fff;
@@ -606,21 +575,6 @@ nav a:hover,
   width: 70px;
   height: 50px;
   background: url(../../assets/icons/nextStep.svg) 50% no-repeat;
-}
-
-.stories {
-  display: flex;
-  justify-content: space-between;
-}
-.story {
-  padding: 14px;
-  text-align: left;
-  width: 268px;
-  height: 391px;
-  border: 1px solid rgb(254, 189, 171);
-  background: #f1f3f2;
-  border-radius: 20px;
-  overflow: hidden;
 }
 
 /* testimonials section */
@@ -642,7 +596,20 @@ nav a:hover,
   margin: 140px auto 47px;
   text-align: center;
 }
-
+.stories {
+  display: flex;
+  justify-content: space-between;
+}
+.story {
+  padding: 14px;
+  text-align: left;
+  width: 268px;
+  height: 391px;
+  border: 1px solid rgb(254, 189, 171);
+  background: #f1f3f2;
+  border-radius: 20px;
+  overflow: hidden;
+}
 .story figure {
   display: flex;
   margin-bottom: 12px;
@@ -674,9 +641,11 @@ nav a:hover,
 }
 .testimonial {
   font-size: 15px;
-  font-weight: 300;
+  font-weight: lighter;
   line-height: 120%;
   color: #767474;
+  max-height: 309px;
+  overflow: hidden;
 }
 .slide {
   width: 600px;
@@ -721,7 +690,6 @@ footer .container {
   display: flex;
   flex-direction: column;
 }
-
 footer .container > div:nth-of-type(1),
 footer .container > div:nth-of-type(3) {
   display: flex;
@@ -780,7 +748,6 @@ footer form h4 {
   border: 1px solid #4b9200;
   color: #4b9200;
 }
-
 .social li {
   margin-top: 13px;
 }
@@ -801,7 +768,6 @@ footer form h4 {
   background: url(../../assets/icons/twitter.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
-
 .social li:nth-of-type(3) a:before {
   background: url(../../assets/icons/instagram.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
@@ -838,4 +804,192 @@ footer form h4 {
 footer nav {
   position: relative;
   left: 57px;
+}
+
+/* small screen desktop 1000px/940px */
+@media screen and (max-width: 1000px) {
+  /* header */
+  .container {
+    max-width: 940px;
+  }
+  .logo {
+    margin-right: 36px;
+  }
+  nav li {
+    margin: 0 22px;
+  }
+  .logo span::before {
+    left: -6px;
+    bottom: -1px;
+    width: 12px;
+    height: 27px;
+  }
+
+  /* watch section */
+  .watchWrapper {
+    min-height: 504px;
+  }
+  .watchWrapper:before {
+    background-position-x: -95px;
+  }
+  .watch {
+    margin-top: 43px;
+    margin-right: 55px;
+  }
+  .watch p {
+    line-height: 75%;
+    width: 400px;
+    font-size: 85px;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+  }
+  .watch:before {
+    left: -60px;
+    top: -55px;
+    width: 367px;
+    height: 367px;
+    border-radius: calc(367px / 2);
+    z-index: -1;
+  }
+  .watch .btn {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  /* backstage section */
+  .backStage {
+    margin-top: 109px;
+    margin-bottom: 143px;
+  }
+  .backStage:before {
+    display: none;
+  }
+  .backStage .imageContainer {
+    margin-right: 30px;
+    min-width: 455px;
+    height: 408px;
+    background-size: cover;
+    background-position-x: -80px;
+  }
+  .backStage article {
+    margin-top: -10px;
+  }
+
+  /* pets section */
+  .petCards {
+    text-align: center;
+    position: relative;
+    padding-bottom: 140px;
+  }
+  .petCards:before {
+    content: url(../../assets/images/palm_foto_small_desktop.png);
+  }
+  .petCards:after {
+    content: url(../../assets/images/strelitzia_small_desktop.png);
+  }
+  .petCard {
+    border: 1px solid #fa6f32;
+    max-width: 294px;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .petImg img {
+    width: 100%;
+  }
+  .petName {
+    padding-bottom: 12px;
+  }
+  .petName p {
+    max-width: 231px;
+    overflow: hidden;
+    line-height: 110%;
+  }
+  .petCardsControl {
+    height: auto;
+    padding: 15px 0 12px;
+  }
+  .petCardsControl button {
+    border: none;
+    position: static;
+    background-size: 30% auto;
+    margin: 0 85px;
+  }
+
+  /* fiend section */
+  .friend {
+    padding-top: 30px;
+    padding-bottom: 50px;
+  }
+  .friend .container {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    text-align: center;
+  }
+  .friend h2 {
+    margin-bottom: 22px;
+  }
+  .friend h3 {
+    margin-top: 40px;
+  }
+  .friend p {
+    padding-left: 50px;
+    padding-right: 30px;
+  }
+  .friend p:nth-of-type(2) {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  .feed {
+    margin-bottom: 70px;
+  }
+  .step {
+    width: 167px;
+    height: 244px;
+  }
+  .step p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .nextStep {
+    top: -45px;
+  }
+
+  /* testimonials section */
+  .testimonials {
+    padding-bottom: 140px;
+    position: relative;
+  }
+  .story {
+    width: 293px;
+  }
+  .testimonials::after {
+    content: url(../../assets/images/leav_foto_small_desktop.png);
+    bottom: -90px;
+  }
+  .testimonials h3 {
+    margin-top: 100px;
+    margin-bottom: 30px;
+  }
+  .story:nth-of-type(2) {
+    display: none;
+  }
+  .slide {
+    width: 390px;
+    margin-bottom: 50px;
+  }
+
+  /* footer section */
+  footer .container > div:nth-of-type(1) {
+    margin-top: 40px;
+  }
+  footer .container > div:nth-of-type(2) {
+    margin-bottom: 32px;
+  }
+  footer form {
+    margin-right: 30px;
+  }
+  footer nav {
+    left: 45px;
+  }
 }
