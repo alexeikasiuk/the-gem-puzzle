@@ -782,3 +782,179 @@ footer nav {
     margin-right: 7px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .container {
+    max-width: 300px;
+  }
+  /* header section */
+  header {
+    /* display: none; */
+  }
+  .logo {
+    margin: 0;
+  }
+
+  /* watch section */
+  .watchWrapper {
+    top: 0;
+    min-height: 187px;
+    margin-top: 34px;
+    height: 187px;
+  }
+  .watchWrapper:before {
+    background: url(../../assets/images/panda_bg_mobile.png) 50% no-repeat;
+    content: '';
+    background-size: cover;
+  }
+
+  /* donate section */
+  .donate {
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+  .info h3 {
+    margin-top: 0;
+    line-height: 120%;
+  }
+  .info p {
+    margin-top: 20px;
+    line-height: 137%;
+  }
+  .info + h3 {
+    font-size: 24px;
+  }
+  .pick {
+    padding-top: 20px;
+    padding-bottom: 13px;
+  }
+  .pick h2 {
+    font-size: 24px;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+  .pick h2 + p {
+    font-size: 16px;
+  }
+  .petDiet {
+    padding-right: 0;
+    margin-top: 13px;
+    margin-bottom: 8px;
+  }
+  .petDiet span:nth-of-type(1) {
+    font-size: 40px;
+    padding-top: 32px;
+    padding-bottom: 8px;
+  }
+  .petDiet span:nth-of-type(2) {
+    font-size: 9px;
+  }
+  .petDiet div:first-child::after {
+    content: url(../../assets/icons/x_icon_mobile.svg);
+    top: 49%;
+    right: -15px;
+  }
+  .petDiet img {
+    width: 160px;
+  }
+  .petDiet > div:nth-of-type(2) {
+    margin-left: 50px;
+  }
+  .donate form > p {
+    padding-left: 0;
+  }
+  .amount ul:first-of-type {
+    padding: 0 22px;
+    height: 14px;
+  }
+  .amount ul:nth-of-type(1)::before {
+    width: calc(100% - 44px);
+    left: 22px;
+  }
+  .amount li label {
+    width: 55px;
+  }
+  .amount li label::after {
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+    top: 15px;
+  }
+  .price {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 22px;
+  }
+  .price li {
+    font-size: 13px;
+  }
+  .price li::before {
+    background: none;
+    content: url(../../assets/icons/dollar_mobile.svg);
+    width: auto;
+    height: auto;
+  }
+
+  .period {
+    padding-top: 26px;
+    padding-bottom: 30px;
+    margin-left: 0;
+    padding-right: 18px;
+  }
+  .period label {
+    margin-right: 5px;
+  }
+  /* footer section */
+  footer .container {
+    display: block;
+  }
+  footer .logo {
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+  }
+  footer .container > div:nth-of-type(2) {
+    margin-top: 53px;
+    margin-bottom: 15px;
+    /* text-align: center; */
+  }
+  footer .container > div:nth-of-type(1) {
+    display: block;
+    margin-top: 0;
+  }
+  .btn {
+    display: block;
+  }
+  .social {
+    top: 75px;
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+  .social ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 35px;
+  }
+  .social li {
+    margin: 0;
+  }
+
+  footer .container > div:nth-of-type(3) {
+    flex-direction: column-reverse;
+    margin-bottom: 0;
+  }
+  footer nav {
+    /* border: 1px solid red; */
+    margin: 30px 0;
+    width: 100%;
+    left: 0;
+    text-align: center;
+  }
+  footer nav li {
+    margin: 0 12px;
+  }
+  footer .btn {
+    /* display: none; */
+  }
+}
