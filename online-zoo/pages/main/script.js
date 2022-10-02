@@ -25,13 +25,11 @@ document.getElementById('btnDonate2').onclick = () => {
 
 document.querySelectorAll('[class="petCard"]').forEach((petCard) => {
   petCard.onmouseover = (e) => {
-    console.log('on');
     const shadowDiv = document.createElement('div');
     shadowDiv.className = 'petCardShadow';
     petCard.before(shadowDiv);
   };
   petCard.onmouseout = (e) => {
-    console.log('off');
     const shaddowWrapper = petCard.previousElementSibling.remove();
   };
 });

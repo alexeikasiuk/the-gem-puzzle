@@ -160,8 +160,7 @@ nav a:hover,
   content: '';
   width: 100%;
   height: calc(100% + 80px);
-  background-image: url(../../assets/images/Giant_Panda.png);
-  background-repeat: no-repeat;
+  background: url(../../assets/images/Giant_Panda_bg_desktop.png) 50% no-repeat;
   background-size: cover;
   top: -80px;
   left: 0;
@@ -211,10 +210,10 @@ nav a:hover,
   color: #333b41;
   position: relative;
 }
-
 .backStage .container {
   display: flex;
   background: #fff;
+  background-color: transparent;
 }
 .backStage:before {
   content: url(../../assets/images/flower_foto.png);
@@ -223,12 +222,19 @@ nav a:hover,
   top: calc(-332px + 50%);
   z-index: -5;
 }
+
+/* {
+  display: none !important;
+} */
 .backStage .imageContainer {
   background: url(../../assets/images/bamboo-cap.png) no-repeat;
   min-width: 609px;
   height: 403px;
   display: block;
   margin-right: 87px;
+}
+.backStage article {
+  background-color: transparent;
 }
 .backStage h2 {
   font-size: 48px;
@@ -343,6 +349,7 @@ nav a:hover,
   overflow: visible;
   z-index: 3;
   position: relative;
+  cursor: pointer;
 }
 .petCard:hover:after {
   content: '';
@@ -378,7 +385,7 @@ nav a:hover,
 }
 .petName {
   flex: 1;
-  padding: 8px 14px 16px;
+  padding: 8px 14px 10px;
 }
 .petName * {
   text-align: left;
@@ -808,9 +815,14 @@ footer nav {
   position: relative;
   left: 57px;
 }
-
+/* hide flower for backstage section */
+@media screen and (max-width: 1500px) {
+  .backStage::before {
+    display: none;
+  }
+}
 /* small screen desktop 1000px/940px */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1350px) {
   /* coomon styles */
   .container {
     max-width: 940px;
@@ -836,6 +848,9 @@ footer nav {
   }
   .watchWrapper:before {
     background-position-x: -95px;
+    background: url(../../assets/images/Giant_Panda_bg_small_desktop.png) 50%
+      no-repeat;
+    background-size: cover;
   }
   .watch {
     margin-top: 43px;
@@ -992,15 +1007,18 @@ footer nav {
     margin-bottom: 32px;
   }
   footer form {
-    margin-right: 30px;
+    margin-right: 32px;
+  }
+  footer form h4 {
+    margin-bottom: 14px;
   }
   footer nav {
     left: 45px;
   }
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 960px) {
   .container {
-    max-width: 600px;
+    max-width: 94%;
   }
   /* header section */
   header {
@@ -1048,8 +1066,9 @@ footer nav {
   }
   .watchWrapper:before {
     height: 100%;
-    background-position-x: -65px;
     top: 0;
+    background: url(../../assets/images/Giant_Panda_bg_tablet.png) 50% no-repeat;
+    background-size: cover;
   }
   .watchWrapper .container {
     display: block;
@@ -1091,7 +1110,6 @@ footer nav {
     display: block;
     content: url(../../assets/images/flower_foto_tablet.png);
     z-index: 0;
-    width: 20%;
     top: -75px;
   }
   .backStage .imageContainer {
@@ -1106,10 +1124,14 @@ footer nav {
     padding-left: 5px;
   }
   /* pets section */
+  .petCards .container {
+    max-width: 600px;
+    width: 97%;
+  }
   .petCards {
     padding-bottom: 100px;
   }
-  .rowPetCards .petCard:nth-of-type(3) {
+  .rowPetCards .petCard:nth-of-type(1) {
     display: none;
   }
   .petCard {
@@ -1151,13 +1173,19 @@ footer nav {
   }
   .friend .container {
     margin: 0;
-    padding: 10px 20px 58px;
+    padding: 10px 20px 60px;
     max-width: 100%;
   }
   .friend h2 {
     font-size: 42px;
     margin-bottom: 18px;
     line-height: 48px;
+  }
+  .friend h2 + p {
+    font-size: 22px;
+  }
+  .friend p:nth-of-type(2) {
+    margin-top: 23px;
   }
   .friend p {
     padding: 0;
@@ -1176,6 +1204,7 @@ footer nav {
     position: relative;
     width: 100%;
     margin-bottom: 40px;
+    max-width: 600px;
   }
   .nextStep {
     display: none;
@@ -1188,7 +1217,7 @@ footer nav {
     position: relative;
   }
   .stepImg::after {
-    content: url(../../assets/icons/arrow_tablet.png);
+    content: url(../../assets/icons/arrow_tablet.svg);
     position: absolute;
     right: -58px;
     top: -17px;
@@ -1247,7 +1276,7 @@ footer nav {
   }
   footer .container > div:nth-of-type(2) {
     margin-top: 0;
-    margin-bottom: 55px;
+    margin-bottom: 53px;
   }
   .social {
     position: absolute;
@@ -1274,7 +1303,7 @@ footer nav {
     margin: 0 16px;
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 600px) {
   .btn {
     display: none;
   }
@@ -1282,7 +1311,7 @@ footer nav {
     overflow: hidden;
   }
   .container {
-    max-width: 300px;
+    max-width: 94%;
   }
 
   /* header section */
@@ -1292,8 +1321,12 @@ footer nav {
     min-height: 187px;
     margin-top: 34px;
   }
+  .watchWrapper .container {
+    height: 187px;
+  }
   .watchWrapper:before {
-    background: url(../../assets/images/Giant_Panda_mobile.png) 50% no-repeat;
+    background: url(../../assets/images/Giant_Panda_bg_mobile.png) 50% no-repeat;
+    background-size: cover;
   }
   .watch p {
     font-size: 28px;
@@ -1309,8 +1342,14 @@ footer nav {
   }
   .watch .btn {
     display: block;
-    position: absolute;
+    position: relative;
     bottom: -112px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    max-width: 298px;
+    bottom: -65px;
   }
 
   /* backstage section */
@@ -1320,10 +1359,12 @@ footer nav {
   }
   .backStage .container {
     display: block;
+    background-color: transparent;
   }
   .backStage article {
     /* margin-right: 0; */
     width: 100%;
+    background-color: transparent;
   }
   .backStage h2 {
     font-size: 24px;
@@ -1337,6 +1378,7 @@ footer nav {
     content: url(../../assets/images/flower_foto_mobile.png);
     width: auto;
     top: -65px;
+    z-index: -1;
   }
 
   /* petCards section */
@@ -1348,6 +1390,9 @@ footer nav {
   }
   .petCard {
     margin-bottom: 20px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .petCardsControl {
     display: none;
@@ -1355,6 +1400,11 @@ footer nav {
   .petCards .btn {
     display: block;
     margin-top: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    max-width: 298px;
   }
   .petCards:before {
     content: url(../../assets/images/palm_foto_mobile.png);
@@ -1368,8 +1418,9 @@ footer nav {
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 40px;
-    max-width: 300px;
+    width: 95%;
     margin: 0 auto;
+    overflow: hidden;
   }
   .friend h2 {
     font-size: 24px;
@@ -1390,7 +1441,7 @@ footer nav {
     margin-top: 20px;
   }
   .stepImg::after {
-    content: url(../../assets/icons/arrow_mobile.png);
+    content: url(../../assets/icons/arrow_mobile.svg);
     top: 162px;
     right: -32px;
   }
@@ -1413,6 +1464,11 @@ footer nav {
   }
   .friend .btn {
     display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    max-width: 298px;
   }
 
   /* testimonials section */
@@ -1435,26 +1491,39 @@ footer nav {
   .testimonials .btn2 {
     display: block;
     margin: 14px auto 0;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    max-width: 240px;
   }
 
   /* footer section */
   footer .container {
     display: block;
   }
-  .logo {
-    margin-top: 20px;
-    width: 100%;
+  footer .logo {
+    width: auto;
     border: none;
+    margin: 20px auto 30px;
   }
   footer .container > div:nth-of-type(2) {
     margin-top: 53px;
     margin-bottom: 15px;
+    text-align: center;
   }
   footer .container > div:nth-of-type(1) {
     display: block;
+    text-align: center;
   }
-  .btn {
+  footer .btn {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     display: block;
+    overflow: hidden;
+    padding-right: 0;
+    max-width: 298px;
   }
   .social {
     top: 75px;
@@ -1465,7 +1534,7 @@ footer nav {
   .social ul {
     display: flex;
     justify-content: space-around;
-    padding: 0 5px;
+    padding: 0 40px;
   }
   .social li {
     margin: 0;
@@ -1473,15 +1542,18 @@ footer nav {
 
   footer .container > div:nth-of-type(3) {
     flex-direction: column-reverse;
+    margin-bottom: 0;
   }
   footer nav {
-    /* border: 1px solid red; */
-    margin: 30px 0;
+    margin: 30px 0 25px;
     width: 100%;
     left: 0;
-    text-align: center;
+  }
+  footer nav ul {
+    display: flex;
+    justify-content: space-around;
   }
   footer nav li {
-    margin: 0 1px;
+    margin: 0;
   }
 }
