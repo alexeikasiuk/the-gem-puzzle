@@ -1441,7 +1441,7 @@ footer nav {
   footer .container {
     display: block;
   }
-  footer .logo {
+  .logo {
     margin-top: 20px;
     width: 100%;
     border: none;
@@ -1465,7 +1465,7 @@ footer nav {
   .social ul {
     display: flex;
     justify-content: space-around;
-    padding: 0 35px;
+    padding: 0 5px;
   }
   .social li {
     margin: 0;
@@ -1473,7 +1473,6 @@ footer nav {
 
   footer .container > div:nth-of-type(3) {
     flex-direction: column-reverse;
-    margin-bottom: 0;
   }
   footer nav {
     /* border: 1px solid red; */
@@ -1483,6 +1482,6 @@ footer nav {
     text-align: center;
   }
   footer nav li {
-    margin: 0 12px;
+    margin: 0 1px;
   }
 }
