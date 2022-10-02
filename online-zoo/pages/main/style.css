@@ -1178,7 +1178,24 @@ footer nav {
     margin-bottom: 40px;
   }
   .nextStep {
+    display: none;
+  }
+  .step {
+    /* position: relative; */
+    overflow: visible;
+  }
+  .stepImg {
+    position: relative;
+  }
+  .stepImg::after {
+    content: url(../../assets/icons/arrow_tablet.png);
     position: absolute;
+    right: -58px;
+    top: -17px;
+    z-index: 10;
+  }
+  .monkey::after {
+    display: none;
   }
   .feed > div:last-of-type {
     margin-right: 12px;
@@ -1255,5 +1272,168 @@ footer nav {
   }
   footer nav li {
     margin: 0 16px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .btn {
+    display: none;
+  }
+  .backStage h2 {
+    overflow: hidden;
+  }
+  .container {
+    max-width: 300px;
+  }
+
+  /* header section */
+
+  /* watch section */
+  .watchWrapper {
+    min-height: 187px;
+    margin-top: 34px;
+  }
+  .watchWrapper:before {
+    background: url(../../assets/images/Giant_Panda_mobile.png) 50% no-repeat;
+  }
+  .watch p {
+    font-size: 28px;
+    margin-top: 40px;
+    width: 128px;
+  }
+  .watch::before {
+    width: 119px;
+    height: 119px;
+    border-radius: 60px;
+    top: 22px;
+    right: 25px;
+  }
+  .watch .btn {
+    display: block;
+    position: absolute;
+    bottom: -112px;
+  }
+
+  /* backstage section */
+  .backStage {
+    margin-top: 115px;
+    margin-bottom: 42px;
+  }
+  .backStage .container {
+    display: block;
+  }
+  .backStage article {
+    /* margin-right: 0; */
+    width: 100%;
+  }
+  .backStage h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .backStage h3 {
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+  .backStage::before {
+    content: url(../../assets/images/flower_foto_mobile.png);
+    width: auto;
+    top: -65px;
+  }
+
+  /* petCards section */
+  .petCards {
+    padding-bottom: 60px;
+  }
+  .rowPetCards {
+    flex-direction: column;
+  }
+  .petCard {
+    margin-bottom: 20px;
+  }
+  .petCardsControl {
+    display: none;
+  }
+  .petCards .btn {
+    display: block;
+    margin-top: 0;
+  }
+  .petCards:before {
+    content: url(../../assets/images/palm_foto_mobile.png);
+  }
+  .petCards:after {
+    content: url(../../assets/images/strelitzia_mobile.png);
+  }
+
+  /* friend section */
+  .friend .container {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 40px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .friend h2 {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+  .friend h2 + p {
+    font-size: 18px;
+    text-align: center;
+  }
+  .friend .container > p {
+    display: none;
+  }
+  .friend .container > p:nth-of-type(1) {
+    display: block;
+  }
+  .friend h3 {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  .stepImg::after {
+    content: url(../../assets/icons/arrow_mobile.png);
+    top: 162px;
+    right: -32px;
+  }
+  .zoo:after {
+    top: 167px;
+  }
+  .step {
+    height: 242px;
+  }
+  div.step:last-of-type {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+  .step p {
+    margin-top: 10px;
+  }
+  .feed {
+    flex-direction: column;
+    margin-bottom: 18px;
+  }
+  .friend .btn {
+    display: block;
+  }
+
+  /* testimonials section */
+  .testimonials {
+    padding-bottom: 0;
+    margin-bottom: 60px;
+  }
+  .testimonials h3 {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 18px;
+  }
+  .story {
+    padding: 10px;
+  }
+  .testimonials::after {
+    content: url(../../assets/images/leav_foto_mobile.png);
+    bottom: -95px;
+  }
+  .testimonials .btn2 {
+    display: block;
+    margin: 14px auto 0;
   }
 }
