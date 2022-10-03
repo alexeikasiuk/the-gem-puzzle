@@ -8,7 +8,9 @@ const feedForm = document.getElementById('feedPeriod');
 feedForm.onsubmit = (e) => {
   e.preventDefault();
   const amount = document.getElementById('inputPrice').value || 0;
-  const period = feedForm.querySelector(':checked').value;
+  const period = feedForm
+    .querySelector('.period')
+    .querySelector(':checked').value;
   alert(`Donate: ${amount}$ !!!\nPeriod: ${period} !`);
 };
 const subscribeAddress = document.getElementById('subscribe');
