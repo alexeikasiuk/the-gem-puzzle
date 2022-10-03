@@ -46,7 +46,6 @@ input[type='number'] {
   padding: 0;
   padding-left: 10px;
 }
-
 .active {
   border-color: #4b9200;
   color: #4b9200;
@@ -72,15 +71,12 @@ input[type='number'] {
   font-size: 16px;
   font-weight: 500;
 }
-
 .btn:hover {
   background: #e47209;
 }
-
 .btn:active {
   background: #4b9200;
 }
-
 .btn2 {
   border-radius: 5px;
 }
@@ -138,7 +134,7 @@ nav a:hover,
 }
 .logo a {
   display: inline-block;
-  line-height: 140%;
+  line-height: 125%;
   border-radius: 5px;
   vertical-align: middle;
   padding: 3px 5px;
@@ -163,6 +159,9 @@ nav a:hover,
 .design {
   float: right;
 }
+header .container .menuButton {
+  display: none;
+}
 
 /* watch section */
 .watchWrapper {
@@ -174,7 +173,7 @@ nav a:hover,
   content: '';
   width: 100%;
   height: 100%;
-  background: url(../../assets/images/Giant_Panda.png) 50% no-repeat;
+  background: url(../../assets/images/panda_bg_desktop_donate.png) 50% no-repeat;
   background-size: cover;
   z-index: -1;
 }
@@ -203,7 +202,6 @@ nav a:hover,
       #eaf7fe 127.9%,
       #eaf7fe 149.54%
     );
-  text-align: center;
   color: #333b41;
   padding-bottom: 180px;
   padding-top: 40px;
@@ -215,7 +213,7 @@ nav a:hover,
 }
 .donate h3 {
   font-size: 36px;
-  font-weight: 300;
+  font-weight: normal;
   line-height: 130%;
 }
 .donate h2,
@@ -227,7 +225,6 @@ nav a:hover,
   color: #fff;
 }
 .info p {
-  text-align: left;
   margin-top: 10px;
   margin-bottom: 47px;
   font-size: 16px;
@@ -235,15 +232,15 @@ nav a:hover,
   line-height: 140%;
 }
 .info + h3 {
-  text-align: left;
-  margin-bottom: 60px;
+  margin-bottom: 58px;
 }
 .pick {
   background: rgba(255, 255, 255, 0.52);
   border-radius: 25px;
   padding: 39px 92px 63px;
   padding-top: 38px;
-  padding-bottom: 45px;
+  padding-bottom: 42px;
+  text-align: center;
 }
 .pick h2 {
   margin-left: -10px;
@@ -259,8 +256,8 @@ nav a:hover,
   display: flex;
   justify-content: center;
   margin-top: 60px;
-  margin-bottom: 50px;
-  padding-right: 13px;
+  margin-bottom: 48px;
+  padding-right: 18px;
 }
 .petDiet span:nth-of-type(1) {
   font-size: 72px;
@@ -277,7 +274,7 @@ nav a:hover,
   position: relative;
 }
 .petDiet div:last-child {
-  margin-left: 87px;
+  margin-left: 92px;
 }
 .petDiet div:first-child:after {
   content: url(../../assets/icons/x_icon.svg);
@@ -304,10 +301,8 @@ nav a:hover,
   width: 50px;
   height: 50px;
   top: -10px;
-  /* left: 50%; */
   margin-left: -25px;
   border-radius: 25px;
-  /* border: 1px solid #ffee2e; */
 }
 .amount li label:after {
   content: '';
@@ -319,16 +314,18 @@ nav a:hover,
   border-radius: 5px;
   background: #ffee2e;
 }
-.activeAmount {
-  position: relative;
-}
 .activeAmount:hover {
   cursor: default;
 }
 .activeAmount {
-  background: url(../../assets/icons/roller_icon.svg) 50% no-repeat;
+  position: relative;
 }
-
+.activeAmount::before {
+  position: absolute;
+  content: url(../../assets/icons/roller_icon.svg);
+  left: 5px;
+  top: 5px;
+}
 .amount label:hover {
   cursor: pointer;
 }
@@ -341,10 +338,9 @@ nav a:hover,
 .amount .activeAmount:hover:after {
   background: #ffee2e;
 }
-
 .amount ul:first-of-type {
   border-radius: 2px;
-  padding: 4px 26px;
+  padding: 4px 32px;
   background: #404950;
   position: relative;
 }
@@ -359,7 +355,7 @@ nav a:hover,
 }
 .price {
   margin-top: 15px;
-  margin-bottom: 54px;
+  margin-bottom: 56px;
   padding: 0 20px 0 0;
 }
 .activePrice {
@@ -393,7 +389,6 @@ nav a:hover,
   background: transparent;
   padding: 10px;
   padding-right: 25px;
-  /* position: relative; */
   margin-left: -7px;
 }
 #inputPrice + label {
@@ -406,7 +401,6 @@ nav a:hover,
   margin-bottom: -5px;
   margin-left: -25px;
 }
-
 .period {
   padding-top: 26px;
   padding-bottom: 32px;
@@ -414,8 +408,6 @@ nav a:hover,
 }
 .period input {
   display: none;
-  /* margin-right: 7px; */
-  /* border: 5px solid #fe9013; */
 }
 .period label {
   width: 16px;
@@ -454,7 +446,6 @@ footer .container {
   display: flex;
   flex-direction: column;
 }
-
 footer .container > div:nth-of-type(1),
 footer .container > div:nth-of-type(3) {
   display: flex;
@@ -462,7 +453,7 @@ footer .container > div:nth-of-type(3) {
   align-items: flex-end;
 }
 footer .container > div:nth-of-type(1) {
-  margin-top: 43px;
+  margin-top: 40px;
 }
 footer .container > div:nth-of-type(2) {
   margin-top: 36px;
@@ -475,6 +466,9 @@ footer .logo {
   margin-bottom: 30px;
   position: relative;
   top: -2px;
+}
+footer .logo a {
+  line-height: 135%;
 }
 footer form h4 {
   font-size: 24px;
@@ -513,7 +507,6 @@ footer form h4 {
   border: 1px solid #4b9200;
   color: #4b9200;
 }
-
 .social li {
   margin-top: 13px;
 }
@@ -534,7 +527,6 @@ footer form h4 {
   background: url(../../assets/icons/twitter.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
 }
-
 .social li:nth-of-type(3) a:before {
   background: url(../../assets/icons/instagram.svg) 50% no-repeat,
     rgba(196, 196, 196, 0.5);
@@ -556,8 +548,9 @@ footer form h4 {
 .social li:nth-of-type(4) a:active:before {
   background: url(../../assets/icons/youtube.svg) 50% no-repeat, #4b9200;
 }
-.copy {
-  font-weight: 100;
+.copy:active p {
+  color: #4b9200;
+  text-decoration: underline;
 }
 .copy p {
   color: rgba(255, 255, 255, 0.4);
@@ -567,4 +560,453 @@ footer form h4 {
 footer nav {
   position: relative;
   left: 57px;
+}
+
+/* small screen desktop 1000px/940px */
+@media screen and (max-width: 1350px) {
+  /* common styles */
+  .container {
+    width: 94%;
+  }
+  .logo {
+    margin-right: 37px;
+  }
+
+  /* header section */
+  nav li {
+    margin: 0 22px;
+  }
+  /* watch section */
+  .watchWrapper {
+    height: 389px;
+  }
+  .watchWrapper:before {
+    background: url(../../assets/images/panda_bg_small_desktop_donate.png) 50%
+      no-repeat;
+    background-size: cover;
+  }
+
+  /* donate section */
+  .donate {
+    padding-bottom: 30px;
+  }
+  .info p {
+    margin-top: 30px;
+  }
+  .info + h3 {
+    margin-bottom: 38px;
+  }
+  .pick {
+    padding: 20px 43px 25px;
+  }
+  .pick h2 + p {
+    margin-top: 10px;
+    text-align: center;
+  }
+  .petDiet > div:nth-of-type(2) {
+    margin-left: 92px;
+  }
+  .amount {
+    max-width: 810px;
+    margin: 0 auto;
+  }
+  .amount ul li:nth-of-type(1) {
+    display: none;
+  }
+  .amount ul:first-of-type {
+    padding: 4px 14px;
+  }
+  .amount ul:first-of-type::before {
+    width: calc(100% - 38px);
+    left: 19px;
+  }
+  .activeAmount:before {
+    position: absolute;
+    content: url(../../assets/icons/roller_icon.svg);
+    left: 5px;
+    top: 5px;
+  }
+  .price {
+    padding: 0;
+    margin-top: 17px;
+  }
+  .period {
+    padding-top: 27px;
+  }
+  footer form {
+    margin-right: 32px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .container {
+    width: 94%;
+  }
+  .btn {
+    max-width: 298px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* header section */
+  header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+  }
+  header .container {
+    min-height: 34px;
+    line-height: 0;
+  }
+  header .container nav,
+  header .container .design {
+    display: none;
+  }
+  header .container .menuButton {
+    display: block;
+    border: none;
+    width: 20px;
+    height: 20px;
+    background: url(../../assets/icons/burger_menu.svg) 50% no-repeat,
+      transparent;
+    float: right;
+    margin-top: 6px;
+  }
+  header .logo {
+    border: none;
+    width: 47px;
+  }
+  header .logo a {
+    font-size: 11px;
+    line-height: 14px;
+    padding-left: 0px;
+  }
+  header .logo span::before {
+    left: -3px;
+    bottom: -7px;
+    width: 6px;
+  }
+  /* watch section */
+  .watchWrapper {
+    margin-top: 34px;
+    height: 335px;
+  }
+  .watchWrapper:before {
+    max-height: 100%;
+    background: url(../../assets/images/panda_bg_tablet.png) 50% no-repeat;
+    background-size: cover;
+    z-index: 0;
+  }
+
+  /* donate section */
+  .donate {
+    padding-bottom: 47px;
+    padding-top: 28px;
+  }
+  .donate h3 {
+    font-size: 24px;
+    /* margin-top: 23px; */
+  }
+  .info p {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+  .info + h3 {
+    font-size: 36px;
+    margin-top: 30px;
+    margin-bottom: 29px;
+  }
+  .pick {
+    padding: 29px 0 23px;
+  }
+  .pick h2 {
+    margin-bottom: 20px;
+  }
+  .pick h2 + p {
+    text-align: center;
+  }
+  .petDiet {
+    margin-top: 52px;
+    margin-bottom: 43px;
+  }
+  .donate form > p {
+    padding-left: 10px;
+    margin-bottom: 8px;
+  }
+  .donate ul:nth-of-type(1) {
+    padding: 4px 40px;
+  }
+  .donate ul:nth-of-type(1) li:nth-of-type(2),
+  .donate ul:nth-of-type(1) li:nth-of-type(3),
+  .donate ul:nth-of-type(2) li:nth-of-type(2),
+  .donate ul:nth-of-type(2) li:nth-of-type(3) {
+    display: none;
+  }
+  .activeAmount:before {
+    position: absolute;
+    content: url(../../assets/icons/roller_icon.svg);
+    left: 5px;
+    top: 5px;
+  }
+  .price {
+    padding: 0 15px;
+  }
+  .amount ul:first-of-type::before {
+    width: calc(100% - 80px);
+    left: 40px;
+  }
+  #inputPrice {
+    width: 180px;
+    height: 42px;
+    padding-left: 5px;
+  }
+  .period {
+    padding-top: 32px;
+  }
+  .period p {
+    margin-top: 10px;
+  }
+
+  /* footer section */
+  footer form {
+    display: none;
+  }
+  footer .container {
+    position: relative;
+  }
+  footer .container > div:nth-of-type(1) {
+    margin-top: 13px;
+  }
+  footer .container > div:nth-of-type(2) {
+    margin-top: 0;
+    margin-bottom: 52px;
+  }
+  .social {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .social li {
+    margin-top: 15px;
+  }
+  .social a {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    overflow: hidden;
+    display: inline-block;
+  }
+  footer .container > div:nth-of-type(3) {
+    margin-bottom: 15px;
+  }
+  footer nav {
+    margin-left: -70px;
+  }
+  footer nav li {
+    margin: 0 16px;
+  }
+  .copy {
+    margin-right: 7px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .btn {
+    width: 100%;
+  }
+  .container {
+    width: 94%;
+  }
+  /* header section */
+  .logo {
+    margin: 0;
+  }
+
+  /* watch section */
+  .watchWrapper {
+    top: 0;
+    min-height: 187px;
+    margin-top: 34px;
+    height: 187px;
+  }
+  .watchWrapper:before {
+    background: url(../../assets/images/panda_bg_mobile.png) 50% no-repeat;
+    content: '';
+    background-size: cover;
+  }
+
+  /* donate section */
+  .donate {
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+  .info h3 {
+    margin-top: 0;
+    line-height: 120%;
+  }
+  .info p {
+    margin-top: 20px;
+    line-height: 137%;
+  }
+  .info + h3 {
+    font-size: 24px;
+  }
+  .pick {
+    padding-top: 20px;
+    padding-bottom: 13px;
+  }
+  .pick h2 {
+    font-size: 24px;
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+  .pick h2 + p {
+    font-size: 16px;
+    line-height: 130%;
+  }
+  .petDiet {
+    padding-right: 0;
+    margin-top: 13px;
+    margin-bottom: 5px;
+  }
+  .petDiet span:nth-of-type(1) {
+    font-size: 40px;
+    padding-top: 32px;
+    padding-bottom: 8px;
+  }
+  .petDiet span:nth-of-type(2) {
+    font-size: 9px;
+  }
+  .petDiet div:first-child::after {
+    content: url(../../assets/icons/x_icon_mobile.svg);
+    top: 49%;
+    right: -15px;
+  }
+  .petDiet img {
+    width: 160px;
+  }
+  .petDiet > div:nth-of-type(2) {
+    margin-left: 50px;
+  }
+  .donate form > p {
+    padding-left: 0;
+    margin-bottom: 10px;
+  }
+  .amount ul:first-of-type {
+    padding: 0 20px;
+    height: 14px;
+  }
+  .amount ul:nth-of-type(1)::before {
+    width: calc(100% - 40px);
+    left: 20px;
+    top: 6px;
+  }
+  .amount li {
+    position: relative;
+  }
+  .amount li label {
+    /* border: 1px solid red; */
+    width: 46px;
+    height: 46px;
+    top: calc(50% - 23px);
+    left: calc(50% - 23px);
+    margin: 0;
+  }
+  .activeAmount:before {
+    position: absolute;
+    content: url(../../assets/icons/roller_icon_mobile.svg);
+    left: 13px;
+    top: 13px;
+  }
+  .amount li label::after {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    top: calc(50% - 3px);
+    margin: 0;
+    left: calc(50% - 3px);
+  }
+  .activeAmount::after {
+    left: calc(50% - 3px);
+  }
+  .amount .btn {
+    margin-right: auto;
+  }
+  .price {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 22px;
+    width: 93%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .price li {
+    font-size: 13px;
+    min-width: auto;
+  }
+  .price li::before {
+    background: url(../../assets/icons/dollar_mobile.svg) 50% no-repeat;
+    width: 7px;
+    height: 10px;
+  }
+  .period {
+    padding-top: 26px;
+    padding-bottom: 28px;
+    margin-left: 0;
+    padding-right: 18px;
+  }
+  .period label {
+    margin-right: 5px;
+  }
+  .period p {
+    margin-top: 35px;
+  }
+  /* footer section */
+  footer .container {
+    display: block;
+  }
+  footer .logo {
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+  }
+  footer .container > div:nth-of-type(2) {
+    margin-top: 50px;
+    margin-bottom: 17px;
+  }
+  footer .container > div:nth-of-type(1) {
+    display: block;
+    margin-top: 0;
+  }
+  .btn {
+    display: block;
+  }
+  .social {
+    top: 75px;
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+  .social ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 35px;
+  }
+  .social li {
+    margin: 0;
+  }
+
+  footer .container > div:nth-of-type(3) {
+    flex-direction: column-reverse;
+    margin-bottom: 0;
+  }
+  footer nav {
+    margin: 30px 0;
+    width: 100%;
+    left: 0;
+    text-align: center;
+  }
+  footer nav li {
+    margin: 0 12px;
+  }
 }

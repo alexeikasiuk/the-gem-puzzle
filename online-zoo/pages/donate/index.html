@@ -8,17 +8,14 @@
     <title>Donate</title>
   </head>
   <body>
-    <p id="screenSize"></p>
     <header>
       <div class="container">
-        <div class="logo">
-          <h1>
-            <a href="../../index.html">PetStory <span>online</span></a>
-          </h1>
-        </div>
+        <h1 class="logo">
+          <a href="../main/index.html">PetStory <span>online</span></a>
+        </h1>
         <nav>
           <ul>
-            <li><a href="../../index.html">About</a></li>
+            <li><a href="../main/index.html">About</a></li>
             <li><a href="../map/index.html">Map</a></li>
             <li><a href="#">Zoos</a></li>
             <li><a href="" class="activeMenu">Donate</a></li>
@@ -31,6 +28,7 @@
             >Designed by &#169;</a
           >
         </div>
+        <button class="menuButton"></button>
       </div>
     </header>
     <main>
@@ -70,37 +68,12 @@
                 <img src="../../assets/images/panda_diet.svg" alt="panda" />
               </div>
             </div>
-            <form action="" class="amount">
+            <form action="" class="amount" id="feedPeriod">
               <p>Amount</p>
               <ul>
                 <li>
                   <label>
-                    <input name="amount" value="25" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="50" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label class="activeAmount">
-                    <input name="amount" value="100" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="250" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="500" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="1000" type="radio" />
+                    <input name="amount" value="5000" type="radio" />
                   </label>
                 </li>
                 <li>
@@ -110,17 +83,42 @@
                 </li>
                 <li>
                   <label>
-                    <input name="amount" value="5000" type="radio" />
+                    <input name="amount" value="1000" type="radio" />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="amount" value="500" type="radio" />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="amount" value="250" type="radio" />
+                  </label>
+                </li>
+                <li>
+                  <label class="activeAmount">
+                    <input name="amount" value="100" type="radio" />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="amount" value="50" type="radio" />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input name="amount" value="25" type="radio" />
                   </label>
                 </li>
               </ul>
               <ul class="price">
                 <li>5000</li>
                 <li>2000</li>
-                <li class="activePrice">1000</li>
+                <li>1000</li>
                 <li>500</li>
                 <li>250</li>
-                <li>100</li>
+                <li class="activePrice">100</li>
                 <li>50</li>
                 <li>25</li>
               </ul>
@@ -158,11 +156,9 @@
       <div class="container">
         <div>
           <div class="logo">
-            <h1>
-              <a href="../../index.html">PetStory <span>online</span></a>
-            </h1>
+            <a href="../main/index.html">PetStory <span>online</span></a>
           </div>
-          <form>
+          <form action="" id="subscribe">
             <h4>Subscribe to our news</h4>
             <input
               class="email"
@@ -195,10 +191,10 @@
               <li><a href="#">Contuct Us</a></li>
             </ul>
           </nav>
-          <div class="copy">
+          <a href="" class="copy">
             <p>Designed by Alisa Samborskaya</p>
             <p>&#169;RSSchool & &#169;Yem Digital 2021</p>
-          </div>
+          </a>
         </div>
       </div>
     </footer>
