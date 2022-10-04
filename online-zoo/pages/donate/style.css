@@ -840,6 +840,9 @@ footer nav {
     padding-top: 30px;
     padding-bottom: 20px;
   }
+  .info {
+    width: 99%;
+  }
   .info h3 {
     margin-top: 0;
     line-height: 120%;
