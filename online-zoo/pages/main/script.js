@@ -1,50 +1,60 @@
 'user strict';
 
-// get info about device
-const isMobile = {
-  Android: function () {
-    return navigator.userAgent.match(/Android/i);
-  },
-  BlackBerry: function () {
-    return navigator.userAgent.match(/BlackBerry/i);
-  },
-  iOS: function () {
-    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-  },
-  Opera: function () {
-    return navigator.userAgent.match(/Opera Mini/i);
-  },
-  Windows: function () {
-    return navigator.userAgent.match(/IEMobile/i);
-  },
-  any: function () {
-    return (
-      isMobile.Android() ||
-      isMobile.BlackBerry() ||
-      isMobile.iOS() ||
-      isMobile.Opera() ||
-      isMobile.Windows()
-    );
-  },
-};
-if (isMobile.any()) {
-  document.body.classList.add('_touch');
-} else {
-  document.body.classList.add('_pc');
-}
+// // get info about device
+// const isMobile = {
+//   Android: function () {
+//     return navigator.userAgent.match(/Android/i);
+//   },
+//   BlackBerry: function () {
+//     return navigator.userAgent.match(/BlackBerry/i);
+//   },
+//   iOS: function () {
+//     return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+//   },
+//   Opera: function () {
+//     return navigator.userAgent.match(/Opera Mini/i);
+//   },
+//   Windows: function () {
+//     return navigator.userAgent.match(/IEMobile/i);
+//   },
+//   any: function () {
+//     return (
+//       isMobile.Android() ||
+//       isMobile.BlackBerry() ||
+//       isMobile.iOS() ||
+//       isMobile.Opera() ||
+//       isMobile.Windows()
+//     );
+//   },
+// };
+// if (isMobile.any()) {
+//   document.body.classList.add('_touch');
+// } else {
+//   document.body.classList.add('_pc');
+// }
 
 // burger menu
 const iconMenu = document.querySelector('.menu_icon');
-if (iconMenu) {
-  const menuBody = document.querySelector('.menu_body');
-  const headerLogo = document.querySelector('header').querySelector('.logo');
-  iconMenu.addEventListener('click', function (e) {
+const menuBody = document.querySelector('.menu_body');
+const headerLogo = document.querySelector('header').querySelector('.logo');
+
+// open/close burger menu by click on burger menu icon
+iconMenu.addEventListener('click', function (e) {
+  iconMenu.classList.toggle('_active');
+  document.body.classList.toggle('_lock');
+  menuBody.classList.toggle('_active');
+  headerLogo.classList.toggle('burger_logo');
+});
+
+// close opened burger menu by click on free area burger menu
+menuBody.addEventListener('click', (e) => {
+  if (menuBody.classList.contains('_active')) {
     iconMenu.classList.toggle('_active');
     document.body.classList.toggle('_lock');
     menuBody.classList.toggle('_active');
     headerLogo.classList.toggle('burger_logo');
-  });
-}
+  }
+});
 // for (let elem of document.querySelectorAll('.activeMenu')) {
 //   elem.onclick = (e) => {
 //     e.preventDefault();
