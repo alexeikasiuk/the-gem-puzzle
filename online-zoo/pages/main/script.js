@@ -205,6 +205,7 @@ let isEnabled = true;
 
 function hideItem(direction) {
   isEnabled = false;
+  ``;
   items[0].classList.add(direction);
   items[0].addEventListener('animationend', function () {
     this.remove();
