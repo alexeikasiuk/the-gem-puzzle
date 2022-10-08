@@ -4,6 +4,28 @@ const tabletSize = 755;
 const mobileSize = 450;
 let screenType;
 
+// burger menu
+const iconMenu = document.querySelector('.menu_icon');
+const menuBody = document.querySelector('.menu_body');
+const headerLogo = document.querySelector('header').querySelector('.logo');
+
+// open/close burger menu by click on burger menu icon
+iconMenu.addEventListener('click', function (e) {
+  iconMenu.classList.toggle('_active');
+  document.body.classList.toggle('_lock');
+  menuBody.classList.toggle('_active');
+  headerLogo.classList.toggle('burger_logo');
+});
+// close opened burger menu by click on free area burger menu
+menuBody.addEventListener('click', (e) => {
+  if (menuBody.classList.contains('_active')) {
+    iconMenu.classList.toggle('_active');
+    document.body.classList.toggle('_lock');
+    menuBody.classList.toggle('_active');
+    headerLogo.classList.toggle('burger_logo');
+  }
+});
+
 const inputPetsArray = [
   {
     family: 'GIANT PANDAS',
@@ -70,7 +92,6 @@ const inputPetsArray = [
     src: '../../assets/images/pet_cards/two-toed_sloth.jpg',
   },
 ];
-
 // shuffle array and return n length
 function shuffle(array, n) {
   let pets = [].concat(array);
@@ -80,7 +101,6 @@ function shuffle(array, n) {
   }
   return pets.slice(0, n);
 }
-
 // create html block for one pet
 function createCard(pet) {
   return `<div class="pet_card">
@@ -102,12 +122,10 @@ function createCard(pet) {
             </div>
           </div>`;
 }
-
 // create one row pets slide for desktop & tablet screen size
 function createRow(pets) {
   return pets.reduce((sum, card) => (sum += createCard(card)), '');
 }
-
 // create one slide for desktop & tablet screen size
 function createSlide(pets) {
   let half = pets.length / 2;
@@ -118,13 +136,11 @@ function createSlide(pets) {
             )}</div>
           </div>`;
 }
-
 function createMobile(pets) {
   return `<div class="slider_item slider_item_active">
             <div class="row_pet_cards">${createRow(pets)}</div>
           </div>`;
 }
-
 // first create slide or fixed block pets after load page
 window.addEventListener('load', function createSlider() {
   let screenSize = this.document.documentElement.clientWidth;
@@ -145,7 +161,6 @@ window.addEventListener('load', function createSlider() {
     .querySelector('.slider_window')
     .insertAdjacentHTML('afterbegin', slider);
 });
-
 //check and change(rewrite) pets block after resize screen
 window.addEventListener('resize', function rewriteSlider() {
   let screenSize = this.document.documentElement.clientWidth;
@@ -173,29 +188,6 @@ window.addEventListener('resize', function rewriteSlider() {
     let parent = document.querySelector('.slider_window');
     parent.innerHTML = '';
     parent.insertAdjacentHTML('afterbegin', slider);
-  }
-});
-
-// burger menu
-const iconMenu = document.querySelector('.menu_icon');
-const menuBody = document.querySelector('.menu_body');
-const headerLogo = document.querySelector('header').querySelector('.logo');
-
-// open/close burger menu by click on burger menu icon
-iconMenu.addEventListener('click', function (e) {
-  iconMenu.classList.toggle('_active');
-  document.body.classList.toggle('_lock');
-  menuBody.classList.toggle('_active');
-  headerLogo.classList.toggle('burger_logo');
-});
-
-// close opened burger menu by click on free area burger menu
-menuBody.addEventListener('click', (e) => {
-  if (menuBody.classList.contains('_active')) {
-    iconMenu.classList.toggle('_active');
-    document.body.classList.toggle('_lock');
-    menuBody.classList.toggle('_active');
-    headerLogo.classList.toggle('burger_logo');
   }
 });
 
@@ -256,6 +248,29 @@ document.querySelector('.next').addEventListener('click', function () {
   }
 });
 
+// testimonials range
+let range = document.querySelector('input[type="range"]');
+function showTestimonials() {
+  let screenSize = document.documentElement.clientWidth;
+  let area = document.querySelector('.stories').clientWidth;
+  // console.log(screenSize, area);
+  // console.log('resize testimonials');
+  // console.log(range.value);
+
+  //30px - padding between stories
+  //1250px - media query 3/4 visible stories
+  let step =
+    screenSize > 1250
+      ? -((area - 30 * 3) / 4 + 30)
+      : screenSize > 755
+      ? -((area - 30 * 2) / 3 + 30)
+      : 0;
+  console.log(`${step * range.value}px`);
+  document.querySelector('.stories').style.left = `${step * range.value}px`;
+}
+
+range.addEventListener('input', showTestimonials);
+window.addEventListener('resize', showTestimonials);
 // // other
 // for (let elem of document.querySelectorAll('.activeMenu')) {
 //   elem.onclick = (e) => {
