@@ -305,7 +305,7 @@ document.onsubmit = (e) => {
   );
 };
 
-// hover pet card
+// hover
 // document.querySelectorAll('[class="petCard"]').forEach((petCard) => {
 //   petCard.onmouseover = (e) => {
 //     const shadowDiv = document.createElement('div');
