@@ -146,10 +146,10 @@ window.addEventListener('load', function createSlider() {
   let screenSize = this.document.documentElement.clientWidth;
   let slider;
 
-  if (screenSize >= tabletSize) {
+  if (screenSize > tabletSize) {
     slider = createSlide(shuffle(inputPetsArray, 6));
     screenType = 'desktop';
-  } else if (screenSize >= mobileSize) {
+  } else if (screenSize > mobileSize) {
     slider = createSlide(shuffle(inputPetsArray, 4));
     screenType = 'tablet';
   } else {
@@ -167,19 +167,19 @@ window.addEventListener('resize', function rewriteSlider() {
   let slider;
   let isChanged = false;
 
-  if (screenSize >= tabletSize && screenType != 'desktop') {
+  if (screenSize > tabletSize && screenType != 'desktop') {
     slider = createSlide(shuffle(inputPetsArray, 6));
     isChanged = true;
     screenType = 'desktop';
   } else if (
-    screenSize >= mobileSize &&
-    screenSize < tabletSize &&
+    screenSize > mobileSize &&
+    screenSize <= tabletSize &&
     screenType != 'tablet'
   ) {
     slider = createSlide(shuffle(inputPetsArray, 4));
     isChanged = true;
     screenType = 'tablet';
-  } else if (screenSize < mobileSize && screenType != 'mobile') {
+  } else if (screenSize <= mobileSize && screenType != 'mobile') {
     slider = createMobile(shuffle(inputPetsArray, 4));
     isChanged = true;
     screenType = 'mobile';
@@ -253,9 +253,6 @@ let range = document.querySelector('input[type="range"]');
 function showTestimonials() {
   let screenSize = document.documentElement.clientWidth;
   let area = document.querySelector('.stories').clientWidth;
-  // console.log(screenSize, area);
-  // console.log('resize testimonials');
-  // console.log(range.value);
 
   //30px - padding between stories
   //1250px - media query 3/4 visible stories
@@ -265,12 +262,32 @@ function showTestimonials() {
       : screenSize > 755
       ? -((area - 30 * 2) / 3 + 30)
       : 0;
-  console.log(`${step * range.value}px`);
+
   document.querySelector('.stories').style.left = `${step * range.value}px`;
 }
 
 range.addEventListener('input', showTestimonials);
 window.addEventListener('resize', showTestimonials);
+
+// modal window for testimonials
+// open/close modal by click
+let isModalReady = true;
+document.querySelectorAll('.wrap_story').forEach((item) => {
+  item.addEventListener('click', (e) => {
+    if (document.documentElement.clientWidth > tabletSize) return;
+    if (!isModalReady) return;
+
+    isModalReady = false;
+    item.classList.toggle('modal');
+    // document.body.classList.toggle('_lock');
+
+    item.addEventListener('transitionend', function () {
+      isModalReady = true;
+    });
+    e.preventDefault();
+  });
+});
+
 // // other
 // for (let elem of document.querySelectorAll('.activeMenu')) {
 //   elem.onclick = (e) => {
