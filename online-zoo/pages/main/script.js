@@ -289,31 +289,23 @@ document.querySelectorAll('.wrap_story').forEach((item) => {
 });
 
 // // other
-// for (let elem of document.querySelectorAll('.activeMenu')) {
-//   elem.onclick = (e) => {
-//     e.preventDefault();
-//   };
-// }
+// disable links to this page
+for (let elem of document.querySelectorAll('.active-menu-item')) {
+  elem.onclick = (e) => {
+    e.preventDefault();
+  };
+}
 
-// document.onsubmit = (e) => {
-//   e.preventDefault();
-//   alert(
-//     `Success subscribe!!!\nemail: ${
-//       document.querySelector('[type="email"]').value
-//     }`
-//   );
-// };
-// document.getElementById('goToMap').onclick = () => {
-//   document.location.href = '../map/index.html';
-// };
-// document.getElementById('btnDonate').onclick = () => {
-//   document.location.href = '../donate/index.html';
-// };
+document.onsubmit = (e) => {
+  e.preventDefault();
+  alert(
+    `Success subscribe!!!\nemail: ${
+      document.querySelector('[type="email"]').value
+    }`
+  );
+};
 
-// document.getElementById('btnDonate2').onclick = () => {
-//   document.location.href = '../donate/index.html';
-// };
-
+// hover pet card
 // document.querySelectorAll('[class="petCard"]').forEach((petCard) => {
 //   petCard.onmouseover = (e) => {
 //     const shadowDiv = document.createElement('div');
@@ -324,24 +316,6 @@ document.querySelectorAll('.wrap_story').forEach((item) => {
 //     const shadowWrapper = petCard.previousElementSibling.remove();
 //   };
 // });
-
-// show screen size, tmp code
-// const screenSize = document.createElement('div');
-// screenSize.setAttribute(
-//   'style',
-//   'position: fixed; left: 0; bottom: 0; font-size: 1.2rem; color: red; z-index: 10'
-// );
-// document.querySelector('body').prepend(screenSize);
-
-// function showScreenSize() {
-//   let width = document.documentElement.clientWidth;
-//   screenSize.innerHTML = `${width}px`;
-// }
-
-// window.onload = () => {
-//   setInterval(showScreenSize, 100);
-// };
-// end tmp code
 
 // // get info about device
 // const isMobile = {
