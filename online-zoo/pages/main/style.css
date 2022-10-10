@@ -1439,6 +1439,7 @@ input[type='range']::-webkit-slider-thumb {
   .wrap_story {
     margin-right: 0;
     margin-bottom: 15px;
+    cursor: pointer;
   }
   .story {
     max-height: 109px;

@@ -290,11 +290,11 @@ document.querySelectorAll('.wrap_story').forEach((item) => {
 
 // // other
 // disable links to this page
-for (let elem of document.querySelectorAll('.active-menu-item')) {
-  elem.onclick = (e) => {
-    e.preventDefault();
-  };
-}
+// for (let elem of document.querySelectorAll('.active-menu-item')) {
+//   elem.onclick = (e) => {
+//     e.preventDefault();
+//   };
+// }
 
 document.onsubmit = (e) => {
   e.preventDefault();

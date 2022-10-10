@@ -197,12 +197,12 @@ header .author {
   padding-top: 40px;
 }
 .donate h2 {
-  font-size: 48px;
+  font-size: 4.8rem;
   font-weight: 400;
   line-height: 120%;
 }
 .donate h3 {
-  font-size: 36px;
+  font-size: 3.6rem;
   font-weight: normal;
   line-height: 130%;
 }
@@ -210,34 +210,35 @@ header .author {
 .donate h3 {
   color: #fe9013;
 }
+.info {
+  margin-bottom: 47px;
+}
 .info h3,
 .info p {
   color: #fff;
 }
 .info p {
   margin-top: 10px;
-  margin-bottom: 47px;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
-  line-height: 140%;
+  line-height: 135%;
 }
 .info + h3 {
-  margin-bottom: 58px;
+  margin-bottom: 60px;
 }
 .pick {
   background: rgba(255, 255, 255, 0.52);
-  border-radius: 25px;
-  padding: 39px 92px 63px;
-  padding-top: 38px;
-  padding-bottom: 42px;
+  border-radius: 20px;
+  padding: 40px 92px 46px;
+
   text-align: center;
 }
 .pick h2 {
-  margin-left: -10px;
+  margin-left: -13px;
 }
 .pick h2 + p {
-  margin-top: 22px;
-  font-size: 24px;
+  margin-top: 21px;
+  font-size: 2.4rem;
   font-weight: 400;
   line-height: 120%;
   text-align: left;
@@ -245,17 +246,19 @@ header .author {
 .petDiet {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 60px;
   margin-bottom: 48px;
-  padding-right: 18px;
+  padding-right: 14px;
 }
 .petDiet span:nth-of-type(1) {
-  font-size: 72px;
+  font-size: 7.2rem;
   font-weight: 600;
   line-height: 80%;
-  padding-left: 2px;
-  padding-top: 50px;
-  padding-bottom: 12px;
+  padding-left: 0px;
+  padding-top: 56px;
+  padding-bottom: 10px;
+  color: #000;
 }
 .petDiet div:first-child {
   display: flex;
@@ -264,17 +267,18 @@ header .author {
   position: relative;
 }
 .petDiet div:last-child {
-  margin-left: 92px;
+  margin-left: 90px;
 }
 .petDiet div:first-child:after {
   content: url(../../assets/icons/x_icon.svg);
   position: absolute;
   right: -25px;
-  top: 52%;
+  top: 53%;
 }
 .amount > p {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   text-align: left;
+  padding-left: 5px;
 }
 .amount ul {
   display: flex;
@@ -282,73 +286,47 @@ header .author {
   height: 27px;
   line-height: 27px;
 }
-.amount li input {
-  display: none;
+
+input[type='range'] {
+  background: url(../../assets/images/progress_bar_1600.svg) 50% no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  -webkit-appearance: none;
+  background-color: transparent;
+  width: 100%;
+  height: 27px;
+  border-radius: 2px;
+  padding-left: 11px;
+  padding-right: 15px;
+  outline: 0;
 }
-.amount li label {
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border-radius: 25px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+  background: url(../../assets/icons/roller_icon.svg);
+}
+​ input[type='range']::-webkit-slider-thumb:hover {
+  background-color: white;
+  border: 2px solid #e74c3c;
+}
+input[type='range']::-webkit-slider-thumb:before {
+  content: '';
   position: absolute;
-  display: inline-block;
+  border: 5px solid red;
   width: 50px;
   height: 50px;
-  top: -10px;
-  margin-left: -25px;
-  border-radius: 25px;
-}
-.amount li label:after {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  top: 20px;
-  margin-left: -5px;
-  border-radius: 5px;
-  background: #ffee2e;
-}
-.activeAmount:hover {
-  cursor: default;
-}
-.activeAmount {
-  position: relative;
-}
-.activeAmount::before {
-  position: absolute;
-  content: url(../../assets/icons/roller_icon.svg);
-  left: 5px;
-  top: 5px;
-}
-.amount label:hover {
-  cursor: pointer;
-}
-.amount li label:hover::after {
-  background: #fe9013;
-}
-.amount .activeAmount:hover {
-  cursor: default;
-}
-.amount .activeAmount:hover:after {
-  background: #ffee2e;
-}
-.amount ul:first-of-type {
-  border-radius: 2px;
-  padding: 4px 32px;
-  background: #404950;
-  position: relative;
-}
-.amount ul:first-of-type::before {
-  box-sizing: border-box;
-  content: '';
-  position: absolute;
-  width: calc(100% - 62px);
-  border: 1px solid #72828e;
-  left: 31px;
-  top: 50%;
+  display: block;
 }
 .price {
-  margin-top: 15px;
-  margin-bottom: 56px;
+  margin-top: 12px;
+  margin-bottom: 53px;
   padding: 0 20px 0 0;
 }
-.activePrice {
+.active_price {
   color: #fe9013;
 }
 .price li {
@@ -361,17 +339,28 @@ header .author {
   width: 12px;
   height: 22px;
   display: inline-block;
-  background: url(../../assets/icons/dollar.svg) 50% no-repeat;
+  background: url(../../assets/icons/dollar_default.svg) 50% no-repeat;
   background-size: contain;
   position: relative;
   top: 2px;
   margin-right: 2px;
 }
-.price .activePrice::before {
+.price .active_price::before {
   background: url(../../assets/icons/dollar_active.svg) 50% no-repeat;
   background-size: contain;
 }
-#inputPrice {
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+.input_price {
   width: 268px;
   height: 54px;
   border: 1px solid #929699;
@@ -380,20 +369,28 @@ header .author {
   padding: 10px;
   padding-right: 25px;
   margin-left: -7px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 140%;
+  color: #929699;
+  padding-left: 8px;
+  outline: none;
 }
-#inputPrice + label {
+.input_price_label:after {
+  display: block;
   content: '';
   width: 12px;
-  height: 22px;
+  height: 20px;
   display: inline-block;
-  background: url(../../assets/icons/dollar_default.svg) 50% no-repeat;
+  background: url(../../assets/icons/dollar_input.svg) 50% no-repeat;
   background-size: contain;
   margin-bottom: -5px;
   margin-left: -25px;
 }
 .period {
-  padding-top: 26px;
-  padding-bottom: 32px;
+  padding-top: 25px;
+  padding-right: 5px;
+  padding-bottom: 30px;
   margin-left: -10px;
 }
 .period input {
@@ -419,12 +416,12 @@ header .author {
 .period label:nth-of-type(2) {
   margin-left: 45px;
 }
-.amount .btn {
+.amount .button1 {
   margin-right: -8px;
 }
-.btn + p {
+.button1 + p {
   text-align: center;
-  margin-top: 33px;
+  margin-top: 29px;
 }
 
 /* footer section */
@@ -601,57 +598,6 @@ header .author {
     background: url(../../assets/images/panda_bg_donate_1000.jpg) 50% no-repeat;
     background-size: cover;
   }
-
-  /* donate section */
-  .donate {
-    padding-bottom: 30px;
-  }
-  .info p {
-    margin-top: 30px;
-  }
-  .info + h3 {
-    margin-bottom: 38px;
-  }
-  .pick {
-    padding: 20px 43px 25px;
-  }
-  .pick h2 + p {
-    margin-top: 10px;
-    text-align: center;
-  }
-  .petDiet > div:nth-of-type(2) {
-    margin-left: 92px;
-  }
-  .amount {
-    max-width: 810px;
-    margin: 0 auto;
-  }
-  .amount ul li:nth-of-type(1) {
-    display: none;
-  }
-  .amount ul:first-of-type {
-    padding: 4px 14px;
-  }
-  .amount ul:first-of-type::before {
-    width: calc(100% - 38px);
-    left: 19px;
-  }
-  .activeAmount:before {
-    position: absolute;
-    content: url(../../assets/icons/roller_icon.svg);
-    left: 5px;
-    top: 5px;
-  }
-  .price {
-    padding: 0;
-    margin-top: 17px;
-  }
-  .period {
-    padding-top: 27px;
-  }
-  footer form {
-    margin-right: 32px;
-  }
 }
 
 /* common for 1000px */
@@ -661,15 +607,72 @@ header .author {
     background-color: #111115;
   }
 
+  /* donate section */
+  .donate {
+    padding-bottom: 30px;
+  }
+  .donate .wrapper {
+    max-width: 94%;
+  }
+  .info {
+    margin-bottom: 48px;
+  }
+  .info p {
+    margin-top: 31px;
+  }
+  .info + h3 {
+    margin-bottom: 40px;
+  }
+  .pick {
+    padding: 20px 43px 31px;
+  }
+  .pick h2 + p {
+    margin-top: 11px;
+    text-align: center;
+  }
+  .petDiet {
+    padding-right: 18px;
+  }
+  .petDiet > div:nth-of-type(2) {
+    margin-left: 90px;
+  }
+  .amount {
+    max-width: 810px;
+    margin: 0 auto;
+  }
+  .amount p:first-child {
+    padding-left: 0;
+  }
+  input[type='range'] {
+    background: url(../../assets/images/progress_bar_1000.svg) 50% no-repeat;
+    background-size: contain;
+    padding-right: 0px;
+    padding-left: 0;
+    left: 0;
+    position: relative;
+    right: -5px;
+  }
+  .price {
+    padding: 0;
+    margin-top: 12px;
+  }
+  .period {
+    padding-top: 24px;
+  }
+
   /* footer section */
   .footer .wrapper {
     width: 94%;
+    padding-bottom: 53px;
   }
   .subscribe {
     padding-right: 32px;
   }
+  .sub2 {
+    margin-bottom: 46px;
+  }
   .footer_menu {
-    left: 67px;
+    left: 80px;
   }
   .footer_menu li {
     margin-right: 44px;
@@ -697,59 +700,69 @@ header .author {
   /* donate section */
   .donate {
     padding-bottom: 47px;
-    padding-top: 28px;
+    padding-top: 31px;
   }
+
   .donate h3 {
     font-size: 24px;
+    line-height: 120%;
+  }
+  .info {
+    margin-bottom: 33px;
   }
   .info p {
-    margin-top: 15px;
+    margin-top: 19px;
     margin-bottom: 0;
+    line-height: 138%;
   }
   .info + h3 {
-    font-size: 36px;
-    margin-top: 30px;
-    margin-bottom: 29px;
+    font-size: 3.6rem;
+    margin-top: 0;
+    margin-bottom: 30px;
   }
   .pick {
-    padding: 29px 0 23px;
+    padding: 31px 0 23px;
   }
   .pick h2 {
-    margin-bottom: 20px;
+    margin-bottom: 21px;
+    margin-left: 0;
   }
   .pick h2 + p {
     text-align: center;
   }
   .petDiet {
-    margin-top: 52px;
-    margin-bottom: 43px;
+    margin-top: 50px;
+    margin-bottom: 40px;
   }
   .donate form > p {
     padding-left: 10px;
     margin-bottom: 8px;
   }
-  .donate ul:nth-of-type(1) {
+  /* .donate ul:nth-of-type(1) {
     padding: 4px 40px;
-  }
-  .donate ul:nth-of-type(1) li:nth-of-type(2),
+  } */
+  .amount p:first-child {
+    padding-left: 10px;
+    margin-bottom: 7px;
+  } /* .donate ul:nth-of-type(1) li:nth-of-type(2),
   .donate ul:nth-of-type(1) li:nth-of-type(3),
   .donate ul:nth-of-type(2) li:nth-of-type(2),
   .donate ul:nth-of-type(2) li:nth-of-type(3) {
     display: none;
-  }
-  .activeAmount:before {
+  } */
+  /* .activeAmount:before {
     position: absolute;
     content: url(../../assets/icons/roller_icon.svg);
     left: 5px;
     top: 5px;
-  }
+  } */
   .price {
-    padding: 0 15px;
+    padding: 0;
   }
-  .amount ul:first-of-type::before {
+  /* .amount ul:first-of-type::before {
     width: calc(100% - 80px);
     left: 40px;
-  }
+  } */
   #inputPrice {
     width: 180px;
     height: 42px;
@@ -956,13 +969,48 @@ header .author {
   .watchWrapper:before {
     background-position-x: -125px;
   }
+
+  /* donate section */
+  input[type='range'] {
+    background: url(../../assets/images/progress_bar_640.svg) 50% no-repeat;
+    background-size: cover;
+    padding-right: 23px;
+    padding-left: 23px;
+    right: -5px;
+  }
+  .donate ul.price {
+    margin-top: 7px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-bottom: 58px;
+  }
+  .input_price {
+    width: 180px;
+    height: 42px;
+  }
+  .period {
+    padding-top: 30px;
+  }
+  .amount .button1 {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  input[type='range'] {
+    background: url(../../assets/images/progress_bar_320.svg) 50% no-repeat;
+    background-size: contain;
+    padding-right: 3%;
+    padding-left: 3%;
+    right: -5px;
+  }
 }
 
 @media screen and (max-width: 600px) {
   /* donate section */
   .donate {
     padding-top: 30px;
-    padding-bottom: 20px;
+    padding-bottom: 21px;
   }
   .info {
     width: 99%;
@@ -980,33 +1028,34 @@ header .author {
   }
   .pick {
     padding-top: 20px;
-    padding-bottom: 13px;
+    padding-bottom: 11px;
   }
   .pick h2 {
     font-size: 24px;
     margin-left: 0;
-    margin-bottom: 12px;
+    margin-bottom: 9px;
   }
   .pick h2 + p {
     font-size: 16px;
-    line-height: 130%;
+    line-height: 140%;
+    margin-top: 0;
   }
   .petDiet {
     padding-right: 0;
-    margin-top: 13px;
+    margin-top: 10px;
     margin-bottom: 5px;
   }
   .petDiet span:nth-of-type(1) {
     font-size: 40px;
-    padding-top: 32px;
-    padding-bottom: 8px;
+    padding-top: 38px;
+    padding-bottom: 2px;
   }
   .petDiet span:nth-of-type(2) {
     font-size: 9px;
   }
   .petDiet div:first-child::after {
     content: url(../../assets/icons/x_icon_mobile.svg);
-    top: 49%;
+    top: 46%;
     right: -15px;
   }
   .petDiet img {
@@ -1019,7 +1068,7 @@ header .author {
     padding-left: 0;
     margin-bottom: 10px;
   }
-  .amount ul:first-of-type {
+  /* .amount ul:first-of-type {
     padding: 0 20px;
     height: 14px;
   }
@@ -1027,6 +1076,10 @@ header .author {
     width: calc(100% - 40px);
     left: 20px;
     top: 6px;
+  } */
+  .amount p:first-child {
+    padding-left: 0;
+    margin-bottom: 5px;
   }
   .amount li {
     position: relative;
@@ -1058,13 +1111,13 @@ header .author {
   .amount .btn {
     margin-right: auto;
   }
-  .price {
+  .amount ul.price {
     padding: 0;
-    margin-top: 0;
-    margin-bottom: 22px;
-    width: 93%;
+    margin-top: -5px;
+    margin-bottom: 20px;
+    max-width: 98%;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 10px;
   }
   .price li {
     font-size: 13px;
@@ -1076,7 +1129,7 @@ header .author {
     height: 10px;
   }
   .period {
-    padding-top: 26px;
+    padding-top: 23px;
     padding-bottom: 28px;
     margin-left: 0;
     padding-right: 18px;
@@ -1160,5 +1213,27 @@ header .author {
     margin-right: 0;
     width: 100%;
     padding: 0 11px;
+  }
+}
+@media (max-width: 450px) {
+  /* donate section */
+  input[type='range'] {
+    background-size: cover;
+    height: 15px;
+    padding-left: 1.3%;
+    padding-right: 1.3%;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    background: url(../../assets/icons/roller_icon_320.svg) 50% no-repeat;
+  }
+}
+
+@media (max-width: 350px) {
+  /* donate section */
+  input[type='range'] {
+    background-size: contain;
+    height: 15px;
+    padding-left: 0.7%;
+    padding-right: 0.7%;
   }
 }
