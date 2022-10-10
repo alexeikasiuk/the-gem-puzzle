@@ -8,188 +8,165 @@
     <title>Donate</title>
   </head>
   <body>
-    <header>
-      <div class="container">
+    <!-- header section -->
+    <header class="header">
+      <div class="wrapper">
         <h1 class="logo">
-          <a href="../main/index.html">PetStory <span>online</span></a>
+          <a href="../main/index.html">PetStory online</a>
         </h1>
-        <nav>
-          <ul>
-            <li><a href="../main/index.html">About</a></li>
-            <li><a href="../map/index.html">Map</a></li>
-            <li><a href="#">Zoos</a></li>
-            <li><a href="" class="activeMenu">Donate</a></li>
-            <li><a href="#">Contuct us</a></li>
-          </ul>
-        </nav>
-        <div class="design">
-          <a
-            href="https://www.figma.com/file/jfEFwkXVj1WRq7sUHDr8os/PetStory-online"
-            >Designed by &#169;</a
-          >
+        <div class="menu">
+          <div class="menu_icon">
+            <span></span>
+          </div>
+          <nav class="menu_body">
+            <ul>
+              <li>
+                <a href="../main/index.html">About</a>
+              </li>
+              <li><a href="../map/index.html">Map</a></li>
+              <li><a href="#">Zoos</a></li>
+              <li>
+                <a href="#" class="active-menu-item">Donate</a>
+              </li>
+              <li><a href="#">Contuct us</a></li>
+            </ul>
+            <a
+              class="author"
+              href="https://www.figma.com/file/ypzT9idgAILaSRVRmDAJxn/online-zoo-3-weeks"
+              >Designed by <span>&copy;</span></a
+            >
+          </nav>
         </div>
-        <button class="menuButton"></button>
       </div>
     </header>
-    <main>
-      <section class="watchWrapper">
-        <div class="container"></div>
-      </section>
-      <section class="donate">
-        <div class="container">
-          <div class="info">
-            <h3>THE ZOO HAS OFFICIALLY REOPENED BUT WE STILL NEED!</h3>
-            <p>
-              Even though the Zoo has been able to reopen, we are at a greatly
-              reduced capacity with educational programs and public and private
-              events cancelled or postponed for additional months. We need you
-              now more than ever to help ensure that we overcome these
-              challenges. We have been actively raising funds in the community,
-              and we are grateful for the generosity. But much more support is
-              still needed, and we need your help! Please consider a gift today
-              – no matter what size – to help us sustain fsvsfv
-            </p>
-          </div>
-          <h3>Donation information</h3>
-          <div class="pick">
-            <h2>Pick and feed a friend</h2>
-            <p>
-              We know the animals bring you joy, and in these extraordinary
-              times, we’re glad.
-            </p>
-            <div class="petDiet">
-              <div>
-                <span>4</span>
-                <span>Panda diet for the day.</span>
-              </div>
-              <div>
-                <img src="../../assets/images/panda_diet.svg" alt="panda" />
-              </div>
+    <!-- watch section -->
+    <section class="watchWrapper">
+      <div class="wrapper"></div>
+    </section>
+
+    <!-- donate section -->
+    <section class="donate">
+      <div class="wrapper">
+        <div class="info">
+          <h3>THE ZOO HAS OFFICIALLY REOPENED BUT WE STILL NEED YOUR HELP!</h3>
+          <p>
+            Even though the Zoo has been able to reopen, we are at a greatly
+            reduced capacity with educational programs and public and private
+            events cancelled or postponed for additional months. We need you now
+            more than ever to help ensure that we overcome these challenges. We
+            have been actively raising funds in the community, and we are
+            grateful for the generosity. But much more support is still needed,
+            and we need your help! Please consider a gift today – no matter what
+            size – to help us sustain fsvsfv
+          </p>
+        </div>
+        <h3>Donation information</h3>
+        <div class="pick">
+          <h2>Pick and feed a friend</h2>
+          <p>
+            We know the animals bring you joy, and in these extraordinary times,
+            we’re glad.
+          </p>
+          <div class="petDiet">
+            <div>
+              <span>4</span>
+              <span>Panda diet for the day.</span>
             </div>
-            <form action="" class="amount" id="feedPeriod">
-              <p>Amount</p>
-              <ul>
-                <li>
-                  <label>
-                    <input name="amount" value="5000" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="2000" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="1000" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="500" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="250" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label class="activeAmount">
-                    <input name="amount" value="100" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="50" type="radio" />
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input name="amount" value="25" type="radio" />
-                  </label>
-                </li>
-              </ul>
-              <ul class="price">
-                <li>5000</li>
-                <li>2000</li>
-                <li>1000</li>
-                <li>500</li>
-                <li>250</li>
-                <li class="activePrice">100</li>
-                <li>50</li>
-                <li>25</li>
-              </ul>
-              <div>
+            <div>
+              <img
+                alt="panda"
+                src="../../assets/images/panda_diet.svg"
+                alt="panda"
+              />
+            </div>
+          </div>
+          <form action="" class="amount">
+            <p>Amount</p>
+            <input type="range" min="0" max="7" step="1" />
+            <div>
+              <label class="input_price_label">
                 <input
-                  id="inputPrice"
+                  class="input_price"
                   type="number"
                   placeholder="Another amount"
                   max="9999"
                 />
-                <label for="inputPrice"></label>
-              </div>
-              <div class="period">
-                <input id="month" type="radio" name="period" value="monthly" />
-                <label for="month"></label>
-                <span>Monthly</span>
-                <input
-                  type="radio"
-                  id="once"
-                  checked
-                  name="period"
-                  value="once"
-                />
-                <label for="once"></label>
-                <span>Once</span>
-              </div>
-              <button class="btn">FEED A FRIEND NOW</button>
-              <p>Share with your friends on social networks</p>
-            </form>
-          </div>
+              </label>
+            </div>
+            <div class="period">
+              <input id="month" type="radio" name="period" value="monthly" />
+              <label for="month"></label>
+              <span>Monthly</span>
+              <input
+                type="radio"
+                id="once"
+                checked
+                name="period"
+                value="once"
+              />
+              <label for="once"></label>
+              <span>Once</span>
+            </div>
+            <button class="button1 button_color_default">
+              FEED A FRIEND NOW
+            </button>
+            <p>Share with your friends on social networks</p>
+          </form>
         </div>
-      </section>
-    </main>
-    <footer>
-      <div class="container">
-        <div>
+      </div>
+    </section>
+
+    <!-- footer section -->
+    <footer class="footer">
+      <div class="wrapper">
+        <div class="sub1">
           <div class="logo">
             <a href="../main/index.html">PetStory <span>online</span></a>
           </div>
-          <form action="" id="subscribe">
+          <form class="subscribe" action="#">
             <h4>Subscribe to our news</h4>
             <input
               class="email"
-              type="email"
               required
+              type="email"
               placeholder="Enter your email"
             />
-            <button id="subscribe" class="btnForm">Submit</button>
+            <button type="submit" class="button3 button3_color_default">
+              Submit
+            </button>
           </form>
         </div>
-        <div>
-          <button class="btn btn2" id="btnDonate2">
+        <div class="sub2">
+          <a href="#" class="button2 button_color_default">
             DONATE FOR VOLUNTEERS
-          </button>
+          </a>
         </div>
-        <div>
+        <div class="sub3">
           <div class="social">
             <ul>
-              <li><a href="https://www.facebook.com/">Facebook</a></li>
-              <li><a href="https://www.twitter.com/">Twitter</a></li>
-              <li><a href="https://www.instagram.com/">Instagram</a></li>
-              <li><a href="https://www.youtube.com/">YouTube</a></li>
+              <li>
+                <a href="https://www.facebook.com/"><span>Facebook</span></a>
+              </li>
+              <li>
+                <a href="https://www.twitter.com/"><span>Twitter</span></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/"><span>Instagram</span></a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/"><span>YouTube</span></a>
+              </li>
             </ul>
           </div>
-          <nav>
+          <nav class="footer_menu">
             <ul>
               <li><a href="../main/index.html">About</a></li>
               <li><a href="../map/index.html">Map</a></li>
               <li><a href="#">Zoos</a></li>
-              <li><a href="#">Contuct Us</a></li>
+              <li><a href="#">Contact us</a></li>
             </ul>
           </nav>
-          <a href="" class="copy">
+          <a class="copy" href="#">
             <p>Designed by Alisa Samborskaya</p>
             <p>&#169;RSSchool & &#169;Yem Digital 2021</p>
           </a>
