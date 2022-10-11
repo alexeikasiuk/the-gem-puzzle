@@ -156,16 +156,19 @@ window.addEventListener('resize', () => {
 
 // check input value amount
 inputPrice.addEventListener('input', (e) => {
+  e.target.value =
+    e.target.value.length > 4 ? e.target.value.slice(0, 4) : e.target.value;
   pricesList.forEach((el, i) => {
     if (el.innerText === e.target.value) {
       currentPrice.classList.remove('active_price');
       currentPrice = pricesList[i];
-      currentPrice.classList.add('active_price');
+      currentPrice.setAttribute('class', 'active_price');
       range.value = i;
     } else {
-      // currentPrice.classList.remove('active_price');
+      pricesList[i].classList.remove('active_price');
     }
   });
+  console.log('----------------------------');
 });
 
 //show submit donate data
