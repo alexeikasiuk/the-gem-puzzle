@@ -300,6 +300,9 @@ input[type='range'] {
   padding-right: 15px;
   outline: 0;
 }
+.hide_thumb::-webkit-slider-thumb {
+  opacity: 0;
+}
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   border-radius: 25px;
@@ -308,18 +311,6 @@ input[type='range']::-webkit-slider-thumb {
   cursor: pointer;
   position: relative;
   background: url(../../assets/icons/roller_icon.svg);
-}
-​ input[type='range']::-webkit-slider-thumb:hover {
-  background-color: white;
-  border: 2px solid #e74c3c;
-}
-input[type='range']::-webkit-slider-thumb:before {
-  content: '';
-  position: absolute;
-  border: 5px solid red;
-  width: 50px;
-  height: 50px;
-  display: block;
 }
 .price {
   margin-top: 12px;
