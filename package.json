@@ -1,0 +1,22 @@
+{
+  "name": "alexeikasiuk-jsfe2022q3",
+  "version": "1.0.0",
+  "description": "RSS Gem Puzzle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/alexeikasiuk-JSFE2022Q3.git"
+  },
+  "keywords": [
+    "rss"
+  ],
+  "author": "alex <aliakseikasiuk@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/alexeikasiuk-JSFE2022Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/alexeikasiuk-JSFE2022Q3#readme"
+}
