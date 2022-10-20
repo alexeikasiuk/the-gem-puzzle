@@ -4,18 +4,106 @@
   font-weight: 400;
   font-style: normal;
 }
-
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: Roboto, sans-serif;
-}
-.hello {
-  background: url('./assets/images/icons/icon.svg') no-repeat grey;
-  color: red;
-  margin: 0 auto;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   text-align: center;
-  padding: 150px;
+}
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+header,
+footer {
+  background-color: darkgray;
+}
+main {
+  flex: 1;
+  background-color: lightgray;
+  padding: 50px 0;
+}
+.field {
+  box-shadow: 0 0 15px #000;
+  width: 500px;
+  height: 500px;
+  margin: 20px auto;
+  border-radius: 5px;
+}
+h1 {
+  margin-bottom: 100px;
+}
+.control {
+  width: 500px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+}
+button {
+  padding: 10px;
+  min-width: 20%;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+.cell {
+  box-shadow: 0 0 3px #000;
+  margin: 4px;
+  float: left;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.cell3 {
+  width: 158px;
+  height: 158px;
+  line-height: 158px;
+  font-size: 4rem;
+}
+.cell4 {
+  width: 117px;
+  height: 117px;
+  line-height: 117px;
   font-size: 3rem;
 }
-img {
-  border: 5px solid green;
+.cell5 {
+  width: 92px;
+  height: 92px;
+  line-height: 92px;
+  font-size: 2rem;
+}
+.cell6 {
+  width: 75px;
+  height: 75px;
+  line-height: 75px;
+  font-size: 1.7rem;
+}
+.cell7 {
+  width: 63px;
+  height: 63px;
+  line-height: 55px;
+  font-size: 1.4rem;
+}
+.cell8 {
+  width: 54px;
+  height: 54px;
+  line-height: 54px;
+  font-size: 1.2rem;
+}
+.cell:hover {
+  box-shadow: 0 0 15px #000;
+}
+button,
+a,
+.cell {
+  cursor: pointer;
+}
+a._active {
+  text-decoration: none;
+  color: #000;
+  cursor: default;
 }
