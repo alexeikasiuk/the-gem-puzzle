@@ -16,19 +16,27 @@ class PuzzleGame {
     };
     this.puzzleItems = [];
     this.gameLocalStorage = null;
-    this.hasSound = true;
+    (this.hasSound = true), (this.isMove = false);
   }
 
   init() {
-    console.log('game init');
+    console.log('-------------------------game init----------------------');
 
     this.createPage();
     this.setButtonsBehavior();
     this.fillField();
+    this.setPuzzleItemsBehavior();
     this.setCurPageData();
+    this.startGame();
   }
   startGame() {
     console.log('start game');
+
+    if (this.timerId) clearInterval(this.timerId);
+    this.timerId = setInterval(() => {
+      this.time.s++;
+      this.showCurTime();
+    }, 1000);
   }
   restartGame() {
     console.log('restart game');
@@ -42,16 +50,38 @@ class PuzzleGame {
   showResults() {
     console.log('show results');
   }
+  showCurTime() {
+    // console.log('show current time');
+
+    if (this.time.s === 60) {
+      this.time.s = 0;
+      this.time.m++;
+    }
+    if (this.time.m === 60) {
+      this.time.m = 0;
+      this.time.h++;
+    }
+    let curH = this.time.h < 10 ? `0${this.time.h}` : this.time.h,
+      curM = this.time.m < 10 ? `0${this.time.m}` : this.time.m,
+      curS = this.time.s < 10 ? `0${this.time.s}` : this.time.s;
+    this.timeNode.innerHTML = `${curH}:${curM}:${curS}`;
+  }
+  //reset moves counter & game time & kill timer
+  resetGameScore() {
+    console.log('reset game score');
+
+    this.time = {
+      h: 0,
+      m: 0,
+      s: 0,
+    };
+    this.movesCount = 0;
+    if (this.timerId) clearInterval(this.timerId);
+  }
   changeGameLevel() {
     console.log('change game level', this.level);
-    if (confirm('Do you want to save this game?')) this.saveGame();
+    // if (confirm('Do you want to save this game?')) this.saveGame();
     this.init();
-  }
-  clear() {
-    console.log('clear data');
-  }
-  loadSavingState() {
-    console.log('load saving game');
   }
   toggleSound() {
     console.log('toggle sound');
@@ -59,15 +89,16 @@ class PuzzleGame {
     this.soundButton.classList.toggle('disabled');
     console.log(this.hasSound ? 'sound ON' : 'sound OFF');
   }
-  setLevel() {
-    console.log('set level');
-  }
-
   //set actual state page(count moves, level, time & disabled buttons)
   setCurPageData() {
     console.log('set current page data');
+
+    this.resetGameScore();
+
     this.showMovesCount();
     this.showGameLevel();
+    this.showCurTime();
+
     if (!localStorage.getItem('puzzleGame')) {
       this.continueButton.classList.add('disabled');
     }
@@ -77,9 +108,8 @@ class PuzzleGame {
         : e.classList.remove('disabled')
     );
   }
-
   showMovesCount() {
-    console.log('show current count');
+    console.log('show current count', this.movesCount);
     this.movesCountNode.innerHTML = this.movesCount;
   }
   showGameLevel() {
@@ -147,7 +177,6 @@ class PuzzleGame {
     this.levelNode = document.getElementById('cells-size');
     this.timeNode = document.getElementById('time');
   }
-
   //set behavior for buttons
   setButtonsBehavior() {
     console.log('set buttons behavior');
@@ -166,7 +195,6 @@ class PuzzleGame {
     this.showResultButton.onclick = () => this.showResults();
     this.soundButton.onclick = () => this.toggleSound();
   }
-
   //fill field after start game
   fillField() {
     console.log(`fill field, ${this.level}`);
@@ -193,19 +221,85 @@ class PuzzleGame {
 
     //fill field
     this.puzzleItems.forEach((cell) => this.puzzle.append(cell));
+  }
+  // set puzzle items behavior
+  setPuzzleItemsBehavior() {
+    console.log('set cells behavior');
+    //on click
+    this.puzzleItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        console.log('item click', item.innerHTML);
+        this.moveCellByClick(e.target);
+      });
+    });
 
-    // add cells behavior
-    this.puzzleItems.forEach((cell) =>
-      cell.addEventListener('click', this.moveCellByClick)
-    );
+    // //on drug&drop
+    // this.puzzleItems.forEach((item)=>{});
+
+    // // add cells behavior
+    // this.puzzleItems.forEach((cell) =>
+    //   cell.addEventListener('click', this.moveCellByClick)
+    // );
   }
   // try to move cell
-  moveCellByClick() {
-    console.log('move cell');
-  }
+  moveCellByClick(puzzleItem) {
+    console.log('try to move cell');
 
+    if (this.isMove) return;
+
+    let cell = puzzleItem,
+      zeroCell = document.querySelector('.zero-cell'),
+      cellPosition = {
+        x: Math.round(cell.getBoundingClientRect().x),
+        y: Math.round(cell.getBoundingClientRect().y),
+      },
+      zeroCellPosition = {
+        x: Math.round(zeroCell.getBoundingClientRect().x),
+        y: Math.round(zeroCell.getBoundingClientRect().y),
+      },
+      deltaX = cellPosition.x - zeroCellPosition.x,
+      deltaY = cellPosition.y - zeroCellPosition.y,
+      deltaMax = cell.offsetWidth * 1.5;
+    if (deltaY == 0 && Math.abs(deltaX) <= deltaMax) {
+      if (cellPosition.x > zeroCellPosition.x) {
+        this.replaceCells(cell, zeroCell, 'to-left');
+      } else {
+        this.replaceCells(cell, zeroCell, 'to-right');
+      }
+    } else if (deltaX == 0 && Math.abs(deltaY) <= deltaMax) {
+      if (cellPosition.y > zeroCellPosition.y) {
+        this.replaceCells(cell, zeroCell, 'to-top');
+      } else {
+        this.replaceCells(cell, zeroCell, 'to-bottom');
+      }
+    }
+  }
+  //replace current cee & zero cell
+  replaceCells(cell, zero, animation) {
+    console.log('replace cells', cell, zero, animation);
+    let _self = this;
+
+    this.movesCount++;
+    this.showMovesCount();
+    this.isMove = true;
+    cell.classList.add(animation);
+    cell.addEventListener('animationend', changeItemData);
+
+    function changeItemData(e) {
+      _self.isMove = false;
+      console.log('end animation');
+      cell.classList.add('zero-cell');
+      cell.classList.remove(animation);
+      zero.classList.remove('zero-cell');
+      zero.innerHTML = cell.innerHTML;
+      cell.innerHTML = '0';
+      e.target.removeEventListener('animationend', changeItemData);
+    }
+  }
   // shuffle array
   shuffle(array) {
+    console.log('shuffle array of puzzle items');
+
     let arr = [].concat(array);
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -217,106 +311,3 @@ class PuzzleGame {
 
 let game = new PuzzleGame();
 game.init();
-
-// const links = document.querySelectorAll('a');
-// let fieldSize = 4;
-// let cells = [];
-// let movesCounter = document.getElementById('moves-counter');
-// let timeCounter = document.getElementById('time');
-// let timerId;
-
-// document.getElementById('start-game').onclick = () => {
-//   if (timerId) {
-//     if (!confirm('Do you really want to finish this game?')) return;
-//     else clearInterval(timerId);
-//   }
-
-//   console.log(timerId);
-//   gameInit();
-//   let min = 0,
-//     sec = 0;
-//   timerId = setInterval(() => {
-//     if (sec == 59) {
-//       sec = 0;
-//       min++;
-//     } else sec++;
-
-//     if (min == 0 && sec == 59) {
-//       clearInterval(timerId);
-//       alert('game over!');
-//     }
-
-//     let str = `${min <= 9 ? '0' + min : min}:${sec <= 9 ? '0' + sec : sec}`;
-//     timeCounter.innerHTML = str;
-//   }, 1000);
-// };
-
-// links.forEach((a) => {
-//   a.onclick = (e) => {
-//     e.preventDefault();
-
-//     if (a.classList.contains('_active')) return;
-
-//     fieldSize = +a.getAttribute('data-size');
-//     // let isSave = confirm('do you really want to finish this game?');
-
-//     // if (!isSave) return;
-
-//     gameInit();
-//   };
-// });
-
-// function gameInit() {
-//   console.log(`game init, ${fieldSize}`);
-//   fieldInit(fieldSize);
-//   showCurFieldSize(fieldSize);
-// }
-
-// function moveCellByClick() {
-//   let cell = this,
-//     zeroCell = document.querySelector('.zero-cell'),
-//     cellPosition = {
-//       x: Math.round(cell.getBoundingClientRect().x),
-//       y: Math.round(cell.getBoundingClientRect().y),
-//     },
-//     zeroCellPosition = {
-//       x: Math.round(zeroCell.getBoundingClientRect().x),
-//       y: Math.round(zeroCell.getBoundingClientRect().y),
-//     },
-//     deltaX = Math.abs(cellPosition.x - zeroCellPosition.x),
-//     deltaY = Math.abs(cellPosition.y - zeroCellPosition.y),
-//     deltaMax = cell.offsetWidth * 1.5;
-//   if (
-//     (deltaY == 0 && deltaX <= deltaMax) ||
-//     (deltaX == 0 && deltaY <= deltaMax)
-//   )
-//     replaceCells(cell, zeroCell);
-// }
-
-// //replace current cee & zero cell
-// function replaceCells(cell, zero) {
-//   zero.classList.remove('zero-cell');
-//   zero.innerHTML = cell.innerHTML;
-
-//   cell.classList.add('zero-cell');
-//   cell.innerHTML = '0';
-// }
-
-// function showCurFieldSize() {
-//   console.log(`show current field size grid, ${fieldSize}`);
-
-//   let fieldSizeNode = document.getElementById('cells-size');
-//   fieldSizeNode.innerHTML = `${fieldSize}x${fieldSize}`;
-
-//   links.forEach((el) => {
-//     if (el.classList.contains('_active')) el.classList.remove('_active');
-//     if (+el.getAttribute('data-size') === fieldSize)
-//       el.classList.add('_active');
-//   });
-// }
-
-// // clear game time & moves count
-// function clearCounter() {
-//   movesCounter.innerHTML = 0;
-//   timeCounter.innerHTML = '00:00';
-// }
