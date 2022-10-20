@@ -7,47 +7,41 @@ if (process.env.NODE_ENV !== 'production') {
 document.body.insertAdjacentHTML(
   'afterbegin',
   `
-  <header class="header">
-    <div class="container">
-      <h2>Header</h2>
+  <div class="container">
+    <h1>RSS Gem Puzzle</h1>
+    <div class="game-window">
+      <div class="controls">
+        <button class="control-btn" id="start-game">Shuffle and start</button>
+        <button class="control-btn" id="stop-game">Stop</button>
+        <button class="control-btn" id="save-game">Save</button>
+        <button class="control-btn" id="get-result">Result</button>
+        <button class="sound sound-on" id="sound" class=""></button>
+      </div>
+      <div class="info">
+        <div class=""moves>
+          <span>Moves:</span>
+          <span id="moves-count">0</span>
+        </div>
+        <div class="field-size">
+          <span>Level:</span>
+          <span id="cells-size"></span>
+        </div>
+        <div class="duration">
+          <span>Time:</span>
+          <span id="time">00:00</span>
+        </div>
+      </div>
+      <div class="field grid-4"></div>
+        <div class="levels">
+        <button data-size="3">3x3</button>
+        <button class="_active" data-size="4">4x4</=>
+        <button data-size="5">5x5</=>
+        <button data-size="6">6x6</=>
+        <button data-size="7">7x7</=>
+        <button data-size="8">8x8</=>
+      </div>
     </div>
-  </header>
-  <main class="main">
-    <div class="container">
-      <h1>RSS Gem Puzzle</h1>
-      <div class="control">
-        <button id="start-game">Shuffle and start</button>
-        <button id="stop-game">Stop</button>
-        <button id="save-game">Save</button>
-        <button id="get-result">Result</button>
-      </div>
-      <div class="score">
-        <span>Moves:</span>
-        <span id="moves-count">0</span>
-        <span>Time:</span>
-        <span id="time">00:00</span>
-      </div>
-      <div class="field"></div>
-      <div class="field-size">
-        <span>Frame size:</span>
-        <span id="cells-size"></span>
-      </div>
-      <div class="chose-size">
-      <span>Other sizes:</span>
-      <a href="#" data-size="3">3x3</a>
-      <a href="#" data-size="4">4x4</a>
-      <a href="#" data-size="5">5x5</a>
-      <a href="#" data-size="6">6x6</a>
-      <a href="#" data-size="7">7x7</a>
-      <a href="#" data-size="8">8x8</a>
-      </div>
-    </div>
-  </main>
-  <footer class="footer">
-    <div class="container">
-      <h2>Footer</h2>
-    </div>
-  </footer>
+  </div>
 `
 );
 
@@ -123,9 +117,10 @@ function fieldInit() {
   const field = document.querySelector('.field');
   console.log(`field grid init, ${fieldSize}`);
 
-  for (let i = 1; i < fieldSize * fieldSize; i++) {
+  for (let i = 0; i < fieldSize * fieldSize; i++) {
     let cell = document.createElement('div');
     cell.innerHTML = i;
+    if (i === 0) cell.classList.add('zero-cell');
     cell.classList.add('cell');
     cell.classList.add(`cell${fieldSize}`);
     cells.push(cell);
@@ -139,6 +134,39 @@ function fieldInit() {
 
   //fill field
   cells.forEach((cell) => field.append(cell));
+
+  // add cells behavior
+  cells.forEach((cell) => cell.addEventListener('click', moveCellByClick));
+}
+
+function moveCellByClick() {
+  let cell = this,
+    zeroCell = document.querySelector('.zero-cell'),
+    cellPosition = {
+      x: Math.round(cell.getBoundingClientRect().x),
+      y: Math.round(cell.getBoundingClientRect().y),
+    },
+    zeroCellPosition = {
+      x: Math.round(zeroCell.getBoundingClientRect().x),
+      y: Math.round(zeroCell.getBoundingClientRect().y),
+    },
+    deltaX = Math.abs(cellPosition.x - zeroCellPosition.x),
+    deltaY = Math.abs(cellPosition.y - zeroCellPosition.y),
+    deltaMax = cell.offsetWidth * 1.5;
+  if (
+    (deltaY == 0 && deltaX <= deltaMax) ||
+    (deltaX == 0 && deltaY <= deltaMax)
+  )
+    replaceCells(cell, zeroCell);
+}
+
+//replace current cee & zero cell
+function replaceCells(cell, zero) {
+  zero.classList.remove('zero-cell');
+  zero.innerHTML = cell.innerHTML;
+
+  cell.classList.add('zero-cell');
+  cell.innerHTML = '0';
 }
 
 function showCurFieldSize() {
