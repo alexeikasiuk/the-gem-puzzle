@@ -40,6 +40,7 @@ body {
   margin-bottom: 10px;
 }
 .control-btn {
+  cursor: pointer;
   padding: 10px;
   min-width: 15%;
   border: none;
@@ -48,10 +49,19 @@ body {
   border-bottom-right-radius: 10px;
   box-shadow: 0 0 5px black;
   background-color: lightgray;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 .control-btn:hover {
-  box-shadow: 0 0 15px black;
+  box-shadow: 0 0 20px black;
+}
+.control-btn.disabled,
+.control-btn.disabled:hover {
+  cursor: default;
+  opacity: 0.3;
+  box-shadow: 0 0 5px black;
+}
+.control-btn:active {
+  box-shadow: 0 0 5px black;
 }
 #start-game {
   border-bottom-left-radius: 0px;
@@ -75,16 +85,16 @@ body {
   border-radius: 25px;
   padding: 0;
   transition: all 0.5s;
-}
-.sound:hover {
-  box-shadow: 0 0 20px black;
-  background-color: darkgray;
-}
-.sound-on {
+  cursor: pointer;
   background: url(./assets/images/icons/sound-on.svg) 50% no-repeat lightgray;
   background-size: cover;
 }
-.sound-off {
+.sound:hover,
+.sound.disabled:hover {
+  box-shadow: 0 0 20px black;
+  background-color: darkgray;
+}
+.sound.disabled {
   background: url(./assets/images/icons/sound-off.svg) 50% no-repeat lightgray;
   background-size: cover;
 }
@@ -150,7 +160,7 @@ body {
   border: none;
   background-color: lightgray;
   box-shadow: 0 0 3px #000;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 .levels button:first-child {
   border-top-left-radius: 0;
@@ -162,10 +172,13 @@ body {
   cursor: pointer;
   box-shadow: 0 0 15px black;
 }
-.levels button._active {
-  background-color: darkgray;
+.levels button.disabled,
+.levels button.disabled:hover {
+  opacity: 0.2;
+  cursor: default;
+  box-shadow: 0 0 3px black;
 }
-.levels button._active:hover {
+.levels button:active {
   cursor: default;
   box-shadow: 0 0 3px black;
 }
@@ -211,12 +224,16 @@ button {
   justify-content: center;
   border-radius: 2px;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .zero-cell {
   visibility: hidden;
 }
 .cell:hover {
   box-shadow: 0 0 25px #000;
+}
+.cell:active {
+  box-shadow: 0 0 10px #000;
 }
 
 @media (max-width: 850px) {
