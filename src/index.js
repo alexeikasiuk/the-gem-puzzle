@@ -19,21 +19,25 @@ class PuzzleGame {
     this.isMove = false;
     this.isStopped = false;
     this.savedPuzzleItemsOrder = null;
+    this.isWin = false;
+    this.isHelped = false;
   }
 
   init() {
-    console.log('------------------------game init----------------------');
+    console.log('init game----------------------');
 
-    if (this.checkLastSavedGame()) this.setLastSavedGameData();
-    this.loadGame();
+    if (this.getSavedGame()) this.createPage();
+    else this.loadGame();
   }
+
   loadGame() {
     console.log('load game', this.level);
 
     this.createPage();
     this.setButtonsBehavior();
-    // this.startGame();
+    this.startGame();
   }
+
   startGame() {
     console.log('start game');
 
@@ -45,15 +49,20 @@ class PuzzleGame {
       this.showCurTime();
     }, 1000);
   }
+
   restartGame() {
     console.log('restart game');
 
-    if (confirm('Do you want to want to save this game?')) {
+    // popup!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (!this.isWin && confirm('Do you want to want to save this game?'))
       this.saveGame();
-    }
+    else localStorage.removeItem('game');
+
     this.clearGameState();
-    this.startGame();
+    this.loadGame();
+    // this.startGame();
   }
+
   continueGame() {
     console.log('game continue');
 
@@ -68,6 +77,7 @@ class PuzzleGame {
     this.continueButton.classList.add('disabled');
     this.puzzle.classList.remove('disabled');
   }
+
   stopGame() {
     console.log('game stop');
 
@@ -78,21 +88,24 @@ class PuzzleGame {
     this.continueButton.classList.remove('disabled');
     this.puzzle.classList.add('disabled');
   }
+
   saveGame() {
     console.log('game save');
+
     let game = {
-      isWin: false,
       moves: this.movesCount,
       time: this.time,
       level: this.level,
       puzzle: [],
     };
     this.puzzleItems.forEach((e) => game.puzzle.push(+e.innerHTML));
-    localStorage.setItem(Date.now(), JSON.stringify(game));
+    localStorage.setItem('game', JSON.stringify(game));
   }
+
   showResults() {
     console.log('show results');
   }
+
   showCurTime() {
     console.log('show current time');
 
@@ -103,10 +116,21 @@ class PuzzleGame {
     if (this.time.m === 60) {
       alert('game over');
     }
-    let curM = this.time.m < 10 ? `0${this.time.m}` : this.time.m,
-      curS = this.time.s < 10 ? `0${this.time.s}` : this.time.s;
+    let curM =
+        this.time.m == Infinity
+          ? '~'
+          : this.time.m < 10
+          ? `0${this.time.m}`
+          : this.time.m,
+      curS =
+        this.time.s == Infinity
+          ? '~'
+          : this.time.s < 10
+          ? `0${this.time.s}`
+          : this.time.s;
     this.timeNode.innerHTML = `${curM}:${curS}`;
   }
+
   //reset moves counter & game time & kill timer
   resetGameScore() {
     console.log('reset game score');
@@ -118,6 +142,7 @@ class PuzzleGame {
     this.movesCount = 0;
     if (this.timerId) clearInterval(this.timerId);
   }
+
   toggleSound() {
     // console.log('toggle sound');
 
@@ -125,6 +150,7 @@ class PuzzleGame {
     this.soundButton.classList.toggle('disabled');
     console.log(this.hasSound ? 'sound ON' : 'sound OFF');
   }
+
   //set actual state page(count moves, level, time & disabled buttons)
   setCurPageData() {
     console.log('set current page data');
@@ -141,14 +167,18 @@ class PuzzleGame {
         : e.classList.remove('disabled')
     );
   }
+
   showMovesCount() {
     console.log('show current count', this.movesCount);
-    this.movesCountNode.innerHTML = this.movesCount;
+    this.movesCountNode.innerHTML =
+      this.movesCount == Infinity ? '~' : this.movesCount;
   }
+
   showGameLevel() {
     console.log('show current game level');
     this.levelNode.innerHTML = `${this.level}x${this.level}`;
   }
+
   //create base page layout
   createPage() {
     console.log('create base page layout');
@@ -166,7 +196,8 @@ class PuzzleGame {
           <button class="control-btn" id="stop-game">Stop</button>
           <button class="control-btn" id="save-game">Save</button>
           <button class="control-btn" id="get-result">Result</button>
-          <button class="sound" id="sound" class=""></button>
+          <button class="sound" id="sound"></button>
+          <button class="help" id="help">help</button>
         </div>
         <div class="info">
           <div class=""moves>
@@ -182,7 +213,15 @@ class PuzzleGame {
             <span id="time">--:--</span>
           </div>
         </div>
-        <div class="field"></div>
+        <div class="field">
+          <div class="saved-game">
+          <p>Do you want to continue the last saved game?</p>
+          <div>
+            <button id="play-last-game">YES</button>
+            <button id="remove-saved-game">NO</button>
+          </div>
+          </div>
+        </div>
           <div class="levels">
           <button data-size="3">3x3</button>
           <button data-size="4">4x4</button>
@@ -206,16 +245,30 @@ class PuzzleGame {
     this.saveButton = document.getElementById('save-game');
     this.showResultButton = document.getElementById('get-result');
     this.soundButton = document.getElementById('sound');
+    this.helpButton = document.getElementById('help');
 
     //game data
     this.movesCountNode = document.getElementById('moves-count');
     this.levelNode = document.getElementById('cells-size');
     this.timeNode = document.getElementById('time');
+
+    // saved game buttons behavior
+    document.getElementById('play-last-game').onclick = (e) => {
+      console.log('load saved game');
+
+      this.setSavedGameData();
+      this.loadGame();
+    };
+    document.getElementById('remove-saved-game').onclick = (e) => {
+      console.log('remove saved game');
+
+      localStorage.removeItem('game');
+      this.loadGame();
+    };
   }
 
   //set behavior for buttons
   setButtonsBehavior() {
-    const _self = this;
     console.log('set buttons behavior');
 
     this.levelButtons.forEach((btn) => {
@@ -224,24 +277,29 @@ class PuzzleGame {
 
         console.log('change game level from ', this.level);
 
-        if (confirm('Do you want to save this game?')) this.saveGame();
+        // popup!!!!!!!!!!!!!!!!!!!!!!!
+        if (!this.isWin && confirm('Do you want to save this game?'))
+          this.saveGame();
+        else localStorage.removeItem('game');
+
         this.clearGameState();
         this.level = +btn.getAttribute('data-size');
         this.loadGame();
       };
     });
-    this.restartButton.onclick = function (e) {
-      if (e.target.classList.contains('disabled')) return;
-      _self.restartGame();
+    this.restartButton.onclick = () => {
+      if (this.restartButton.classList.contains('disabled')) return;
+      this.restartGame();
     };
-    this.continueButton.onclick = function (e) {
-      if (e.target.classList.contains('disabled')) return;
-      _self.continueGame();
+    this.continueButton.onclick = () => {
+      if (this.continueButton.classList.contains('disabled')) return;
+      this.continueGame();
     };
-    this.stopButton.onclick = function (e) {
-      if (e.target.classList.contains('disabled')) return;
-      _self.stopGame();
+    this.stopButton.onclick = () => {
+      if (this.stopButton.classList.contains('disabled')) return;
+      this.stopGame();
     };
+    this.helpButton.onclick = () => this.helpMe();
     this.saveButton.onclick = () => this.saveGame();
     this.showResultButton.onclick = () => this.showResults();
     this.soundButton.onclick = () => this.toggleSound();
@@ -264,7 +322,8 @@ class PuzzleGame {
       for (let i = 0; i < this.level * this.level; i++) {
         let item = document.createElement('div');
         item.innerHTML = this.savedPuzzleItemsOrder[i];
-        if (i === 0) item.classList.add('zero-cell');
+        if (this.savedPuzzleItemsOrder[i] === 0)
+          item.classList.add('zero-cell');
         item.classList.add('cell');
         this.puzzleItems.push(item);
       }
@@ -278,12 +337,12 @@ class PuzzleGame {
         item.classList.add('cell');
         this.puzzleItems.push(item);
       }
+
+      //random order for cells in field
+      this.puzzleItems = this.shuffle(this.puzzleItems);
     }
+
     this.savedPuzzleItemsOrder = null;
-
-    //random order for cells in field
-    this.puzzleItems = this.shuffle(this.puzzleItems);
-
     // clear field
     this.puzzle.innerHTML = '';
 
@@ -336,6 +395,7 @@ class PuzzleGame {
       }
     }
   }
+
   //replace current cee & zero cell
   replaceCells(cell, zero, animation) {
     console.log('replace cells');
@@ -343,7 +403,7 @@ class PuzzleGame {
     let _self = this;
 
     this.playSound(moveSound);
-    this.movesCount++;
+    if (this.movesCount != Infinity) this.movesCount++;
     this.showMovesCount();
     this.isMove = true;
     cell.classList.add(animation);
@@ -358,6 +418,9 @@ class PuzzleGame {
       zero.innerHTML = cell.innerHTML;
       cell.innerHTML = '0';
       e.target.removeEventListener('animationend', changeItemData);
+
+      // check game state
+      _self.checkGameState();
     }
   }
 
@@ -372,6 +435,7 @@ class PuzzleGame {
     }
     return arr;
   }
+
   //play sound
   playSound(moveSound) {
     console.log('play sound');
@@ -388,27 +452,97 @@ class PuzzleGame {
     this.resetGameScore();
     this.puzzleItems = [];
     this.isStopped = false;
+    this.isWin = false;
     this.puzzle.innerHTML = '';
     if (this.timerId) clearInterval(this.timerId);
   }
 
-  checkLastSavedGame() {
-    console.log('check last saved game');
-    if (localStorage.length === 0) return;
-    let key = localStorage.key(localStorage.length - 1);
-    this.lastSavedGame = JSON.parse(localStorage.getItem(key));
-    return !this.lastSavedGame.isWin;
+  getSavedGame() {
+    console.log('get saved game');
+
+    return (this.savedGame = JSON.parse(localStorage.getItem('game')));
   }
 
-  setLastSavedGameData() {
+  setSavedGameData() {
     console.log('set last saved game data');
-    this.level = this.lastSavedGame.level;
-    this.movesCount = this.lastSavedGame.moves;
-    this.time = this.lastSavedGame.time;
-    this.isWin = this.lastSavedGame.isWin;
-    this.savedPuzzleItemsOrder = this.lastSavedGame.puzzle;
+
+    this.level = this.savedGame.level;
+    this.movesCount = this.savedGame.moves;
+    this.time = this.savedGame.time;
+    this.savedPuzzleItemsOrder = this.savedGame.puzzle;
+  }
+
+  checkGameState() {
+    console.log('check game state');
+
+    let curField = this.puzzleItems.map((e) => +e.innerHTML);
+    curField = [].concat(
+      curField.slice(curField.length - 1),
+      curField.slice(0, curField.length - 1)
+    );
+    let winField = [].concat(curField).sort((a, b) => a - b);
+    if (curField.join('') == winField.join('')) {
+      this.isWin = true;
+      alert('win');
+      this.saveWinGame();
+      this.puzzle.classList.add('disabled');
+      this.stopButton.classList.add('disabled');
+      this.saveButton.classList.add('disabled');
+    }
+  }
+
+  // let's cheat
+  helpMe() {
+    console.log("let's cheat");
+
+    this.isHelped = true;
+    this.puzzleItems = this.puzzleItems.sort(
+      (a, b) => +a.innerHTML - +b.innerHTML
+    );
+    let zero = this.puzzleItems[0];
+
+    this.puzzleItems = this.puzzleItems.slice(1);
+    this.puzzleItems.splice(this.puzzleItems.length - 1, 0, zero);
+
+    this.puzzle.innerHTML = '';
+    this.puzzleItems.forEach((e) => this.puzzle.append(e));
+
+    this.movesCount = Infinity;
+    this.time = {
+      m: Infinity,
+      s: Infinity,
+    };
+
+    clearInterval(this.timerId);
+    this.showMovesCount();
+    this.showCurTime();
+  }
+
+  saveWinGame() {
+    console.log('save wined game');
+
+    let storage = localStorage.getItem('results')
+      ? JSON.parse(localStorage.getItem('results'))
+      : [];
+
+    console.log(storage);
+
+    let game = {
+      date: Date.now(),
+      help: this.isHelped,
+      moves: this.movesCount,
+      time: this.time,
+      level: this.level,
+    };
+    storage.push(game);
+
+    localStorage.setItem('results', JSON.stringify(storage));
   }
 }
 
 let game = new PuzzleGame();
 game.init();
+
+// window.onunload = () => {
+//   if (!game.isWin) game.saveGame();
+// };
