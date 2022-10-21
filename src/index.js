@@ -1,4 +1,5 @@
 import './style.css';
+import moveSound from './assets/sounds/move.mp3';
 
 if (process.env.NODE_ENV !== 'production') {
   // console.log('Looks like we are in development mode!');
@@ -10,13 +11,13 @@ class PuzzleGame {
     this.level = 4;
     this.movesCount = 0;
     this.time = {
-      h: 0,
       m: 0,
       s: 0,
     };
     this.puzzleItems = [];
     this.gameLocalStorage = null;
-    (this.hasSound = true), (this.isMove = false);
+    this.hasSound = true;
+    this.isMove = false;
   }
 
   init() {
@@ -40,6 +41,7 @@ class PuzzleGame {
   }
   restartGame() {
     console.log('restart game');
+    if (confirm('Do you want to start a new game?')) this.init();
   }
   stopGame() {
     console.log('stop game');
@@ -58,20 +60,17 @@ class PuzzleGame {
       this.time.m++;
     }
     if (this.time.m === 60) {
-      this.time.m = 0;
-      this.time.h++;
+      alert('game over');
     }
-    let curH = this.time.h < 10 ? `0${this.time.h}` : this.time.h,
-      curM = this.time.m < 10 ? `0${this.time.m}` : this.time.m,
+    let curM = this.time.m < 10 ? `0${this.time.m}` : this.time.m,
       curS = this.time.s < 10 ? `0${this.time.s}` : this.time.s;
-    this.timeNode.innerHTML = `${curH}:${curM}:${curS}`;
+    this.timeNode.innerHTML = `${curM}:${curS}`;
   }
   //reset moves counter & game time & kill timer
   resetGameScore() {
     console.log('reset game score');
 
     this.time = {
-      h: 0,
       m: 0,
       s: 0,
     };
@@ -276,8 +275,11 @@ class PuzzleGame {
   }
   //replace current cee & zero cell
   replaceCells(cell, zero, animation) {
-    console.log('replace cells', cell, zero, animation);
+    console.log('replace cells');
     let _self = this;
+
+    // this.playSound('./assets/sounds/move.mp3');
+    this.playSound(moveSound);
 
     this.movesCount++;
     this.showMovesCount();
@@ -306,6 +308,17 @@ class PuzzleGame {
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
+  }
+
+  //play sound
+  playSound(moveSound) {
+    console.log('play sound');
+    console.log(moveSound);
+
+    if (this.hasSound) {
+      let sound = new Audio(moveSound);
+      sound.play();
+    }
   }
 }
 
