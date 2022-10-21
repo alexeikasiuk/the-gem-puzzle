@@ -59,6 +59,7 @@ body {
   cursor: default;
   opacity: 0.3;
   box-shadow: 0 0 5px black;
+  cursor: not-allowed;
 }
 .control-btn:active {
   box-shadow: 0 0 5px black;
@@ -115,6 +116,14 @@ body {
   grid-gap: 0;
   justify-items: center;
   align-items: center;
+}
+.field.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.field.disabled .cell:hover {
+  box-shadow: 0 0 10px #000;
+  cursor: not-allowed;
 }
 .grid-3 {
   grid-template-columns: repeat(3, 33.33333%);
@@ -177,6 +186,7 @@ body {
   opacity: 0.2;
   cursor: default;
   box-shadow: 0 0 3px black;
+  cursor: not-allowed;
 }
 .levels button:active {
   cursor: default;

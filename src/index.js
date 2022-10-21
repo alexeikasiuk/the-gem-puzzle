@@ -15,25 +15,31 @@ class PuzzleGame {
       s: 0,
     };
     this.puzzleItems = [];
-    this.gameLocalStorage = null;
     this.hasSound = true;
     this.isMove = false;
+    this.isStopped = false;
+    this.savedPuzzleItemsOrder = null;
   }
 
   init() {
-    console.log('-------------------------game init----------------------');
+    console.log('------------------------game init----------------------');
+
+    if (this.checkLastSavedGame()) this.setLastSavedGameData();
+    this.loadGame();
+  }
+  loadGame() {
+    console.log('load game', this.level);
 
     this.createPage();
     this.setButtonsBehavior();
-    this.fillField();
-    this.setPuzzleItemsBehavior();
-    this.setCurPageData();
-    this.startGame();
+    // this.startGame();
   }
   startGame() {
     console.log('start game');
 
-    if (this.timerId) clearInterval(this.timerId);
+    this.fillField();
+    this.setPuzzleItemsBehavior();
+    this.setCurPageData();
     this.timerId = setInterval(() => {
       this.time.s++;
       this.showCurTime();
@@ -41,19 +47,54 @@ class PuzzleGame {
   }
   restartGame() {
     console.log('restart game');
-    if (confirm('Do you want to start a new game?')) this.init();
+
+    if (confirm('Do you want to want to save this game?')) {
+      this.saveGame();
+    }
+    this.clearGameState();
+    this.startGame();
+  }
+  continueGame() {
+    console.log('game continue');
+
+    this.isStopped = false;
+    if (this.timerId) clearInterval(this.timerId);
+    this.timerId = setInterval(() => {
+      this.time.s++;
+      this.showCurTime();
+    }, 1000);
+    this.stopButton.classList.remove('disabled');
+    this.restartButton.classList.remove('disabled');
+    this.continueButton.classList.add('disabled');
+    this.puzzle.classList.remove('disabled');
   }
   stopGame() {
-    console.log('stop game');
+    console.log('game stop');
+
+    this.isStopped = true;
+    clearInterval(this.timerId);
+    this.stopButton.classList.add('disabled');
+    this.restartButton.classList.add('disabled');
+    this.continueButton.classList.remove('disabled');
+    this.puzzle.classList.add('disabled');
   }
   saveGame() {
-    console.log('save game');
+    console.log('game save');
+    let game = {
+      isWin: false,
+      moves: this.movesCount,
+      time: this.time,
+      level: this.level,
+      puzzle: [],
+    };
+    this.puzzleItems.forEach((e) => game.puzzle.push(+e.innerHTML));
+    localStorage.setItem(Date.now(), JSON.stringify(game));
   }
   showResults() {
     console.log('show results');
   }
   showCurTime() {
-    // console.log('show current time');
+    console.log('show current time');
 
     if (this.time.s === 60) {
       this.time.s = 0;
@@ -77,13 +118,9 @@ class PuzzleGame {
     this.movesCount = 0;
     if (this.timerId) clearInterval(this.timerId);
   }
-  changeGameLevel() {
-    console.log('change game level', this.level);
-    // if (confirm('Do you want to save this game?')) this.saveGame();
-    this.init();
-  }
   toggleSound() {
-    console.log('toggle sound');
+    // console.log('toggle sound');
+
     this.hasSound = !this.hasSound;
     this.soundButton.classList.toggle('disabled');
     console.log(this.hasSound ? 'sound ON' : 'sound OFF');
@@ -92,15 +129,12 @@ class PuzzleGame {
   setCurPageData() {
     console.log('set current page data');
 
-    this.resetGameScore();
-
     this.showMovesCount();
     this.showGameLevel();
     this.showCurTime();
 
-    if (!localStorage.getItem('puzzleGame')) {
-      this.continueButton.classList.add('disabled');
-    }
+    if (this.isStopped) this.continueButton.classList.remove('disabled');
+    else this.continueButton.classList.add('disabled');
     this.levelButtons.forEach((e) =>
       +e.getAttribute('data-size') === this.level
         ? e.classList.add('disabled')
@@ -118,6 +152,7 @@ class PuzzleGame {
   //create base page layout
   createPage() {
     console.log('create base page layout');
+
     document.body.innerHTML = '';
     document.body.insertAdjacentHTML(
       'afterbegin',
@@ -136,15 +171,15 @@ class PuzzleGame {
         <div class="info">
           <div class=""moves>
             <span>Moves:</span>
-            <span id="moves-count"></span>
+            <span id="moves-count">-</span>
           </div>
           <div class="field-size">
             <span>Level:</span>
-            <span id="cells-size"></span>
+            <span id="cells-size">-x-</span>
           </div>
           <div class="duration">
             <span>Time:</span>
-            <span id="time"></span>
+            <span id="time">--:--</span>
           </div>
         </div>
         <div class="field"></div>
@@ -160,6 +195,7 @@ class PuzzleGame {
     </div>
   `
     );
+
     //all page buttons
     this.levelButtons = document
       .querySelector('.levels')
@@ -176,27 +212,45 @@ class PuzzleGame {
     this.levelNode = document.getElementById('cells-size');
     this.timeNode = document.getElementById('time');
   }
+
   //set behavior for buttons
   setButtonsBehavior() {
+    const _self = this;
     console.log('set buttons behavior');
 
     this.levelButtons.forEach((btn) => {
       btn.onclick = () => {
         if (btn.classList.contains('disabled')) return;
+
+        console.log('change game level from ', this.level);
+
+        if (confirm('Do you want to save this game?')) this.saveGame();
+        this.clearGameState();
         this.level = +btn.getAttribute('data-size');
-        this.changeGameLevel();
+        this.loadGame();
       };
     });
-    this.restartButton.onclick = () => this.restartGame();
-    this.continueButton.onclick = () => this.loadSavingState();
-    this.stopButton.onclick = () => this.stopGame();
+    this.restartButton.onclick = function (e) {
+      if (e.target.classList.contains('disabled')) return;
+      _self.restartGame();
+    };
+    this.continueButton.onclick = function (e) {
+      if (e.target.classList.contains('disabled')) return;
+      _self.continueGame();
+    };
+    this.stopButton.onclick = function (e) {
+      if (e.target.classList.contains('disabled')) return;
+      _self.stopGame();
+    };
     this.saveButton.onclick = () => this.saveGame();
     this.showResultButton.onclick = () => this.showResults();
     this.soundButton.onclick = () => this.toggleSound();
   }
+
   //fill field after start game
   fillField() {
-    console.log(`fill field, ${this.level}`);
+    console.log(`fill field`, this.level);
+    // console.log(this.savedPuzzleItemsOrder);
 
     this.puzzle = document.querySelector('.field');
     this.puzzle.classList.add(`grid-${this.level}`);
@@ -204,13 +258,28 @@ class PuzzleGame {
     //clear puzzle items array
     this.puzzleItems = [];
 
-    for (let i = 0; i < this.level * this.level; i++) {
-      let item = document.createElement('div');
-      item.innerHTML = i;
-      if (i === 0) item.classList.add('zero-cell');
-      item.classList.add('cell');
-      this.puzzleItems.push(item);
+    if (this.savedPuzzleItemsOrder) {
+      console.log('saved field');
+
+      for (let i = 0; i < this.level * this.level; i++) {
+        let item = document.createElement('div');
+        item.innerHTML = this.savedPuzzleItemsOrder[i];
+        if (i === 0) item.classList.add('zero-cell');
+        item.classList.add('cell');
+        this.puzzleItems.push(item);
+      }
+    } else {
+      console.log('random field');
+
+      for (let i = 0; i < this.level * this.level; i++) {
+        let item = document.createElement('div');
+        item.innerHTML = i;
+        if (i === 0) item.classList.add('zero-cell');
+        item.classList.add('cell');
+        this.puzzleItems.push(item);
+      }
     }
+    this.savedPuzzleItemsOrder = null;
 
     //random order for cells in field
     this.puzzleItems = this.shuffle(this.puzzleItems);
@@ -224,6 +293,7 @@ class PuzzleGame {
   // set puzzle items behavior
   setPuzzleItemsBehavior() {
     console.log('set cells behavior');
+
     //on click
     this.puzzleItems.forEach((item) => {
       item.addEventListener('click', (e) => {
@@ -231,20 +301,13 @@ class PuzzleGame {
         this.moveCellByClick(e.target);
       });
     });
-
-    // //on drug&drop
-    // this.puzzleItems.forEach((item)=>{});
-
-    // // add cells behavior
-    // this.puzzleItems.forEach((cell) =>
-    //   cell.addEventListener('click', this.moveCellByClick)
-    // );
   }
+
   // try to move cell
   moveCellByClick(puzzleItem) {
     console.log('try to move cell');
 
-    if (this.isMove) return;
+    if (this.isMove || this.isStopped) return;
 
     let cell = puzzleItem,
       zeroCell = document.querySelector('.zero-cell'),
@@ -276,11 +339,10 @@ class PuzzleGame {
   //replace current cee & zero cell
   replaceCells(cell, zero, animation) {
     console.log('replace cells');
+
     let _self = this;
 
-    // this.playSound('./assets/sounds/move.mp3');
     this.playSound(moveSound);
-
     this.movesCount++;
     this.showMovesCount();
     this.isMove = true;
@@ -298,6 +360,7 @@ class PuzzleGame {
       e.target.removeEventListener('animationend', changeItemData);
     }
   }
+
   // shuffle array
   shuffle(array) {
     console.log('shuffle array of puzzle items');
@@ -309,16 +372,41 @@ class PuzzleGame {
     }
     return arr;
   }
-
   //play sound
   playSound(moveSound) {
     console.log('play sound');
-    console.log(moveSound);
 
     if (this.hasSound) {
       let sound = new Audio(moveSound);
       sound.play();
     }
+  }
+
+  clearGameState() {
+    console.log('clear game state');
+
+    this.resetGameScore();
+    this.puzzleItems = [];
+    this.isStopped = false;
+    this.puzzle.innerHTML = '';
+    if (this.timerId) clearInterval(this.timerId);
+  }
+
+  checkLastSavedGame() {
+    console.log('check last saved game');
+    if (localStorage.length === 0) return;
+    let key = localStorage.key(localStorage.length - 1);
+    this.lastSavedGame = JSON.parse(localStorage.getItem(key));
+    return !this.lastSavedGame.isWin;
+  }
+
+  setLastSavedGameData() {
+    console.log('set last saved game data');
+    this.level = this.lastSavedGame.level;
+    this.movesCount = this.lastSavedGame.moves;
+    this.time = this.lastSavedGame.time;
+    this.isWin = this.lastSavedGame.isWin;
+    this.savedPuzzleItemsOrder = this.lastSavedGame.puzzle;
   }
 }
 
