@@ -104,10 +104,70 @@ class PuzzleGame {
 
   showResults() {
     console.log('show results');
+
+    let results = localStorage.getItem('results');
+    let frame = document.createElement('table');
+    frame.classList.add('table-results');
+    // console.log(frame);
+
+    this.modalResults.classList.add('show');
+
+    if (!results) {
+      frame.innerHTML = "You haven't saved game's results";
+    } else {
+      frame.insertAdjacentHTML(
+        'afterbegin',
+        `
+        <tr>
+          <th>№</th>
+          <th>Date</th>
+          <th>Help</th>
+          <th>Moves</th>
+          <th>Time</th>
+        </tr>
+      `
+      );
+
+      results = JSON.parse(results);
+      // console.log(results);
+      for (let key in results) {
+        // console.log(results[key]);
+        let level = document.createElement('tr');
+        level.insertAdjacentHTML(
+          'afterbegin',
+          `
+          <td colspan="5">Game Leve: ${key}x${key}</td>
+        `
+        );
+        frame.append(level);
+
+        results[key].forEach((e, i) => {
+          // console.log(e);
+          let result = document.createElement('tr');
+
+          result.insertAdjacentHTML(
+            'afterbegin',
+            `
+              <td>${i + 1}</td>
+              <td>${e.date}</td>
+              <td>${e.help}</td>
+              <td>${e.moves}</td>
+              <td>${e.time.m}min ${e.time.s}sec</td>
+          `
+          );
+          frame.append(result);
+        });
+      }
+
+      document
+        .querySelector('.modal-results')
+        .querySelector('.modal-content')
+        .append(frame);
+    }
   }
 
   showCurTime() {
-    console.log('show current time');
+    // console.log('show current time');
 
     if (this.time.s === 60) {
       this.time.s = 0;
@@ -116,18 +176,8 @@ class PuzzleGame {
     if (this.time.m === 60) {
       alert('game over');
     }
-    let curM =
-        this.time.m == Infinity
-          ? '~'
-          : this.time.m < 10
-          ? `0${this.time.m}`
-          : this.time.m,
-      curS =
-        this.time.s == Infinity
-          ? '~'
-          : this.time.s < 10
-          ? `0${this.time.s}`
-          : this.time.s;
+    let curM = this.time.m < 10 ? `0${this.time.m}` : this.time.m,
+      curS = this.time.s < 10 ? `0${this.time.s}` : this.time.s;
     this.timeNode.innerHTML = `${curM}:${curS}`;
   }
 
@@ -170,8 +220,7 @@ class PuzzleGame {
 
   showMovesCount() {
     console.log('show current count', this.movesCount);
-    this.movesCountNode.innerHTML =
-      this.movesCount == Infinity ? '~' : this.movesCount;
+    this.movesCountNode.innerHTML = this.movesCount;
   }
 
   showGameLevel() {
@@ -213,16 +262,19 @@ class PuzzleGame {
             <span id="time">--:--</span>
           </div>
         </div>
-        <div class="field">
-          <div class="saved-game">
-          <p>Do you want to continue the last saved game?</p>
-          <div>
-            <button id="play-last-game">YES</button>
-            <button id="remove-saved-game">NO</button>
+        <div class="field-window">
+          <div class="field">
+            <div class="saved-game">
+              <p>Do you want to continue the last saved game?</p>
+              <div>
+                <button id="play-last-game">YES</button>
+                <button id="remove-saved-game">NO</button>
+              </div>
+            </div>
           </div>
-          </div>
+
         </div>
-          <div class="levels">
+        <div class="levels">
           <button data-size="3">3x3</button>
           <button data-size="4">4x4</button>
           <button data-size="5">5x5</button>
@@ -230,6 +282,14 @@ class PuzzleGame {
           <button data-size="7">7x7</button>
           <button data-size="8">8x8</button>
         </div>
+        <div class="modal modal-results">
+          <div class="modal-body">
+          <button class="modal-close-btn"id="modal-results-close">&times;</button>
+            <h2 class="modal-title">Top-10 results</h2>
+            <div class="modal-content"></div>
+          </div>
+        
+      </div>
       </div>
     </div>
   `
@@ -265,6 +325,12 @@ class PuzzleGame {
       localStorage.removeItem('game');
       this.loadGame();
     };
+
+    //modal window for results
+    this.modalResults = document.querySelector('.modal-results');
+    this.modalResultsBtnClose = document.getElementById('modal-results-close');
+    this.modalResultsBtnClose.onclick = () =>
+      this.modalResults.classList.remove('show');
   }
 
   //set behavior for buttons
@@ -311,6 +377,12 @@ class PuzzleGame {
     // console.log(this.savedPuzzleItemsOrder);
 
     this.puzzle = document.querySelector('.field');
+    this.puzzleCoord = {
+      left: Math.round(this.puzzle.getBoundingClientRect().x),
+      top: Math.round(this.puzzle.getBoundingClientRect().y),
+      width: this.puzzle.offsetWidth,
+      height: this.puzzle.offsetHeight,
+    };
     this.puzzle.classList.add(`grid-${this.level}`);
 
     //clear puzzle items array
@@ -353,13 +425,168 @@ class PuzzleGame {
   setPuzzleItemsBehavior() {
     console.log('set cells behavior');
 
-    //on click
     this.puzzleItems.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        console.log('item click', item.innerHTML);
-        this.moveCellByClick(e.target);
+      //on click
+      // item.addEventListener('click', (e) => {
+      //   console.log('item click', item.innerHTML);
+      //   this.moveCellByClick(e.target);
+      // });
+
+      item.addEventListener('mousedown', (e) => {
+        console.log('on mouse down');
+        e.preventDefault();
+        let _self = this;
+
+        if (this.isMove || this.isStopped || this.draggedItem) {
+          console.log('cancel mousedown');
+          return;
+        }
+
+        let zeroCell = document.querySelector('.zero-cell'),
+          cellPosition = {
+            x: Math.round(item.getBoundingClientRect().x),
+            y: Math.round(item.getBoundingClientRect().y),
+            minLeft:
+              _self.puzzleCoord.left -
+              Math.round(item.getBoundingClientRect().x),
+            maxLeft:
+              _self.puzzleCoord.left +
+              _self.puzzleCoord.width -
+              item.offsetWidth -
+              Math.round(item.getBoundingClientRect().x),
+            minTop:
+              _self.puzzleCoord.top -
+              Math.round(item.getBoundingClientRect().y),
+            maxTop:
+              _self.puzzleCoord.top +
+              _self.puzzleCoord.height -
+              item.offsetHeight -
+              Math.round(item.getBoundingClientRect().y),
+          },
+          zeroCellPosition = {
+            x: Math.round(zeroCell.getBoundingClientRect().x),
+            y: Math.round(zeroCell.getBoundingClientRect().y),
+          },
+          deltaX = cellPosition.x - zeroCellPosition.x,
+          deltaY = cellPosition.y - zeroCellPosition.y,
+          deltaMax = item.offsetWidth * 1.5;
+
+        //can move only next ones zero cell
+        if (
+          !(
+            (deltaY == 0 && Math.abs(deltaX) <= deltaMax) ||
+            (deltaX == 0 && Math.abs(deltaY) <= deltaMax)
+          )
+        ) {
+          console.log("cancel mousedown, don't next one");
+          return;
+        }
+
+        this.isMove = true;
+        this.draggedItem = item;
+        this.draggedItem.position = {
+          left: 0,
+          top: 0,
+        };
+        this.draggedItem.style.position = 'relative';
+        this.draggedItem.style.zIndex = '1000';
+        let lastMouseCoord = this.mouseCurCoord;
+        this.draggedTimer = setInterval(() => {
+          this.draggedItem.position.left +=
+            this.mouseCurCoord.x - lastMouseCoord.x;
+          this.draggedItem.position.top +=
+            this.mouseCurCoord.y - lastMouseCoord.y;
+
+          //can move item only in puzzle field
+          if (this.draggedItem.position.left < cellPosition.minLeft) {
+            this.draggedItem.position.left = cellPosition.minLeft;
+          } else if (this.draggedItem.position.left > cellPosition.maxLeft) {
+            this.draggedItem.position.left = cellPosition.maxLeft;
+          }
+          if (this.draggedItem.position.top < cellPosition.minTop) {
+            this.draggedItem.position.top = cellPosition.minTop;
+          } else if (this.draggedItem.position.top > cellPosition.maxTop) {
+            this.draggedItem.position.top = cellPosition.maxTop;
+          }
+
+          this.draggedItem.style.left = this.draggedItem.position.left + 'px';
+          this.draggedItem.style.top = this.draggedItem.position.top + 'px';
+          lastMouseCoord = this.mouseCurCoord;
+        }, 10);
       });
     });
+    document.onmouseup = (e) => {
+      console.log('on mouse up');
+
+      if (!this.draggedItem || !this.isMove) {
+        console.log('cancel mouseup');
+        return;
+      }
+      clearInterval(this.draggedTimer);
+      let zeroCell = document.querySelector('.zero-cell'),
+        cellPosition = {
+          x: Math.round(this.draggedItem.getBoundingClientRect().x),
+          y: Math.round(this.draggedItem.getBoundingClientRect().y),
+        },
+        zeroCellPosition = {
+          x: Math.round(zeroCell.getBoundingClientRect().x),
+          y: Math.round(zeroCell.getBoundingClientRect().y),
+        },
+        deltaX = cellPosition.x - zeroCellPosition.x,
+        deltaY = cellPosition.y - zeroCellPosition.y,
+        deltaMax = this.draggedItem.offsetWidth / 1.3;
+      this.draggedItem.classList.add('slow');
+
+      //can move only next ones zero cell
+      if (Math.abs(deltaX) <= deltaMax && Math.abs(deltaY) <= deltaMax) {
+        console.log('move to zero');
+
+        this.draggedItem.style.left =
+          parseInt(this.draggedItem.style.left) +
+          zeroCellPosition.x -
+          cellPosition.x +
+          'px';
+        this.draggedItem.style.top =
+          parseInt(this.draggedItem.style.top) +
+          zeroCellPosition.y -
+          cellPosition.y +
+          'px';
+
+        setTimeout(() => {
+          console.log('timer to zero');
+          zeroCell.innerHTML = this.draggedItem.innerHTML;
+          this.draggedItem.innerHTML = 0;
+          this.draggedItem.classList.add('zero-cell');
+          zeroCell.classList.remove('zero-cell');
+          this.draggedItem.style.zIndex = '0';
+          this.draggedItem.style.top = '0';
+          this.draggedItem.style.left = '0';
+          this.draggedItem.style.position = 'static';
+          this.draggedItem.classList.remove('slow');
+          this.draggedItem = null;
+          this.isMove = false;
+        }, 100);
+      } else {
+        console.log('cancel move');
+        this.draggedItem.style.top = '0';
+        this.draggedItem.style.left = '0';
+        this.timerMoveBack = setTimeout(() => {
+          this.draggedItem.classList.remove('slow');
+          this.draggedItem.style.zIndex = '0';
+          this.draggedItem.style.position = 'static';
+          this.draggedItem = null;
+          this.isMove = false;
+          clearTimeout(this.timerMoveBack);
+        }, 100);
+      }
+    };
+
+    document.onmousemove = (e) => {
+      this.mouseCurCoord = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+    };
   }
 
   // try to move cell
@@ -381,19 +608,19 @@ class PuzzleGame {
       deltaX = cellPosition.x - zeroCellPosition.x,
       deltaY = cellPosition.y - zeroCellPosition.y,
       deltaMax = cell.offsetWidth * 1.5;
-    if (deltaY == 0 && Math.abs(deltaX) <= deltaMax) {
-      if (cellPosition.x > zeroCellPosition.x) {
-        this.replaceCells(cell, zeroCell, 'to-left');
-      } else {
-        this.replaceCells(cell, zeroCell, 'to-right');
-      }
-    } else if (deltaX == 0 && Math.abs(deltaY) <= deltaMax) {
-      if (cellPosition.y > zeroCellPosition.y) {
-        this.replaceCells(cell, zeroCell, 'to-top');
-      } else {
-        this.replaceCells(cell, zeroCell, 'to-bottom');
-      }
-    }
+    // if (deltaY == 0 && Math.abs(deltaX) <= deltaMax) {
+    //   if (cellPosition.x > zeroCellPosition.x) {
+    //     this.replaceCells(cell, zeroCell, 'to-left');
+    //   } else {
+    //     this.replaceCells(cell, zeroCell, 'to-right');
+    //   }
+    // } else if (deltaX == 0 && Math.abs(deltaY) <= deltaMax) {
+    //   if (cellPosition.y > zeroCellPosition.y) {
+    //     this.replaceCells(cell, zeroCell, 'to-top');
+    //   } else {
+    //     this.replaceCells(cell, zeroCell, 'to-bottom');
+    //   }
+    // }
   }
 
   //replace current cee & zero cell
@@ -483,7 +710,10 @@ class PuzzleGame {
     let winField = [].concat(curField).sort((a, b) => a - b);
     if (curField.join('') == winField.join('')) {
       this.isWin = true;
+
+      //popup!!!!!!!!!!!!!!!!!
       alert('win');
+
       this.saveWinGame();
       this.puzzle.classList.add('disabled');
       this.stopButton.classList.add('disabled');
@@ -507,12 +737,6 @@ class PuzzleGame {
     this.puzzle.innerHTML = '';
     this.puzzleItems.forEach((e) => this.puzzle.append(e));
 
-    this.movesCount = Infinity;
-    this.time = {
-      m: Infinity,
-      s: Infinity,
-    };
-
     clearInterval(this.timerId);
     this.showMovesCount();
     this.showCurTime();
@@ -523,18 +747,23 @@ class PuzzleGame {
 
     let storage = localStorage.getItem('results')
       ? JSON.parse(localStorage.getItem('results'))
-      : [];
-
-    console.log(storage);
+      : { '3': [], '4': [], '5': [], '6': [], '7': [], '8': [] };
 
     let game = {
       date: Date.now(),
       help: this.isHelped,
       moves: this.movesCount,
       time: this.time,
-      level: this.level,
     };
-    storage.push(game);
+    storage[this.level.toString()].push(game);
+
+    // last 10 best results
+    // first sort by moves, if equal then by time, if equal then by date
+    if (storage[this.level.toString()].length > 10) {
+      let arr = storage[this.level.toString()];
+      // sort by moves
+      arr.sort((a, b) => a.moves - b.moves);
+    }
 
     localStorage.setItem('results', JSON.stringify(storage));
   }
