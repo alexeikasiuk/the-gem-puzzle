@@ -56,7 +56,7 @@ class PuzzleGame {
     // popup!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if (!this.isWin && confirm('Do you want to want to save this game?'))
       this.saveGame();
-    else localStorage.removeItem('game');
+    // else localStorage.removeItem('game');
 
     this.clearGameState();
     this.loadGame();
@@ -426,12 +426,6 @@ class PuzzleGame {
     console.log('set cells behavior');
 
     this.puzzleItems.forEach((item) => {
-      //on click
-      // item.addEventListener('click', (e) => {
-      //   console.log('item click', item.innerHTML);
-      //   this.moveCellByClick(e.target);
-      // });
-
       item.addEventListener('mousedown', (e) => {
         console.log('on mouse down');
         e.preventDefault();
@@ -442,28 +436,28 @@ class PuzzleGame {
           return;
         }
 
-        let zeroCell = document.querySelector('.zero-cell'),
-          cellPosition = {
-            x: Math.round(item.getBoundingClientRect().x),
-            y: Math.round(item.getBoundingClientRect().y),
-            minLeft:
-              _self.puzzleCoord.left -
-              Math.round(item.getBoundingClientRect().x),
-            maxLeft:
-              _self.puzzleCoord.left +
-              _self.puzzleCoord.width -
-              item.offsetWidth -
-              Math.round(item.getBoundingClientRect().x),
-            minTop:
-              _self.puzzleCoord.top -
-              Math.round(item.getBoundingClientRect().y),
-            maxTop:
-              _self.puzzleCoord.top +
-              _self.puzzleCoord.height -
-              item.offsetHeight -
-              Math.round(item.getBoundingClientRect().y),
-          },
-          zeroCellPosition = {
+        let zeroCell = document.querySelector('.zero-cell');
+        let cellPosition = {
+          x: Math.round(item.getBoundingClientRect().x),
+          y: Math.round(item.getBoundingClientRect().y),
+          minLeft:
+            _self.puzzleCoord.left - Math.round(item.getBoundingClientRect().x),
+          maxLeft:
+            _self.puzzleCoord.left +
+            _self.puzzleCoord.width -
+            item.offsetWidth -
+            Math.round(item.getBoundingClientRect().x),
+          minTop:
+            _self.puzzleCoord.top - Math.round(item.getBoundingClientRect().y),
+          maxTop:
+            _self.puzzleCoord.top +
+            _self.puzzleCoord.height -
+            item.offsetHeight -
+            Math.round(item.getBoundingClientRect().y),
+          maxX: 0,
+          maxY: 0,
+        };
+        let zeroCellPosition = {
             x: Math.round(zeroCell.getBoundingClientRect().x),
             y: Math.round(zeroCell.getBoundingClientRect().y),
           },
@@ -484,6 +478,8 @@ class PuzzleGame {
 
         this.isMove = true;
         this.draggedItem = item;
+        this.draggedItem.data = cellPosition;
+        this.draggedItem.time = Date.now();
         this.draggedItem.position = {
           left: 0,
           top: 0,
@@ -508,7 +504,14 @@ class PuzzleGame {
           } else if (this.draggedItem.position.top > cellPosition.maxTop) {
             this.draggedItem.position.top = cellPosition.maxTop;
           }
-
+          cellPosition.maxX = Math.max(
+            cellPosition.maxX,
+            Math.abs(this.draggedItem.position.left)
+          );
+          cellPosition.maxY = Math.max(
+            cellPosition.maxY,
+            Math.abs(this.draggedItem.position.left)
+          );
           this.draggedItem.style.left = this.draggedItem.position.left + 'px';
           this.draggedItem.style.top = this.draggedItem.position.top + 'px';
           lastMouseCoord = this.mouseCurCoord;
@@ -523,6 +526,13 @@ class PuzzleGame {
         return;
       }
       clearInterval(this.draggedTimer);
+
+      let moveTime = Date.now() - this.draggedItem.time;
+      let moveDist = Math.max(
+        this.draggedItem.data.maxX,
+        this.draggedItem.data.maxY
+      );
+
       let zeroCell = document.querySelector('.zero-cell'),
         cellPosition = {
           x: Math.round(this.draggedItem.getBoundingClientRect().x),
@@ -534,11 +544,14 @@ class PuzzleGame {
         },
         deltaX = cellPosition.x - zeroCellPosition.x,
         deltaY = cellPosition.y - zeroCellPosition.y,
-        deltaMax = this.draggedItem.offsetWidth / 1.3;
+        deltaMax = this.draggedItem.offsetWidth;
       this.draggedItem.classList.add('slow');
 
-      //can move only next ones zero cell
-      if (Math.abs(deltaX) <= deltaMax && Math.abs(deltaY) <= deltaMax) {
+      //can move only next ones zero cell, if less 0.3s & 10px - click  else drag&drop
+      if (
+        (Math.abs(deltaX) <= deltaMax && Math.abs(deltaY) <= deltaMax) ||
+        (moveTime < 300 && moveDist < 20)
+      ) {
         console.log('move to zero');
 
         this.draggedItem.style.left =
@@ -553,7 +566,6 @@ class PuzzleGame {
           'px';
 
         setTimeout(() => {
-          console.log('timer to zero');
           zeroCell.innerHTML = this.draggedItem.innerHTML;
           this.draggedItem.innerHTML = 0;
           this.draggedItem.classList.add('zero-cell');
@@ -566,8 +578,11 @@ class PuzzleGame {
           this.draggedItem = null;
           this.isMove = false;
         }, 100);
+
+        this.movesCount++;
+        this.showMovesCount();
+        this.checkGameState();
       } else {
-        console.log('cancel move');
         this.draggedItem.style.top = '0';
         this.draggedItem.style.left = '0';
         this.timerMoveBack = setTimeout(() => {
@@ -581,33 +596,33 @@ class PuzzleGame {
       }
     };
 
-    document.onmousemove = (e) => {
-      this.mouseCurCoord = {
-        x: e.clientX,
-        y: e.clientY,
-      };
-    };
+    // document.onmousemove = (e) => {
+    //   this.mouseCurCoord = {
+    //     x: e.clientX,
+    //     y: e.clientY,
+    //   };
+    // };
   }
 
   // try to move cell
   moveCellByClick(puzzleItem) {
     console.log('try to move cell');
 
-    if (this.isMove || this.isStopped) return;
+    // if (this.isMove || this.isStopped) return;
 
-    let cell = puzzleItem,
-      zeroCell = document.querySelector('.zero-cell'),
-      cellPosition = {
-        x: Math.round(cell.getBoundingClientRect().x),
-        y: Math.round(cell.getBoundingClientRect().y),
-      },
-      zeroCellPosition = {
-        x: Math.round(zeroCell.getBoundingClientRect().x),
-        y: Math.round(zeroCell.getBoundingClientRect().y),
-      },
-      deltaX = cellPosition.x - zeroCellPosition.x,
-      deltaY = cellPosition.y - zeroCellPosition.y,
-      deltaMax = cell.offsetWidth * 1.5;
+    // let cell = puzzleItem,
+    //   zeroCell = document.querySelector('.zero-cell'),
+    //   cellPosition = {
+    //     x: Math.round(cell.getBoundingClientRect().x),
+    //     y: Math.round(cell.getBoundingClientRect().y),
+    //   },
+    //   zeroCellPosition = {
+    //     x: Math.round(zeroCell.getBoundingClientRect().x),
+    //     y: Math.round(zeroCell.getBoundingClientRect().y),
+    //   },
+    //   deltaX = cellPosition.x - zeroCellPosition.x,
+    //   deltaY = cellPosition.y - zeroCellPosition.y,
+    //   deltaMax = cell.offsetWidth * 1.5;
     // if (deltaY == 0 && Math.abs(deltaX) <= deltaMax) {
     //   if (cellPosition.x > zeroCellPosition.x) {
     //     this.replaceCells(cell, zeroCell, 'to-left');
@@ -627,28 +642,28 @@ class PuzzleGame {
   replaceCells(cell, zero, animation) {
     console.log('replace cells');
 
-    let _self = this;
+    // let _self = this;
 
-    this.playSound(moveSound);
-    if (this.movesCount != Infinity) this.movesCount++;
-    this.showMovesCount();
-    this.isMove = true;
-    cell.classList.add(animation);
-    cell.addEventListener('animationend', changeItemData);
+    // this.playSound(moveSound);
+    // if (this.movesCount != Infinity) this.movesCount++;
+    // this.showMovesCount();
+    // this.isMove = true;
+    // cell.classList.add(animation);
+    // cell.addEventListener('animationend', changeItemData);
 
-    function changeItemData(e) {
-      _self.isMove = false;
-      console.log('end animation');
-      cell.classList.add('zero-cell');
-      cell.classList.remove(animation);
-      zero.classList.remove('zero-cell');
-      zero.innerHTML = cell.innerHTML;
-      cell.innerHTML = '0';
-      e.target.removeEventListener('animationend', changeItemData);
+    // function changeItemData(e) {
+    //   _self.isMove = false;
+    //   console.log('end animation');
+    //   cell.classList.add('zero-cell');
+    //   cell.classList.remove(animation);
+    //   zero.classList.remove('zero-cell');
+    //   zero.innerHTML = cell.innerHTML;
+    //   cell.innerHTML = '0';
+    //   e.target.removeEventListener('animationend', changeItemData);
 
-      // check game state
-      _self.checkGameState();
-    }
+    // check game state
+    //   _self.checkGameState();
+    // }
   }
 
   // shuffle array
