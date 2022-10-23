@@ -23,7 +23,8 @@ class PuzzleGame {
 
   init() {
     this.savedGame = JSON.parse(localStorage.getItem('game'));
-    if (this.saveGame) this.createPage();
+
+    if (this.savedGame) this.createPage();
     else this.loadGame();
   }
 
@@ -44,21 +45,34 @@ class PuzzleGame {
   }
 
   restartGame() {
-    // popup!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    if (
-      !this.isWin &&
-      this.movesCount > 0 &&
-      confirm('Do you want to want to save this game?')
-    )
-      this.saveGame();
+    if (!this.isWin && this.movesCount > 0) {
+      this.puzzle.innerHTML = `
+        <div class="save-modal">
+          <h3>Do you want to save this game?</h3>
+          <div>
+          <button id="save-this-game">YES</button>
+          <button id="remove-game">NO</button>
+          </div>
+      </div>
+      `;
+      document.getElementById('save-this-game').onclick = () => {
+        this.saveGame();
+        this.clearGameState();
+        this.loadGame();
+      };
 
-    this.clearGameState();
-    this.loadGame();
+      document.getElementById('remove-game').onclick = () => {
+        localStorage.removeItem('game');
+        this.clearGameState();
+        this.loadGame();
+      };
+    } else {
+      this.clearGameState();
+      this.loadGame();
+    }
   }
 
   saveGame() {
-    console.log('game save');
-
     let game = {
       moves: this.movesCount,
       time: this.time,
@@ -201,8 +215,7 @@ class PuzzleGame {
           <button class="control-btn" id="help">Let's win!</button>
           <button class="control-btn" id="save-game">Save</button>
           <button class="control-btn" id="get-result">Result</button>
-          <button class="sound" id="sound"></button>
-          
+          <button class="sound" id="sound"></button>       
         </div>
         <div class="info">
           <div class=""moves>
@@ -228,7 +241,6 @@ class PuzzleGame {
               </div>
             </div>
           </div>
-
         </div>
         <div class="levels">
           <button data-size="3">3&times;3</button>
@@ -245,8 +257,7 @@ class PuzzleGame {
             <button class="clear-results" id="clear-results">Clear</button>
             <div class="modal-content"></div>
           </div>
-        
-      </div>
+        </div>
       </div>
     </div>
   `
@@ -290,21 +301,34 @@ class PuzzleGame {
     this.levelButtons.forEach((btn) => {
       btn.onclick = () => {
         if (btn.classList.contains('disabled')) return;
+        if (!this.isWin && this.movesCount > 0) {
+          this.puzzle.innerHTML = `
+        <div class="save-modal">
+          <h3>Do you want to save this game?</h3>
+          <div>
+          <button id="save-this-game">YES</button>
+          <button id="remove-game">NO</button>
+          </div>
+      </div>
+      `;
+          document.getElementById('save-this-game').onclick = () => {
+            this.saveGame();
+            this.clearGameState();
+            this.level = +btn.getAttribute('data-size');
+            this.loadGame();
+          };
 
-        // popup!!!!!!!!!!!!!!!!!!!!!!!
-        if (
-          !this.isWin &&
-          this.movesCount > 0 &&
-          confirm('Do you want to save this game?')
-        ) {
-          this.saveGame();
+          document.getElementById('remove-game').onclick = () => {
+            localStorage.removeItem('game');
+            this.clearGameState();
+            this.level = +btn.getAttribute('data-size');
+            this.loadGame();
+          };
         } else {
-          localStorage.removeItem('game');
+          this.clearGameState();
+          this.level = +btn.getAttribute('data-size');
+          this.loadGame();
         }
-
-        this.clearGameState();
-        this.level = +btn.getAttribute('data-size');
-        this.loadGame();
       };
     });
     this.restartButton.onclick = () => {

@@ -91,23 +91,6 @@ button.disabled:hover {
 #get-result {
   border-bottom-right-radius: 0;
 }
-/* .help {
-  position: absolute;
-  left: 50px;
-  top: 20px;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  background-color: lightgray;
-  box-shadow: 0 0 10px #000;
-  cursor: pointer;
-}
-.help:hover {
-  box-shadow: 0 0 15px #000;
-}
-.help:active {
-  box-shadow: 0 0 10px #000;
-} */
 .sound {
   position: absolute;
   right: 15px;
@@ -199,7 +182,6 @@ button.disabled:hover {
 .saved-game button {
   margin: 20px;
   padding: 10px 20px;
-  /* border: 1px solid grey; */
 }
 .levels {
   display: flex;
@@ -414,6 +396,19 @@ td {
 .win-modal h3 {
   font-size: 2.5rem;
   margin: 0 auto 100px;
+}
+.save-modal {
+  position: absolute;
+  width: 88%;
+  height: 100%;
+}
+.save-modal h3 {
+  font-size: 2.5rem;
+  margin: 100px auto 100px;
+}
+.save-modal button {
+  padding: 10px 20px;
+  margin: 20px;
 }
 
 @media (max-width: 850px) {
