@@ -1,10 +1,5 @@
 import './style.css';
 import moveSound from './assets/sounds/move.mp3';
-
-if (process.env.NODE_ENV !== 'production') {
-  // console.log('Looks like we are in development mode!');
-}
-
 class PuzzleGame {
   constructor() {
     this.level = 4;
@@ -23,7 +18,6 @@ class PuzzleGame {
 
   init() {
     this.savedGame = JSON.parse(localStorage.getItem('game'));
-
     if (this.savedGame) this.createPage();
     else this.loadGame();
   }
@@ -60,7 +54,6 @@ class PuzzleGame {
         this.clearGameState();
         this.loadGame();
       };
-
       document.getElementById('remove-game').onclick = () => {
         localStorage.removeItem('game');
         this.clearGameState();
@@ -283,6 +276,7 @@ class PuzzleGame {
     document.getElementById('play-last-game').onclick = (e) => {
       this.setSavedGameData();
       this.loadGame();
+      localStorage.removeItem('game');
     };
     document.getElementById('remove-saved-game').onclick = (e) => {
       localStorage.removeItem('game');
@@ -599,14 +593,11 @@ class PuzzleGame {
 
   checkGameState() {
     let curField = this.puzzleItems.map((e) => +e.innerHTML);
-
     curField = [].concat(
       curField.slice(curField.length - 1),
       curField.slice(0, curField.length - 1)
     );
-
     let winField = [].concat(curField).sort((a, b) => a - b);
-
     if (curField.join('') != winField.join('')) return;
     this.isWin = true;
     this.saveWinGame();
@@ -623,7 +614,6 @@ class PuzzleGame {
       (a, b) => +a.innerHTML - +b.innerHTML
     );
     let zero = this.puzzleItems[0];
-
     this.puzzleItems = this.puzzleItems.slice(1);
     this.puzzleItems.splice(this.puzzleItems.length - 1, 0, zero);
     this.puzzle.innerHTML = '';
@@ -636,7 +626,6 @@ class PuzzleGame {
     let storage = localStorage.getItem('results')
       ? JSON.parse(localStorage.getItem('results'))
       : { '3': [], '4': [], '5': [], '6': [], '7': [], '8': [] };
-
     let game = {
       date: Date.now(),
       help: this.isHelped,
@@ -664,7 +653,6 @@ class PuzzleGame {
         }
       }
     });
-
     // last 10 best result
     if (storage[this.level.toString()].length > 10) {
       storage[this.level.toString()] = storage[this.level.toString()].slice(
@@ -672,7 +660,6 @@ class PuzzleGame {
         10
       );
     }
-
     localStorage.setItem('results', JSON.stringify(storage));
   }
 

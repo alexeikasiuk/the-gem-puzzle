@@ -11,6 +11,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'RSS Gem Puzzle',
+      favicon: './src/assets/images/icons/favicon.ico',
     }),
   ],
   module: {
@@ -24,5 +25,8 @@ module.exports = {
         type: 'asset',
       },
     ],
+  },
+  optimization: {
+    moduleIds: 'size',
   },
 };
