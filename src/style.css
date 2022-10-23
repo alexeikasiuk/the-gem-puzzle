@@ -39,6 +39,13 @@ button:hover {
 button:active {
   box-shadow: 0 0 10px #000;
 }
+button.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+button.disabled:hover {
+  box-shadow: 0 0 10px #000;
+}
 .game-window {
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.1);
@@ -84,7 +91,7 @@ button:active {
 #get-result {
   border-bottom-right-radius: 0;
 }
-.help {
+/* .help {
   position: absolute;
   left: 50px;
   top: 20px;
@@ -100,7 +107,7 @@ button:active {
 }
 .help:active {
   box-shadow: 0 0 10px #000;
-}
+} */
 .sound {
   position: absolute;
   right: 15px;
@@ -189,8 +196,10 @@ button:active {
   grid-template-rows: repeat(8, 12.5%);
   font-size: 1.5rem;
 }
-.saved-game {
-  border: 1px solid grey;
+.saved-game button {
+  margin: 20px;
+  padding: 10px 20px;
+  /* border: 1px solid grey; */
 }
 .levels {
   display: flex;
@@ -350,7 +359,8 @@ button {
   height: 700px;
   margin: 110px auto 0;
   border-radius: 15px;
-  position: relative;
+  padding-bottom: 20px;
+  overflow-y: scroll;
 }
 .modal-close-btn {
   position: absolute;
@@ -361,6 +371,24 @@ button {
   border-radius: 15px;
   font-size: 2rem;
   line-height: 30px;
+  box-shadow: 0 0 5px #fff;
+}
+.modal-close-btn:hover {
+  box-shadow: 0 0 10px #fff;
+}
+.modal-close-btn:active {
+  box-shadow: 0 0 1px #fff;
+}
+.clear-results {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 0 5px #fff;
+}
+
+.clear-results:hover {
+  box-shadow: 0 0 10px #fff;
 }
 table,
 th,
@@ -372,6 +400,22 @@ td {
   width: 80%;
   margin: 0 auto;
 }
+.table-results h3 {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.win-modal {
+  position: absolute;
+  width: 88%;
+  height: 100%;
+  font-size: 1.5rem;
+}
+.win-modal h3 {
+  font-size: 2.5rem;
+  margin: 0 auto 100px;
+}
+
 @media (max-width: 850px) {
   .container {
     width: 100%;

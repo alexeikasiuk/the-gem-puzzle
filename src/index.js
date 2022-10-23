@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 class PuzzleGame {
   constructor() {
-    console.log('create game');
     this.level = 4;
     this.movesCount = 0;
     this.time = {
@@ -17,30 +16,24 @@ class PuzzleGame {
     this.puzzleItems = [];
     this.hasSound = true;
     this.isMove = false;
-    this.isStopped = false;
     this.savedPuzzleItemsOrder = null;
     this.isWin = false;
     this.isHelped = false;
   }
 
   init() {
-    console.log('init game----------------------');
-
-    if (this.getSavedGame()) this.createPage();
+    this.savedGame = JSON.parse(localStorage.getItem('game'));
+    if (this.saveGame) this.createPage();
     else this.loadGame();
   }
 
   loadGame() {
-    console.log('load game', this.level);
-
     this.createPage();
     this.setButtonsBehavior();
     this.startGame();
   }
 
   startGame() {
-    console.log('start game');
-
     this.fillField();
     this.setPuzzleItemsBehavior();
     this.setCurPageData();
@@ -51,42 +44,16 @@ class PuzzleGame {
   }
 
   restartGame() {
-    console.log('restart game');
-
     // popup!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    if (!this.isWin && confirm('Do you want to want to save this game?'))
+    if (
+      !this.isWin &&
+      this.movesCount > 0 &&
+      confirm('Do you want to want to save this game?')
+    )
       this.saveGame();
-    // else localStorage.removeItem('game');
 
     this.clearGameState();
     this.loadGame();
-    // this.startGame();
-  }
-
-  continueGame() {
-    console.log('game continue');
-
-    this.isStopped = false;
-    if (this.timerId) clearInterval(this.timerId);
-    this.timerId = setInterval(() => {
-      this.time.s++;
-      this.showCurTime();
-    }, 1000);
-    this.stopButton.classList.remove('disabled');
-    this.restartButton.classList.remove('disabled');
-    this.continueButton.classList.add('disabled');
-    this.puzzle.classList.remove('disabled');
-  }
-
-  stopGame() {
-    console.log('game stop');
-
-    this.isStopped = true;
-    clearInterval(this.timerId);
-    this.stopButton.classList.add('disabled');
-    this.restartButton.classList.add('disabled');
-    this.continueButton.classList.remove('disabled');
-    this.puzzle.classList.add('disabled');
   }
 
   saveGame() {
@@ -103,17 +70,13 @@ class PuzzleGame {
   }
 
   showResults() {
-    console.log('show results');
-
     let results = localStorage.getItem('results');
     let frame = document.createElement('table');
     frame.classList.add('table-results');
-    // console.log(frame);
-
     this.modalResults.classList.add('show');
 
     if (!results) {
-      frame.innerHTML = "You haven't saved game's results";
+      frame.innerHTML = "You have no saved game's results";
     } else {
       frame.insertAdjacentHTML(
         'afterbegin',
@@ -129,46 +92,77 @@ class PuzzleGame {
       );
 
       results = JSON.parse(results);
-      // console.log(results);
       for (let key in results) {
-        // console.log(results[key]);
+        if (results[key].length == 0) continue;
         let level = document.createElement('tr');
         level.insertAdjacentHTML(
           'afterbegin',
           `
-          <td colspan="5">Game Leve: ${key}x${key}</td>
+          <td colspan="5"><h3>Game Level: ${key}x${key}</h3></td>
         `
         );
         frame.append(level);
 
         results[key].forEach((e, i) => {
-          // console.log(e);
           let result = document.createElement('tr');
-
+          let date = new Date(e.date),
+            month =
+              date.getMonth() + 1 < 10
+                ? '0' + (date.getMonth() + 1)
+                : date.getMonth() + 1,
+            day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+            hours =
+              date.getHours() < 10 ? '0' + date.getHours() : date.getHours(),
+            minutes =
+              date.getMinutes() < 10
+                ? '0' + date.getMinutes()
+                : date.getMinutes(),
+            weekDay;
+          switch (date.getDay()) {
+            case 0:
+              weekDay = 'вс';
+              break;
+            case 1:
+              weekDay = 'пн';
+              break;
+            case 2:
+              weekDay = 'вт';
+              break;
+            case 3:
+              weekDay = 'ср';
+              break;
+            case 4:
+              weekDay = 'чт';
+              break;
+            case 5:
+              weekDay = 'пт';
+              break;
+            case 6:
+              weekDay = 'сб';
+              break;
+          }
           result.insertAdjacentHTML(
             'afterbegin',
             `
               <td>${i + 1}</td>
-              <td>${e.date}</td>
-              <td>${e.help}</td>
+              <td>${day}.${month} ${weekDay}, ${hours}:${minutes}</td>
+              <td>${e.help ? 'yes' : 'no'}</td>
               <td>${e.moves}</td>
-              <td>${e.time.m}min ${e.time.s}sec</td>
+              <td>${e.time.m}:${e.time.s}</td>
           `
           );
           frame.append(result);
         });
       }
-
-      document
-        .querySelector('.modal-results')
-        .querySelector('.modal-content')
-        .append(frame);
     }
+    let modalBody = document
+      .querySelector('.modal-results')
+      .querySelector('.modal-content');
+    modalBody.innerHTML = '';
+    modalBody.append(frame);
   }
 
   showCurTime() {
-    // console.log('show current time');
-
     if (this.time.s === 60) {
       this.time.s = 0;
       this.time.m++;
@@ -181,36 +175,11 @@ class PuzzleGame {
     this.timeNode.innerHTML = `${curM}:${curS}`;
   }
 
-  //reset moves counter & game time & kill timer
-  resetGameScore() {
-    console.log('reset game score');
-
-    this.time = {
-      m: 0,
-      s: 0,
-    };
-    this.movesCount = 0;
-    if (this.timerId) clearInterval(this.timerId);
-  }
-
-  toggleSound() {
-    // console.log('toggle sound');
-
-    this.hasSound = !this.hasSound;
-    this.soundButton.classList.toggle('disabled');
-    console.log(this.hasSound ? 'sound ON' : 'sound OFF');
-  }
-
   //set actual state page(count moves, level, time & disabled buttons)
   setCurPageData() {
-    console.log('set current page data');
-
-    this.showMovesCount();
-    this.showGameLevel();
+    this.movesCountNode.innerHTML = this.movesCount;
+    this.levelNode.innerHTML = `${this.level}&times;${this.level}`;
     this.showCurTime();
-
-    if (this.isStopped) this.continueButton.classList.remove('disabled');
-    else this.continueButton.classList.add('disabled');
     this.levelButtons.forEach((e) =>
       +e.getAttribute('data-size') === this.level
         ? e.classList.add('disabled')
@@ -218,20 +187,8 @@ class PuzzleGame {
     );
   }
 
-  showMovesCount() {
-    console.log('show current count', this.movesCount);
-    this.movesCountNode.innerHTML = this.movesCount;
-  }
-
-  showGameLevel() {
-    console.log('show current game level');
-    this.levelNode.innerHTML = `${this.level}x${this.level}`;
-  }
-
   //create base page layout
   createPage() {
-    console.log('create base page layout');
-
     document.body.innerHTML = '';
     document.body.insertAdjacentHTML(
       'afterbegin',
@@ -241,12 +198,11 @@ class PuzzleGame {
       <div class="game-window">
         <div class="controls">
           <button class="control-btn" id="start-game">Restart</button>
-          <button class="control-btn" id="continue-game">Continue</button>
-          <button class="control-btn" id="stop-game">Stop</button>
+          <button class="control-btn" id="help">Let's win!</button>
           <button class="control-btn" id="save-game">Save</button>
           <button class="control-btn" id="get-result">Result</button>
           <button class="sound" id="sound"></button>
-          <button class="help" id="help">help</button>
+          
         </div>
         <div class="info">
           <div class=""moves>
@@ -255,7 +211,7 @@ class PuzzleGame {
           </div>
           <div class="field-size">
             <span>Level:</span>
-            <span id="cells-size">-x-</span>
+            <span id="cells-size">-&times;-</span>
           </div>
           <div class="duration">
             <span>Time:</span>
@@ -265,7 +221,7 @@ class PuzzleGame {
         <div class="field-window">
           <div class="field">
             <div class="saved-game">
-              <p>Do you want to continue the last saved game?</p>
+              <h2>Do you want to continue the last saved game?</h2>
               <div>
                 <button id="play-last-game">YES</button>
                 <button id="remove-saved-game">NO</button>
@@ -275,17 +231,18 @@ class PuzzleGame {
 
         </div>
         <div class="levels">
-          <button data-size="3">3x3</button>
-          <button data-size="4">4x4</button>
-          <button data-size="5">5x5</button>
-          <button data-size="6">6x6</button>
-          <button data-size="7">7x7</button>
-          <button data-size="8">8x8</button>
+          <button data-size="3">3&times;3</button>
+          <button data-size="4">4&times;4</button>
+          <button data-size="5">5&times;5</button>
+          <button data-size="6">6&times;6</button>
+          <button data-size="7">7&times;7</button>
+          <button data-size="8">8&times;8</button>
         </div>
         <div class="modal modal-results">
           <div class="modal-body">
           <button class="modal-close-btn"id="modal-results-close">&times;</button>
             <h2 class="modal-title">Top-10 results</h2>
+            <button class="clear-results" id="clear-results">Clear</button>
             <div class="modal-content"></div>
           </div>
         
@@ -300,28 +257,23 @@ class PuzzleGame {
       .querySelector('.levels')
       .querySelectorAll('button');
     this.restartButton = document.getElementById('start-game');
-    this.continueButton = document.getElementById('continue-game');
-    this.stopButton = document.getElementById('stop-game');
     this.saveButton = document.getElementById('save-game');
     this.showResultButton = document.getElementById('get-result');
     this.soundButton = document.getElementById('sound');
     this.helpButton = document.getElementById('help');
+    this.clearResults = document.getElementById('clear-results');
 
-    //game data
+    //game info data
     this.movesCountNode = document.getElementById('moves-count');
     this.levelNode = document.getElementById('cells-size');
     this.timeNode = document.getElementById('time');
 
     // saved game buttons behavior
     document.getElementById('play-last-game').onclick = (e) => {
-      console.log('load saved game');
-
       this.setSavedGameData();
       this.loadGame();
     };
     document.getElementById('remove-saved-game').onclick = (e) => {
-      console.log('remove saved game');
-
       localStorage.removeItem('game');
       this.loadGame();
     };
@@ -335,18 +287,20 @@ class PuzzleGame {
 
   //set behavior for buttons
   setButtonsBehavior() {
-    console.log('set buttons behavior');
-
     this.levelButtons.forEach((btn) => {
       btn.onclick = () => {
         if (btn.classList.contains('disabled')) return;
 
-        console.log('change game level from ', this.level);
-
         // popup!!!!!!!!!!!!!!!!!!!!!!!
-        if (!this.isWin && confirm('Do you want to save this game?'))
+        if (
+          !this.isWin &&
+          this.movesCount > 0 &&
+          confirm('Do you want to save this game?')
+        ) {
           this.saveGame();
-        else localStorage.removeItem('game');
+        } else {
+          localStorage.removeItem('game');
+        }
 
         this.clearGameState();
         this.level = +btn.getAttribute('data-size');
@@ -357,25 +311,24 @@ class PuzzleGame {
       if (this.restartButton.classList.contains('disabled')) return;
       this.restartGame();
     };
-    this.continueButton.onclick = () => {
-      if (this.continueButton.classList.contains('disabled')) return;
-      this.continueGame();
+    this.helpButton.onclick = () => {
+      if (this.helpButton.classList.contains('disabled')) return;
+      this.helpMe();
     };
-    this.stopButton.onclick = () => {
-      if (this.stopButton.classList.contains('disabled')) return;
-      this.stopGame();
-    };
-    this.helpButton.onclick = () => this.helpMe();
     this.saveButton.onclick = () => this.saveGame();
     this.showResultButton.onclick = () => this.showResults();
-    this.soundButton.onclick = () => this.toggleSound();
+    this.soundButton.onclick = () => {
+      this.hasSound = !this.hasSound;
+      this.soundButton.classList.toggle('disabled');
+    };
+    this.clearResults.onclick = () => {
+      localStorage.removeItem('results');
+      this.showResults();
+    };
   }
 
   //fill field after start game
   fillField() {
-    console.log(`fill field`, this.level);
-    // console.log(this.savedPuzzleItemsOrder);
-
     this.puzzle = document.querySelector('.field');
     this.puzzleCoord = {
       left: Math.round(this.puzzle.getBoundingClientRect().x),
@@ -384,13 +337,8 @@ class PuzzleGame {
       height: this.puzzle.offsetHeight,
     };
     this.puzzle.classList.add(`grid-${this.level}`);
-
-    //clear puzzle items array
     this.puzzleItems = [];
-
     if (this.savedPuzzleItemsOrder) {
-      console.log('saved field');
-
       for (let i = 0; i < this.level * this.level; i++) {
         let item = document.createElement('div');
         item.innerHTML = this.savedPuzzleItemsOrder[i];
@@ -400,8 +348,6 @@ class PuzzleGame {
         this.puzzleItems.push(item);
       }
     } else {
-      console.log('random field');
-
       for (let i = 0; i < this.level * this.level; i++) {
         let item = document.createElement('div');
         item.innerHTML = i;
@@ -409,30 +355,21 @@ class PuzzleGame {
         item.classList.add('cell');
         this.puzzleItems.push(item);
       }
-
-      //random order for cells in field
       this.puzzleItems = this.shuffle(this.puzzleItems);
     }
-
     this.savedPuzzleItemsOrder = null;
-    // clear field
     this.puzzle.innerHTML = '';
-
-    //fill field
     this.puzzleItems.forEach((cell) => this.puzzle.append(cell));
   }
+
   // set puzzle items behavior
   setPuzzleItemsBehavior() {
-    console.log('set cells behavior');
-
     this.puzzleItems.forEach((item) => {
       item.addEventListener('mousedown', (e) => {
-        console.log('on mouse down');
         e.preventDefault();
         let _self = this;
 
         if (this.isMove || this.isStopped || this.draggedItem) {
-          console.log('cancel mousedown');
           return;
         }
 
@@ -472,7 +409,6 @@ class PuzzleGame {
             (deltaX == 0 && Math.abs(deltaY) <= deltaMax)
           )
         ) {
-          console.log("cancel mousedown, don't next one");
           return;
         }
 
@@ -518,15 +454,12 @@ class PuzzleGame {
         }, 10);
       });
     });
-    document.onmouseup = (e) => {
-      console.log('on mouse up');
 
+    document.onmouseup = (e) => {
       if (!this.draggedItem || !this.isMove) {
-        console.log('cancel mouseup');
         return;
       }
       clearInterval(this.draggedTimer);
-
       let moveTime = Date.now() - this.draggedItem.time;
       let moveDist = Math.max(
         this.draggedItem.data.maxX,
@@ -552,8 +485,6 @@ class PuzzleGame {
         (Math.abs(deltaX) <= deltaMax && Math.abs(deltaY) <= deltaMax) ||
         (moveTime < 300 && moveDist < 20)
       ) {
-        console.log('move to zero');
-
         this.draggedItem.style.left =
           parseInt(this.draggedItem.style.left) +
           zeroCellPosition.x -
@@ -564,7 +495,7 @@ class PuzzleGame {
           zeroCellPosition.y -
           cellPosition.y +
           'px';
-
+        this.playSound(moveSound);
         setTimeout(() => {
           zeroCell.innerHTML = this.draggedItem.innerHTML;
           this.draggedItem.innerHTML = 0;
@@ -577,11 +508,10 @@ class PuzzleGame {
           this.draggedItem.classList.remove('slow');
           this.draggedItem = null;
           this.isMove = false;
+          this.movesCount++;
+          this.movesCountNode.innerHTML = this.movesCount;
+          this.checkGameState();
         }, 100);
-
-        this.movesCount++;
-        this.showMovesCount();
-        this.checkGameState();
       } else {
         this.draggedItem.style.top = '0';
         this.draggedItem.style.left = '0';
@@ -591,85 +521,22 @@ class PuzzleGame {
           this.draggedItem.style.position = 'static';
           this.draggedItem = null;
           this.isMove = false;
+          this.playSound(moveSound);
           clearTimeout(this.timerMoveBack);
         }, 100);
       }
     };
 
-    // document.onmousemove = (e) => {
-    //   this.mouseCurCoord = {
-    //     x: e.clientX,
-    //     y: e.clientY,
-    //   };
-    // };
-  }
-
-  // try to move cell
-  moveCellByClick(puzzleItem) {
-    console.log('try to move cell');
-
-    // if (this.isMove || this.isStopped) return;
-
-    // let cell = puzzleItem,
-    //   zeroCell = document.querySelector('.zero-cell'),
-    //   cellPosition = {
-    //     x: Math.round(cell.getBoundingClientRect().x),
-    //     y: Math.round(cell.getBoundingClientRect().y),
-    //   },
-    //   zeroCellPosition = {
-    //     x: Math.round(zeroCell.getBoundingClientRect().x),
-    //     y: Math.round(zeroCell.getBoundingClientRect().y),
-    //   },
-    //   deltaX = cellPosition.x - zeroCellPosition.x,
-    //   deltaY = cellPosition.y - zeroCellPosition.y,
-    //   deltaMax = cell.offsetWidth * 1.5;
-    // if (deltaY == 0 && Math.abs(deltaX) <= deltaMax) {
-    //   if (cellPosition.x > zeroCellPosition.x) {
-    //     this.replaceCells(cell, zeroCell, 'to-left');
-    //   } else {
-    //     this.replaceCells(cell, zeroCell, 'to-right');
-    //   }
-    // } else if (deltaX == 0 && Math.abs(deltaY) <= deltaMax) {
-    //   if (cellPosition.y > zeroCellPosition.y) {
-    //     this.replaceCells(cell, zeroCell, 'to-top');
-    //   } else {
-    //     this.replaceCells(cell, zeroCell, 'to-bottom');
-    //   }
-    // }
-  }
-
-  //replace current cee & zero cell
-  replaceCells(cell, zero, animation) {
-    console.log('replace cells');
-
-    // let _self = this;
-
-    // this.playSound(moveSound);
-    // if (this.movesCount != Infinity) this.movesCount++;
-    // this.showMovesCount();
-    // this.isMove = true;
-    // cell.classList.add(animation);
-    // cell.addEventListener('animationend', changeItemData);
-
-    // function changeItemData(e) {
-    //   _self.isMove = false;
-    //   console.log('end animation');
-    //   cell.classList.add('zero-cell');
-    //   cell.classList.remove(animation);
-    //   zero.classList.remove('zero-cell');
-    //   zero.innerHTML = cell.innerHTML;
-    //   cell.innerHTML = '0';
-    //   e.target.removeEventListener('animationend', changeItemData);
-
-    // check game state
-    //   _self.checkGameState();
-    // }
+    document.onmousemove = (e) => {
+      this.mouseCurCoord = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+    };
   }
 
   // shuffle array
   shuffle(array) {
-    console.log('shuffle array of puzzle items');
-
     let arr = [].concat(array);
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -679,35 +546,27 @@ class PuzzleGame {
   }
 
   //play sound
-  playSound(moveSound) {
-    console.log('play sound');
-
+  playSound(audioFile) {
     if (this.hasSound) {
-      let sound = new Audio(moveSound);
+      let sound = new Audio(audioFile);
       sound.play();
     }
   }
 
   clearGameState() {
-    console.log('clear game state');
-
-    this.resetGameScore();
+    this.time = {
+      m: 0,
+      s: 0,
+    };
+    this.movesCount = 0;
+    this.isHelped = false;
     this.puzzleItems = [];
-    this.isStopped = false;
     this.isWin = false;
     this.puzzle.innerHTML = '';
     if (this.timerId) clearInterval(this.timerId);
   }
 
-  getSavedGame() {
-    console.log('get saved game');
-
-    return (this.savedGame = JSON.parse(localStorage.getItem('game')));
-  }
-
   setSavedGameData() {
-    console.log('set last saved game data');
-
     this.level = this.savedGame.level;
     this.movesCount = this.savedGame.moves;
     this.time = this.savedGame.time;
@@ -715,31 +574,26 @@ class PuzzleGame {
   }
 
   checkGameState() {
-    console.log('check game state');
-
     let curField = this.puzzleItems.map((e) => +e.innerHTML);
+
     curField = [].concat(
       curField.slice(curField.length - 1),
       curField.slice(0, curField.length - 1)
     );
+
     let winField = [].concat(curField).sort((a, b) => a - b);
-    if (curField.join('') == winField.join('')) {
-      this.isWin = true;
 
-      //popup!!!!!!!!!!!!!!!!!
-      alert('win');
-
-      this.saveWinGame();
-      this.puzzle.classList.add('disabled');
-      this.stopButton.classList.add('disabled');
-      this.saveButton.classList.add('disabled');
-    }
+    if (curField.join('') != winField.join('')) return;
+    this.isWin = true;
+    this.saveWinGame();
+    clearInterval(this.timerId);
+    this.saveButton.classList.add('disabled');
+    this.helpButton.classList.add('disabled');
+    this.showWinMessage();
   }
 
   // let's cheat
   helpMe() {
-    console.log("let's cheat");
-
     this.isHelped = true;
     this.puzzleItems = this.puzzleItems.sort(
       (a, b) => +a.innerHTML - +b.innerHTML
@@ -748,18 +602,13 @@ class PuzzleGame {
 
     this.puzzleItems = this.puzzleItems.slice(1);
     this.puzzleItems.splice(this.puzzleItems.length - 1, 0, zero);
-
     this.puzzle.innerHTML = '';
     this.puzzleItems.forEach((e) => this.puzzle.append(e));
-
-    clearInterval(this.timerId);
-    this.showMovesCount();
-    this.showCurTime();
+    this.movesCount++;
+    this.movesCountNode.innerHTML = this.movesCount;
   }
 
   saveWinGame() {
-    console.log('save wined game');
-
     let storage = localStorage.getItem('results')
       ? JSON.parse(localStorage.getItem('results'))
       : { '3': [], '4': [], '5': [], '6': [], '7': [], '8': [] };
@@ -770,23 +619,61 @@ class PuzzleGame {
       moves: this.movesCount,
       time: this.time,
     };
-    storage[this.level.toString()].push(game);
+    if (!game.help) storage[this.level.toString()].unshift(game);
+    else storage[this.level.toString()].push(game);
 
-    // last 10 best results
-    // first sort by moves, if equal then by time, if equal then by date
+    // sort by using helpMe function, when equals - by moves, when  equals - by time, when equals - by date
+    storage[this.level.toString()].sort((a, b) => {
+      if (!a.help && b.help) return -1;
+      else if (a.help && !b.help) return 1;
+      else {
+        if (a.moves > b.moves) return 1;
+        else if (a.moves < b.moves) return -1;
+        else {
+          let t1 = a.time.m * 60 + a.time.s;
+          let t2 = b.time.m * 60 + b.time.s;
+          if (t1 > t2) return 1;
+          else if (t1 < t2) return -1;
+          else {
+            return b.date - a.date;
+          }
+        }
+      }
+    });
+
+    // last 10 best result
     if (storage[this.level.toString()].length > 10) {
-      let arr = storage[this.level.toString()];
-      // sort by moves
-      arr.sort((a, b) => a.moves - b.moves);
+      storage[this.level.toString()] = storage[this.level.toString()].slice(
+        0,
+        10
+      );
     }
 
     localStorage.setItem('results', JSON.stringify(storage));
+  }
+
+  showWinMessage() {
+    this.puzzle.innerHTML = `
+    <div class="win-modal">
+      <h3>
+        <p>Hooray!</p>
+        
+      </h3>
+      <p>
+          You solved the puzzle in ${
+            this.time.m < 10 ? '0' + this.time.m : this.time.m
+          }:${this.time.s < 10 ? '0' + this.time.s : this.time.s} and ${
+      this.movesCount
+    } moves!</p>
+      <p>${this.isHelped ? 'Unfortunately, You cheated!!!' : ''}</p>
+    </div>
+    `;
   }
 }
 
 let game = new PuzzleGame();
 game.init();
 
-// window.onunload = () => {
-//   if (!game.isWin) game.saveGame();
-// };
+window.onunload = () => {
+  if (!game.isWin && game.movesCount > 0) game.saveGame();
+};
