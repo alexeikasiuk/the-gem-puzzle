@@ -666,10 +666,7 @@ class PuzzleGame {
   showWinMessage() {
     this.puzzle.innerHTML = `
     <div class="win-modal">
-      <h3>
-        <p>Hooray!</p>
-        
-      </h3>
+      <h3>Hooray!</h3>
       <p>
           You solved the puzzle in ${
             this.time.m < 10 ? '0' + this.time.m : this.time.m

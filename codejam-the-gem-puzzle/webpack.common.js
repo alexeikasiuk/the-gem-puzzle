@@ -27,6 +27,7 @@ module.exports = {
     ],
   },
   optimization: {
+    minimize: true,
     moduleIds: 'size',
   },
 };

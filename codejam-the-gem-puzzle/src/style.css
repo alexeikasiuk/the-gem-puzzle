@@ -362,7 +362,7 @@ th {
 }
 .win-modal h3 {
   font-size: 2.5rem;
-  margin: 0 auto 100px;
+  margin: 100px auto 150px;
 }
 .save-modal {
   position: absolute;
@@ -420,6 +420,21 @@ th {
   .sound {
     width: 40px;
     height: 40px;
+  }
+  .win-modal {
+    width: 80%;
+    padding: 0 20px;
+  }
+  .win-modal h3 {
+    margin: 50px auto 100px;
+  }
+  .win-modal p {
+    font-size: 1.3rem;
+  }
+  .win-modal p:last-child {
+    color: gray;
+    font-size: 1rem;
+    margin-top: 50px;
   }
   .save-modal {
     width: 380px;
@@ -529,6 +544,21 @@ th {
     min-width: 0;
     padding: 5px 10px;
   }
+  .win-modal {
+    width: 280px;
+    padding: 0 20px;
+  }
+
+  .win-modal h3 {
+    margin: 30px auto 70px;
+    font-size: 1.5rem;
+  }
+  .win-modal p {
+    font-size: 1rem;
+  }
+  .win-modal p:last-child {
+    font-size: 0.8rem;
+  }
   .save-modal {
     width: 280px;
   }
@@ -553,5 +583,12 @@ th {
     padding: 5px;
     font-size: 1rem;
     left: 10px;
+    top: 15px;
+  }
+  .table-results h3 {
+    font-size: 1rem;
+  }
+  .modal-body h2 {
+    margin: 15px auto;
   }
 }
